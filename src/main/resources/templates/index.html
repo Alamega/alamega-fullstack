@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Сайтик</title>
+    <th:block th:include="layout :: head"></th:block>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <header th:replace="layout :: header"></header>
+
+      <div class="content">
+        <div id="clock">Где я потерял свои часы?</div>
+
+        <form class="form_center" th:if="${#httpServletRequest.remoteUser}" th:action="@{/logout}" method="post">
+          <button class="button">Выйти</button>
+        </form>
+
+        <script src="/scripts/clock.js"></script>
+        <a href="./game.html">GAME.js</a>
+        <a href="./admin.html">Админ</a>
+        <a href="./user.html">Юзер</a>
+      </div>
+
+      <footer th:replace="layout :: footer"></footer>
+
+    </div>
+  </body>
+</html>

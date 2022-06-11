@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Сайтик</title>
+  <th:block th:include="layout :: head"></th:block>
+</head>
+  <body id="body">
+    <div class="container">
+      <header th:replace="layout :: header"></header>
+
+      <div class="content">Content</div>
+
+      <footer th:replace="layout :: footer"></footer>
+    </div>
+  </body>
+</html>

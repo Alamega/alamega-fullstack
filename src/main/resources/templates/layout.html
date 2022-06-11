@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="image/png" sizes="320x320" rel="icon" href="/images/icon.png" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <title>Сайтик</title>
+</head>
+
+<body>
+    <header th:fragment="header">
+        <div class="logo-wrapper">
+            <img src="/images/icon.png" alt="Лого">
+            <a href="/">Alamega</a>
+        </div>
+        <div class="navbar" id="navbar">
+            <button id="navbar_btn"></button>
+            <div class="navbar_menu" id="navbar_menu">
+                <a href='game.html'>GAME.js</a>
+            </div>
+        </div>
+            <script>
+                const menu = document.getElementById("navbar_menu");
+                const navbar = document.getElementById("navbar");
+                const btn = document.getElementById("navbar_btn");
+                menu.style.display = "none";
+                btn.addEventListener("click", () => {
+                    if (menu.style.display) {
+                        navbar.style.boxShadow = "0 0 4px black";
+                        menu.style.display = "";
+                    } else {
+                        navbar.style.boxShadow = "";
+                        menu.style.display = "none";
+                    }
+                });
+            </script>
+    </header>
+
+    <footer th:fragment="footer">&copy Made by Alamega</footer>
+</body>
+</html>

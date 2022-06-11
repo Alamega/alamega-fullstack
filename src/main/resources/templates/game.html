@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Да</title>
+  <th:block th:include="layout :: head"></th:block>
+</head>
+  <body id="body">
+    <div class="container">
+      <header th:replace="layout :: header"></header>
+
+      <style>
+        * {
+          user-select: none;
+        }
+        canvas {
+          background: rgba(255, 255, 255, 1);
+          box-shadow: 0 0 2px black;
+          width: 100%;
+          cursor: none;
+        }
+      </style>
+
+      <div class="content">
+        <canvas class="game" id="game"></canvas>
+        <script src="./scripts/game.js"></script>
+      </div>
+
+      <footer th:replace="layout :: footer"></footer>
+    </div>
+  </body>
+</html>

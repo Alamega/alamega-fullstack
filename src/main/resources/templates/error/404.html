@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Ошибка 404</title>
+  <th:block th:include="layout :: head"></th:block>
+</head>
+  <body id="body">
+    <div class="container">
+      <header th:replace="layout :: header"></header>
+      <div class="content">
+        <img src="/images/chika404.gif" alt="Упс" style="border-radius: 10px; max-width: 100%; align-self: center" />
+        <p>Такой странички не существует.</p>
+        <a href="/static">На главную</a>
+      </div>
+      <footer th:replace="layout :: footer"></footer>
+    </div>
+  </body>
+</html>

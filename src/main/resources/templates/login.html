@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Вход</title>
+  <th:block th:include="layout :: head"></th:block>
+</head>
+  <body id="body">
+    <div class="container">
+      <header th:replace="layout :: header"></header>
+
+      <div class="content">
+        <h1 style="text-align: center; margin: 4px">Вход</h1>
+        <div class="error-msg" th:if="${param.error}">Неверный логин или пароль.</div>
+        <div class="error-msg" th:if="${param.logout}">Вы вышли.</div>
+
+        <form class="form_center" th:action="@{/login}" method="post">
+          <label for="username">Никнейм</label>
+          <input type="text" name="username" id="username" />
+          <label for="password">Пароль</label>
+          <input type="password" name="password" id="password" />
+          <button class="button">Войти</button>
+        </form>
+
+      </div>
+
+      <footer th:replace="layout :: footer"></footer>
+    </div>
+  </body>
+</html>

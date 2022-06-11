@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Сайтик</title>
+  <th:block th:include="layout :: head"></th:block>
+</head>
+  <body id="body">
+    <div class="container">
+      <header th:replace="layout :: header"></header>
+
+      <div class="content">
+        <h1 style="text-align: center; margin: 4px">Регистрация</h1>
+        <form class="form_center" action="/registration" method="post">
+          <label for="username">Никнейм</label>
+          <input type="text" name="username" id="username" />
+          <label for="password">Пароль</label>
+          <input type="password" name="password" id="password" />
+          <button class="button">Зарегистрироваться</button>
+        </form>
+
+        <% for (let i = 0; i < (msg.messages).length; i++) { %> <% if (msg.code == "ERROR") { %>
+        <p style="color: red"><%= msg.messages[i] %></p>
+        <% } else { %>
+        <p style="color: rgb(64, 128, 64)"><%= msg.messages[i] %> <a href="login.html">==> Вход <==</a></p>
+        <% } %> <% }; %>
+      </div>
+
+      <footer th:replace="layout :: footer"></footer>
+    </div>
+  </body>
+</html>
