@@ -8,7 +8,6 @@
 
   <body>
     <div class="container">
-
       <header th:replace="layout :: header"></header>
 
       <div class="content">
@@ -20,10 +19,6 @@
           <p th:text="${user.getRole()}"></p>
         </div>
 
-        <form class="form_center" th:if="${#httpServletRequest.remoteUser}" th:action="@{/logout}" method="post">
-          <button class="button">Выйти</button>
-        </form>
-
         <script src="/scripts/clock.js"></script>
         <a href="./game.html">GAME.js</a>
         <a href="./admin.html">Админ</a>
@@ -31,7 +26,6 @@
       </div>
 
       <footer th:replace="layout :: footer"></footer>
-
     </div>
   </body>
 </html>

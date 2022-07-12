@@ -12,17 +12,24 @@ import java.util.Map;
 
 @Controller
 public class MainController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public MainController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/")
     public String index(Model model) {
         User userFromDb = userRepository.findByUsername("Alamega");
-        model.addAttribute("user", userFromDb);
+        if (userFromDb!=null){
+            model.addAttribute("user", userFromDb);
+        } else {
+            model.addAttribute("user", new User());
+        }
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login.html")
     public String login() {
         return "login";
     }

@@ -15,7 +15,7 @@ public class User {
 
     private String password;
 
-    private boolean active;
+    private boolean enabled;
 
     private String role;
 
@@ -43,12 +43,12 @@ public class User {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getRole() {

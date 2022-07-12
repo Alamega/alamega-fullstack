@@ -122,7 +122,7 @@ input {
   text-align: center;
 }
 
-button:hover {
+.button:hover {
   color: white;
   background-color: rgb(64, 128, 64);
 }
@@ -166,7 +166,7 @@ button:hover {
   box-shadow: 0 0 4px black;
 }
 
-.navbar button {
+.navbar_icon {
   background: url(./images/burger.png) center/40px 40px;
   align-self: flex-end;
   height: 40px;
@@ -184,7 +184,7 @@ button:hover {
   box-shadow: 0 0 2px black;
 }
 
-.navbar:hover button {
+.navbar:hover .navbar_icon {
   transform: scale(1.1);
 }
 
@@ -211,33 +211,19 @@ select {
   margin: 10px 0;
 }
 
-.userbox {
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0;
-  border-radius: 8px;
-  box-shadow: 0 0 2px black;
-}
-
-.userbox img {
-  align-self: center;
-  max-width: 100px;
-  height: auto;
-  border-radius: 8px;
-}
-
-.userbox-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-justify: auto;
-  flex-grow: 1;
-}
-
 .error-msg {
   margin: 10px 0;
   color: red;
+}
+
+.btn-to-a {
+  border: none;
+  background: none;
+  color: rgb(64, 128, 64);
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  margin: 4px;
 }
 
 @media (max-width: 800px) {
@@ -267,11 +253,7 @@ select {
     right: 30px;
   }
 
-  .navbar button {
+  .navbar .button {
     position: absolute;
-  }
-
-  .navbar_menu {
-    margin-top: 40px;
   }
 }

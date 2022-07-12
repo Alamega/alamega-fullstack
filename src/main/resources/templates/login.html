@@ -13,7 +13,7 @@
         <div class="error-msg" th:if="${param.error}">Неверный логин или пароль.</div>
         <div class="error-msg" th:if="${param.logout}">Вы вышли.</div>
 
-        <form class="form_center" th:action="@{/login}" method="post">
+        <form class="form_center" th:action="@{/login.html}" method="post">
           <label for="username">Никнейм</label>
           <input type="text" name="username" id="username" />
           <label for="password">Пароль</label>

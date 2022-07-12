@@ -17,12 +17,6 @@
           <input type="password" name="password" id="password" />
           <button class="button">Зарегистрироваться</button>
         </form>
-
-        <% for (let i = 0; i < (msg.messages).length; i++) { %> <% if (msg.code == "ERROR") { %>
-        <p style="color: red"><%= msg.messages[i] %></p>
-        <% } else { %>
-        <p style="color: rgb(64, 128, 64)"><%= msg.messages[i] %> <a href="login.html">==> Вход <==</a></p>
-        <% } %> <% }; %>
       </div>
 
       <footer th:replace="layout :: footer"></footer>

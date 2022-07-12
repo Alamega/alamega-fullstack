@@ -9,12 +9,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+    public final DataSource dataSource;
+
+    public SecurityConfiguration(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -27,8 +34,7 @@ public class SecurityConfiguration {
                 .antMatchers("/**").permitAll()
             .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .loginPage("/login.html")
                 .permitAll()
             .and()
                 .logout()
@@ -36,22 +42,24 @@ public class SecurityConfiguration {
                 .permitAll();
         return http.build();
     }
+
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager()
     {
         List<UserDetails> userDetailsList = new ArrayList<>();
         userDetailsList.add(
             User.withDefaultPasswordEncoder()
-            .username("ADMIN")
-            .password("ADMIN")
+            .username("1")
+            .password("1")
             .roles("ADMIN").build()
         );
         userDetailsList.add(
             User.withDefaultPasswordEncoder()
-            .username("USER")
-            .password("USER")
+            .username("2")
+            .password("2")
             .roles("USER").build()
         );
+
         return new InMemoryUserDetailsManager(userDetailsList);
     }
 }
