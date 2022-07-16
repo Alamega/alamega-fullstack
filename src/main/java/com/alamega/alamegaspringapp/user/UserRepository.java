@@ -1,6 +1,5 @@
-package com.alamega.alamegaspringapp.repository;
+package com.alamega.alamegaspringapp.user;
 
-import com.alamega.alamegaspringapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

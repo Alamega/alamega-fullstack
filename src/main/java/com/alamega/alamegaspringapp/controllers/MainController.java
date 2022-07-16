@@ -1,14 +1,10 @@
 package com.alamega.alamegaspringapp.controllers;
 
-import com.alamega.alamegaspringapp.model.User;
-import com.alamega.alamegaspringapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alamega.alamegaspringapp.user.User;
+import com.alamega.alamegaspringapp.user.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 @Controller
 public class MainController {

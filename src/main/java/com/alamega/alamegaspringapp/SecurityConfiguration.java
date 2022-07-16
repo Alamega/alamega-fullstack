@@ -49,17 +49,16 @@ public class SecurityConfiguration {
         List<UserDetails> userDetailsList = new ArrayList<>();
         userDetailsList.add(
             User.withDefaultPasswordEncoder()
-            .username("1")
-            .password("1")
+            .username("ADMIN")
+            .password("ADMIN")
             .roles("ADMIN").build()
         );
         userDetailsList.add(
             User.withDefaultPasswordEncoder()
-            .username("2")
-            .password("2")
+            .username("USER")
+            .password("USER")
             .roles("USER").build()
         );
-
         return new InMemoryUserDetailsManager(userDetailsList);
     }
 }
