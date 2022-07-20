@@ -13,17 +13,18 @@
 <body>
     <header th:fragment="header">
         <div class="logo-wrapper">
-            <img src="/images/icon.png" alt="Лого">
+<!--            <img src="/images/icon.png" alt="Лого">-->
             <a href="/">Alamega</a>
         </div>
         <div class="navbar" id="navbar">
             <button class="navbar_icon" id="navbar_btn"></button>
             <div class="navbar_menu" id="navbar_menu">
-                <a href='login.html' th:if="!${#httpServletRequest.remoteUser}">Войти</a>
+                <a href='login' th:if="!${#httpServletRequest.remoteUser}">Вход</a>
+                <a href="registration" th:if="!${#httpServletRequest.getRemoteUser()}">Регистрация</a>
                 <form class="form_center" th:if="${#httpServletRequest.remoteUser}" th:action="@{/logout}" method="post">
                     <button class="btn-to-a" th:action="@{/logout}">Выйти</button>
                 </form>
-                <a href='game.html'>GAME.js</a>
+                <a href='game'>Игра</a>
             </div>
         </div>
             <script>

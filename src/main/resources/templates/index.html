@@ -12,17 +12,15 @@
 
       <div class="content">
         <div id="clock">Где я потерял свои часы?</div>
-
-        <div th:if="user != null">
-          <p th:text="${user.getUsername()}"></p>
-          <p th:text="${user.getPassword()}"></p>
-          <p th:text="${user.getRole()}"></p>
-        </div>
-
         <script src="/scripts/clock.js"></script>
-        <a href="./game.html">GAME.js</a>
-        <a href="./admin.html">Админ</a>
-        <a href="./user.html">Юзер</a>
+
+        <p th:if="${#httpServletRequest.getRemoteUser()} != null" th:inline="text">
+          Здравствуйте [[${#httpServletRequest.remoteUser}]]!
+        </p>
+
+        <a href="/user">Только для авторизованных</a>
+        <a href="/admin">Только для админов</a>
+        <a href="/game">Игра</a>
       </div>
 
       <footer th:replace="layout :: footer"></footer>

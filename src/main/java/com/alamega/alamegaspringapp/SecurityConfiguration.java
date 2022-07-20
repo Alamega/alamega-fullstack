@@ -4,14 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -23,18 +21,23 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
                 //Пускать только админов
-                .antMatchers("/admin*").hasRole( "ADMIN")
+                .antMatchers("/admin").hasAuthority("ADMIN")
                 //Пускать только авторизированных
-                .antMatchers("/user.html").authenticated()
+                .antMatchers("/user").authenticated()
                 //Пускать всех
                 .antMatchers("/**").permitAll()
             .and()
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/login")
                 .permitAll()
             .and()
                 .logout()
@@ -44,21 +47,10 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager()
-    {
-        List<UserDetails> userDetailsList = new ArrayList<>();
-        userDetailsList.add(
-            User.withDefaultPasswordEncoder()
-            .username("ADMIN")
-            .password("ADMIN")
-            .roles("ADMIN").build()
-        );
-        userDetailsList.add(
-            User.withDefaultPasswordEncoder()
-            .username("USER")
-            .password("USER")
-            .roles("USER").build()
-        );
-        return new InMemoryUserDetailsManager(userDetailsList);
+    public JdbcUserDetailsManager jdbcUserDetailsManager() {
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
+        jdbcUserDetailsManager.setDataSource(dataSource);
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select username,role from users where username = ?");
+        return jdbcUserDetailsManager;
     }
 }

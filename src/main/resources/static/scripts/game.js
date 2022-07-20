@@ -107,6 +107,12 @@ class Projectile {
     this.width = width;
     this.height = height;
   }
+  getCurrentPos() {
+    return {
+      x: Math.round(this.x / BLOCK_SIZE_X),
+      y: Math.round(this.y / BLOCK_SIZE_Y),
+    };
+  }
 }
 
 //Картиночки
@@ -292,7 +298,7 @@ game.addEventListener("mousemove", (event) => {
 });
 
 game.addEventListener("click", (event) => {
-  Projectiles.push(new Projectile(Hero, mouseX, mouseY, 10, 10));
+  Projectiles.push(new Projectile(Hero, mouseX + shiftMapX, mouseY + shiftMapY, 10, 10));
 });
 
 //Переключение вкладки
@@ -302,6 +308,10 @@ window.onblur = function () {
 
 //Вспомогательная функция для поиска коллизий
 function setElCollision(el1, el2, coll) {
+  el1.x = Math.round(el1.x);
+  el1.y = Math.round(el1.y);
+  el2.x = Math.round(el2.x);
+  el2.y = Math.round(el2.y);
   if (el1.y == el2.y + el2.height && el2.x < el1.x + el1.width && el1.x < el2.x + el2.width) {
     coll.W = true;
   }
@@ -323,6 +333,7 @@ function getCollision(person) {
     A: false,
     S: false,
     D: false,
+    any: false,
   };
 
   //Коллизия с картой
@@ -345,8 +356,12 @@ function getCollision(person) {
   }
 
   //Коллизия с героем
-  setElCollision(person, Hero, coll);
+  if (!person.startX) {
+    setElCollision(person, Hero, coll);
+  }
 
+  coll.any = coll.W || coll.A || coll.S || coll.D;
+  console.log(coll.W, coll.A, coll.S, coll.D);
   return coll;
 }
 
@@ -386,12 +401,13 @@ function EnemiesMove() {
 
 function ProjectilesMove() {
   for (let i = 0; i < Projectiles.length; i++) {
-    if (Projectiles[i].x != Projectiles[i].endX) {
-      Projectiles[i].x += (Projectiles[i].startX - Projectiles[i].endX) / 100;
-    }
-    if (Projectiles[i].y != Projectiles[i].endY) {
-      Projectiles[i].y += (Projectiles[i].startY - Projectiles[i].endY) / 100;
-    }
+    //Дистанция
+    let dist = Math.sqrt(Math.pow(Projectiles[i].endX - Projectiles[i].startX, 2) + Math.pow(Projectiles[i].endY - Projectiles[i].startY, 2));
+    //Изменения x b y за единицу времени
+    let x = (Projectiles[i].endX - Projectiles[i].startX) / dist;
+    let y = (Projectiles[i].endY - Projectiles[i].startY) / dist;
+    Projectiles[i].x += x * 10;
+    Projectiles[i].y += y * 10;
   }
 }
 
@@ -415,11 +431,11 @@ function Draw() {
       // context.fillStyle = CurrentMap[y][x].color;
       // context.fillRect(CurrentMap[y][x].x - shiftMapX, CurrentMap[y][x].y - shiftMapY, CurrentMap[y][x].width, CurrentMap[y][x].height);
       context.drawImage(
-        BlocksImages[CurrentMap[y][x].code],
-        CurrentMap[y][x].x - shiftMapX,
-        CurrentMap[y][x].y - shiftMapY,
-        CurrentMap[y][x].width,
-        CurrentMap[y][x].height
+          BlocksImages[CurrentMap[y][x].code],
+          CurrentMap[y][x].x - shiftMapX,
+          CurrentMap[y][x].y - shiftMapY,
+          CurrentMap[y][x].width,
+          CurrentMap[y][x].height
       );
     }
   }
