@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Сайтик</title>
   <th:block th:include="layout :: head"></th:block>
 </head>
-<body id="body">
-<div class="container">
-  <header th:replace="layout :: header"></header>
+  <body id="body">
+    <div class="container">
+      <header th:replace="layout :: header"></header>
 
-  <div class="content">Страничка для авторизированных пользователей.</div>
+      <div class="content">
 
-  <footer th:replace="layout :: footer"></footer>
-</div>
-</body>
+        <div th:if="user != null">
+          <p th:text="${user.getUsername()}"></p>
+        </div>
+
+      </div>
+
+      <footer th:replace="layout :: footer"></footer>
+    </div>
+  </body>
 </html>

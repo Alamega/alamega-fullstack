@@ -15,19 +15,18 @@ import java.util.List;
 @Controller
 public class AuthController {
     private final UserRepository userRepository;
-
     public AuthController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/registration")
     public String registration() {
-        return "registration";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")
@@ -57,6 +56,6 @@ public class AuthController {
         }
 
         model.addAttribute("errors", errors);
-        return "registration";
+        return "auth/registration";
     }
 }

@@ -222,7 +222,7 @@ select {
   color: rgb(64, 128, 64);
   text-align: left;
   cursor: pointer;
-  padding: 0;
+  padding: 4px;
   margin: 4px;
 }
 

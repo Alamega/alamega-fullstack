@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Вход</title>
+  <title>Сайтик</title>
   <th:block th:include="layout :: head"></th:block>
 </head>
   <body id="body">
@@ -9,18 +9,22 @@
       <header th:replace="layout :: header"></header>
 
       <div class="content">
-        <h1 style="text-align: center; margin: 4px">Вход</h1>
-        <div class="error-msg" th:if="${param.error}">Неверный логин или пароль.</div>
-        <div class="error-msg" th:if="${param.logout}">Вы вышли.</div>
+        <h1 style="text-align: center; margin: 4px">Регистрация</h1>
 
-        <form class="form_center" th:action="@{/login}" method="post">
+        <form class="form_center" th:action="@{/registration}" method="post">
           <label for="username">Никнейм</label>
           <input type="text" name="username" id="username" />
           <label for="password">Пароль</label>
           <input type="password" name="password" id="password" />
-          <button class="button">Войти</button>
+          <button class="button">Зарегистрироваться</button>
         </form>
 
+        <a href="/login">Вход</a>
+
+        <p style="color: green" th:text="${result}"></p>
+        <div th:each="err : ${errors}">
+          <p style="color: red" th:text="${err}"></p>
+        </div>
       </div>
 
       <footer th:replace="layout :: footer"></footer>

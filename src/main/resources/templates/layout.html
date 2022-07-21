@@ -13,18 +13,22 @@
 <body>
     <header th:fragment="header">
         <div class="logo-wrapper">
-<!--            <img src="/images/icon.png" alt="Лого">-->
+            <!--<img src="/images/icon.png" alt="Лого">-->
             <a href="/">Alamega</a>
         </div>
         <div class="navbar" id="navbar">
             <button class="navbar_icon" id="navbar_btn"></button>
             <div class="navbar_menu" id="navbar_menu">
-                <a href='login' th:if="!${#httpServletRequest.remoteUser}">Вход</a>
-                <a href="registration" th:if="!${#httpServletRequest.getRemoteUser()}">Регистрация</a>
-                <form class="form_center" th:if="${#httpServletRequest.remoteUser}" th:action="@{/logout}" method="post">
-                    <button class="btn-to-a" th:action="@{/logout}">Выйти</button>
+                <a href="/login" th:if="!${#httpServletRequest.getRemoteUser()}">Вход</a>
+                <a href="/registration" th:if="!${#httpServletRequest.getRemoteUser()}">Регистрация</a>
+                <a th:href="@{'/users/'+${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.getRemoteUser()}">Личный кабинет</a>
+                <a href="/game">Игра</a>
+                <!--ССылочки ахаха-->
+                <script src="/scripts/cssAnime.js"></script>
+                <a style="cursor: pointer" onclick="getByakByak()">Бяк бяк</a>
+                <form class="form_center" th:action="@{/logout}" th:method="post" th:if="${#httpServletRequest.getRemoteUser()}">
+                    <button class="btn-to-a" style="padding: 0">Выход</button>
                 </form>
-                <a href='game'>Игра</a>
             </div>
         </div>
             <script>
