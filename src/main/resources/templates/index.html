@@ -14,20 +14,23 @@
         <div id="clock">Где я потерял свои часы?</div>
         <script src="/scripts/clock.js"></script>
 
-        <div th:if="!${#httpServletRequest.getRemoteUser()}" class="authbar">
+        <div th:if="!${#httpServletRequest.getRemoteUser()}" class="auth-bar">
           <a href="/login">Логин</a>
           <a href="/registration">Регистрация</a>
         </div>
 
-        <div th:if="${#httpServletRequest.getRemoteUser()}" class="authbar">
-          <span th:inline="text">Здравствуйте, [[${user.getUsername()}]]!</span>
+        <div th:if="${#httpServletRequest.getRemoteUser()}" class="auth-bar">
+          <span th:inline="text">Здравствуйте,
+            <a style="margin: 0" th:href="@{'/users/'+${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.getRemoteUser()}">
+              [[${user.getUsername()}]]
+            </a>!
+          </span>
           <form class="form_center" th:action="@{/logout}" th:method="post" th:if="${#httpServletRequest.getRemoteUser()}">
             <button class="btn-to-a">Выход</button>
           </form>
         </div>
 
         <button class="button" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
-
       </div>
 
       <footer th:replace="layout :: footer"></footer>

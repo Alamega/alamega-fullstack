@@ -1,0 +1,151 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: rgb(181, 144, 202) url(../images/bg.png) no-repeat center center/cover fixed;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width:960px;
+  box-shadow: 0 0 4px black;
+  color: rgb(48, 48, 48);
+  background-color: rgba(255, 255, 255, 0.8);
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  max-height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 4px black;
+  margin: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+header a {
+  color: rgb(48, 48, 48);
+  font-size: 32px;
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 16px;
+}
+
+footer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  box-shadow: 0 0 4px black;
+  margin: auto 16px 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+footer p {
+  font-size: 18px;
+  margin: 9px 0;
+}
+
+div#clock {
+  text-align: center;
+  font-size: 32px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(64, 128, 64);
+  margin: 8px;
+}
+
+p {
+  color: rgb(90, 90, 90);
+  margin: 8px;
+}
+
+input {
+  background-color: rgba(255, 255, 255, 1);
+  color: rgb(90, 90, 90);
+  padding: 4px;
+  margin: 8px 0;
+  border: 1px solid rgb(90, 90, 90);
+  border-radius: 6px;
+  height: 30px;
+}
+
+.button {
+  border-radius: 6px;
+  background-color: white;
+  margin: 8px 0;
+  border: 1px solid rgb(64, 128, 64);
+  color: rgb(64, 128, 64);
+  padding: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button:hover {
+  color: white;
+  background-color: rgb(64, 128, 64);
+}
+
+.form_center {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 4px black;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.btn-to-a {
+  border: none;
+  background: none;
+  color: rgb(64, 128, 64);
+  text-align: left;
+  cursor: pointer;
+  margin: 8px;
+}
+
+@media (max-width: 960px) {
+  .flex_cont {
+    flex-direction: column;
+  }
+
+  body {
+    background: rgb(181, 144, 202) url(../images/bg.png) no-repeat center center/cover fixed;
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  p {
+    color: black;
+  }
+
+  .box_wrapper {
+    flex-direction: column;
+  }
+}

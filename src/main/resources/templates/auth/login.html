@@ -10,8 +10,6 @@
 
       <div class="content">
         <h1 style="text-align: center; margin: 4px">Вход</h1>
-        <div class="error-msg" th:if="${param.error}">Неверный логин или пароль.</div>
-        <div class="error-msg" th:if="${param.logout}">Вы вышли.</div>
 
         <form class="form_center" th:action="@{/login}" method="post">
           <label for="username">Никнейм</label>
@@ -22,6 +20,8 @@
         </form>
 
         <a href="/registration">Регистрация</a>
+
+        <p style="color: red" th:if="${param.error}">Неверный логин или пароль.</p>
       </div>
 
       <footer th:replace="layout :: footer"></footer>

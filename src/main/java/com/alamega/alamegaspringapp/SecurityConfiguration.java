@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration {
     public final DataSource dataSource;
-
     public SecurityConfiguration(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -32,7 +31,7 @@ public class SecurityConfiguration {
                 //Пускать только админов
                 .antMatchers("/admin").hasAuthority("ADMIN")
                 //Пускать только авторизированных
-                .antMatchers("/user").authenticated()
+                .antMatchers("/users/**").authenticated()
                 //Пускать всех
                 .antMatchers("/**").permitAll()
             .and()

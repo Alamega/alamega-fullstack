@@ -20,7 +20,8 @@ function clock() {
   if (time[3] < 100 && time[3] >= 10) {
     time[3] = "0" + time[3];
   }
-  clockv.innerHTML = [time[0], time[1], time[2]].join(":") + " " + time[3];
+  // clockv.innerHTML = [time[0], time[1], time[2]].join(":") + " " + time[3];
+  clockv.innerHTML = [time[0], time[1], time[2]].join(":");
 }
 
 setInterval("clock()", 1);

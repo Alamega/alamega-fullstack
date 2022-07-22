@@ -9,11 +9,13 @@
       <header th:replace="layout :: header"></header>
 
       <div class="content">
-
-        <div th:if="user != null">
+          <!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
           <p th:text="${user.getUsername()}"></p>
-        </div>
-
+          <div th:switch="${user.getRole}">
+            <p th:case="'ADMIN'" style="color: red">Администратор</p>
+            <p th:case="'USER'" style="color: green">Пользователь</p>
+            <p th:case="*">Чёрт</p>
+          </div>
       </div>
 
       <footer th:replace="layout :: footer"></footer>
