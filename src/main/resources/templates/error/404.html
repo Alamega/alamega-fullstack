@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Ошибка 404</title>
   <th:block th:include="layout :: head"></th:block>
+  <title>Ошибка 404</title>
 </head>
-  <body id="body">
-    <div class="container">
-      <header th:replace="layout :: header"></header>
-      <div class="content">
-        <img src="/images/chika404.gif" alt="Упс" style="border-radius: 10px; max-width: 100%; align-self: center" />
-        <p>Такой странички не существует.</p>
-        <a href="/">На главную</a>
-      </div>
-      <footer th:replace="layout :: footer"></footer>
+<body>
+<div class="container">
+  <header th:include="layout :: header"></header>
+
+  <div class="full-wrapper">
+    <div class="content">
+      <img src="/images/chika404.gif" alt="Упс" style="border-radius: 10px; max-width: 100%; align-self: center" />
+      <p>Такой странички не существует.</p>
+      <a href="/">На главную</a>
     </div>
-  </body>
+    <hr>
+    <div class="sidebar">
+      <div th:replace="layout :: sidebar"></div>
+    </div>
+  </div>
+
+  <footer th:include="layout :: footer"></footer>
+</div>
+</body>
 </html>

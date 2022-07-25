@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Да</title>
   <th:block th:include="layout :: head"></th:block>
+  <title>Да</title>
 </head>
-  <body id="body">
-    <div class="container">
-      <header th:replace="layout :: header"></header>
+<body>
+<div class="container">
+  <header th:include="layout :: header"></header>
 
-      <style>
-        * {
-          user-select: none;
-        }
-        canvas {
-          background: rgba(255, 255, 255, 1);
-          box-shadow: 0 0 2px black;
-          width: 100%;
-          cursor: none;
-        }
-      </style>
+  <style>
+    * {
+      user-select: none;
+    }
+    canvas {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 2px black;
+      width: 100%;
+      cursor: none;
+    }
+  </style>
 
-      <div class="content">
-        <canvas class="game" id="game"></canvas>
-        <script src="/scripts/game.js"></script>
-      </div>
-
-      <footer th:replace="layout :: footer"></footer>
+  <div class="full-wrapper">
+    <div class="content">
+      <canvas class="game" id="game"></canvas>
+      <script src="/scripts/game.js"></script>
     </div>
-  </body>
+    <hr>
+    <div class="sidebar">
+      <div th:replace="layout :: sidebar"></div>
+    </div>
+  </div>
+
+  <footer th:include="layout :: footer"></footer>
+</div>
+</body>
 </html>

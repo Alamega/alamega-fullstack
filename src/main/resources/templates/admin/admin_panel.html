@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Сайтик</title>
   <th:block th:include="layout :: head"></th:block>
+  <title>Заголовок</title>
 </head>
-<body id="body">
+<body>
 <div class="container">
-  <header th:replace="layout :: header"></header>
+  <header th:include="layout :: header"></header>
 
-  <div class="content">
-    <p>Страничка для админа.</p>
+  <div class="full-wrapper">
+    <div class="content">
+      <p>Страничка для админа.</p>
+    </div>
+    <hr>
+    <div class="sidebar">
+      <div th:replace="layout :: sidebar"></div>
+    </div>
   </div>
 
-  <footer th:replace="layout :: footer"></footer>
+  <footer th:include="layout :: footer"></footer>
 </div>
 </body>
 </html>

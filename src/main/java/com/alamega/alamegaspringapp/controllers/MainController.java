@@ -32,4 +32,9 @@ public class MainController {
     public String game() {
         return "game";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "template";
+    }
 }

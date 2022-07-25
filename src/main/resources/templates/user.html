@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Сайтик</title>
-  <th:block th:include="layout :: head"></th:block>
+    <th:block th:include="layout :: head"></th:block>
+    <title th:text="${user.getUsername()}">Пользователь</title>
 </head>
-  <body id="body">
-    <div class="container">
-      <header th:replace="layout :: header"></header>
+<body>
+<div class="container">
+    <header th:include="layout :: header"></header>
 
-      <div class="content">
-          <!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
-          <p th:text="${user.getUsername()}"></p>
-          <div th:switch="${user.getRole}">
-            <p th:case="'ADMIN'" style="color: red">Администратор</p>
-            <p th:case="'USER'" style="color: green">Пользователь</p>
-            <p th:case="*">Чёрт</p>
-          </div>
-      </div>
-
-      <footer th:replace="layout :: footer"></footer>
+    <div class="full-wrapper">
+        <div class="content">
+            <!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
+            <p th:text="${user.getUsername()}"></p>
+            <div th:switch="${user.getRole}">
+                <p th:case="'ADMIN'" style="color: red">Администратор</p>
+                <p th:case="'USER'" style="color: green">Пользователь</p>
+                <p th:case="*">Чёрт</p>
+            </div>
+        </div>
+        <hr>
+        <div class="sidebar">
+            <div th:replace="layout :: sidebar"></div>
+        </div>
     </div>
-  </body>
+
+    <footer th:include="layout :: footer"></footer>
+</div>
+</body>
 </html>
