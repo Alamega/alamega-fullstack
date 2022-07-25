@@ -8,5 +8,4 @@ public class AlamegaSpringAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(AlamegaSpringAppApplication.class, args);
     }
-
 }

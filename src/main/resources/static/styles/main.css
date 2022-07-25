@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: rgb(181, 144, 202) url(../images/bg.png) no-repeat center center/cover fixed;
+  /*background: rgb(181, 144, 202) url(../images/bg.png) no-repeat center center/cover fixed;*/
 }
 
 .container {
