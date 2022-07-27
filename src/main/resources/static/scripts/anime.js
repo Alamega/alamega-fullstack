@@ -1,5 +1,5 @@
-function getByakByak() {
-    var styleSheet = document.createElement("style");
+function anime() {
+    const styleSheet = document.createElement("style");
     styleSheet.innerText = `
     * {
         animation: rotate 5s linear infinite;
