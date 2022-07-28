@@ -1,5 +1,5 @@
 const game = document.getElementById("game");
-var context = game.getContext("2d");
+const context = game.getContext("2d");
 
 const height = 480; //Высота канваса
 const width = 720; //Ширина канваса
@@ -67,7 +67,7 @@ class PersonEnemy extends Person {
   }
 }
 
-const Hero = new PersonHero(1 * BLOCK_SIZE_X, 1 * BLOCK_SIZE_Y, 4, 40, 40, "./images/Hero.png");
+const Hero = new PersonHero(1 * BLOCK_SIZE_X, 1 * BLOCK_SIZE_Y, 4, 40, 40, "/images/game/Hero.png");
 
 class MapBlock {
   constructor(xpos, ypos, width, height, code, collision = false) {
@@ -118,15 +118,15 @@ class Projectile {
 //Картиночки
 const BlocksImages = [];
 BlocksImages.push(new Image());
-BlocksImages[0].src = "./images/block0.png";
+BlocksImages[0].src = "/images/game/block0.png";
 BlocksImages.push(new Image());
-BlocksImages[1].src = "./images/block1.png";
+BlocksImages[1].src = "/images/game/block1.png";
 
 const PortalImage = new Image();
-PortalImage.src = "./images/portal.png";
+PortalImage.src = "/images/game/portal.png";
 
 const CursorImage = new Image();
-CursorImage.src = "./images/cross.png";
+CursorImage.src = "/images/game/cross.png";
 
 const MapSetup = [
   [
@@ -181,7 +181,7 @@ function mapInit(mapIndex = 0, heroPosX = 1, heroPosY = 1) {
           break;
         case 2:
           tempArr.push(new MapBlock(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, BLOCK_SIZE_X, BLOCK_SIZE_Y, 0, false));
-          Enemies.push(new PersonEnemy(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, 4, 40, 40, "./images/tarakanus.png", null));
+          Enemies.push(new PersonEnemy(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, 4, 40, 40, "/images/game/tarakanus.png", null));
           break;
         default:
           break;
@@ -361,7 +361,6 @@ function getCollision(person) {
   }
 
   coll.any = coll.W || coll.A || coll.S || coll.D;
-  console.log(coll.W, coll.A, coll.S, coll.D);
   return coll;
 }
 
@@ -404,23 +403,17 @@ function ProjectilesMove() {
     //Дистанция
     let dist = Math.sqrt(Math.pow(Projectiles[i].endX - Projectiles[i].startX, 2) + Math.pow(Projectiles[i].endY - Projectiles[i].startY, 2));
     //Изменения x b y за единицу времени
-    let x = (Projectiles[i].endX - Projectiles[i].startX) / dist;
-    let y = (Projectiles[i].endY - Projectiles[i].startY) / dist;
+    let x = (Projectiles[i].endX - Projectiles[i].startX - Projectiles[i].width / 2) / dist;
+    let y = (Projectiles[i].endY - Projectiles[i].startY - Projectiles[i].width / 2) / dist;
+
+    for (let j = 0; j < Enemies.length; j++) {
+      if (simpleCollision(Projectiles[i],Enemies[j])) {
+        Enemies.splice(j, 1);
+      }
+    }
     Projectiles[i].x += x * 10;
     Projectiles[i].y += y * 10;
   }
-}
-
-//Функция рисования
-function roundedRect(x, y, width, height, radius) {
-  context.beginPath();
-  context.moveTo(x, y + radius);
-  context.arcTo(x, y + height, x + radius, y + height, radius);
-  context.arcTo(x + width, y + height, x + width, y + height - radius, radius);
-  context.arcTo(x + width, y, x + width - radius, y, radius);
-  context.arcTo(x, y, x, y + radius, radius);
-  context.fillStyle = "white";
-  context.fill();
 }
 
 //Отрисовка

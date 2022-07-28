@@ -2,7 +2,7 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
   <th:block th:include="layout :: head"></th:block>
-  <title>Главная</title>
+  <title>Сайтик</title>
 </head>
 <body>
   <div class="container">
@@ -15,11 +15,6 @@
           Здравствуйте, <a style="margin: 0" th:href="@{'/users/'+${user.getUsername()}}">[[${user.getUsername()}]]</a>!
         </p>
         <button class="button" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus felis a finibus sollicitudin. Mauris at nisi tristique, ultrices eros vitae, lobortis arcu. Phasellus suscipit, leo at mollis facilisis, turpis odio commodo quam, viverra consequat felis lorem eget ipsum. Aliquam id maximus nisl. Nunc vitae odio non nulla aliquam congue et et dolor. Donec tristique magna ligula, id lacinia mauris condimentum et. Donec libero tortor, tincidunt eu tristique eu, blandit sit amet ex.</p>
-        <p>Etiam pharetra sapien at magna iaculis pharetra. Curabitur lorem felis, varius vel commodo eget, bibendum vitae mi. Mauris id cursus ligula. Praesent rhoncus ut tortor et luctus. Curabitur pharetra quis nibh sit amet iaculis. Maecenas bibendum porta ex a pretium. Curabitur tempor lacus justo, sit amet dignissim lacus facilisis placerat. Morbi malesuada sit amet lorem in malesuada. Nulla tincidunt urna vel dui sagittis rutrum. Maecenas turpis mi, viverra sit amet tincidunt tincidunt, hendrerit sed odio.</p>
-        <p>Sed et fringilla lacus. Nullam porttitor dui tortor, eget fringilla tortor mattis ac. Aliquam varius posuere bibendum. Suspendisse et ante nulla. Mauris tincidunt tempor turpis quis posuere. Nullam tempus lacus non convallis pretium. Phasellus blandit posuere ante et convallis. Nulla hendrerit mattis iaculis.</p>
-        <p>Aliquam pellentesque mauris eu risus hendrerit, a luctus ligula consectetur. Pellentesque a ullamcorper urna. Pellentesque faucibus porta tellus, eu consequat nunc porttitor in. Vivamus nec odio eget mi hendrerit semper vitae sagittis erat. Ut at urna libero. Nam laoreet vulputate enim, eget efficitur sapien porttitor vel. Quisque vulputate eu ante ac efficitur.</p>
       </div>
       <div class="sidebar">
         <div th:replace="layout :: sidebar"></div>
