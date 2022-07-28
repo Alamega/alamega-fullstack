@@ -29,7 +29,7 @@ public class SecurityConfiguration {
         http
             .authorizeRequests()
                 //Пускать только админов
-                .antMatchers("/admin").hasAuthority("ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 //Пускать только авторизированных
                 .antMatchers("/users/**").authenticated()
                 //Пускать всех

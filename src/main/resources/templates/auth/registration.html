@@ -10,7 +10,7 @@
 
   <div class="full-wrapper">
     <div class="content">
-      <h1 style="text-align: center; margin: 4px">Регистрация</h1>
+      <h1 class="title">Регистрация</h1>
 
       <form class="form_center" th:action="@{/registration}" method="post">
         <label for="username">Никнейм</label>
@@ -21,6 +21,7 @@
       </form>
 
       <p style="color: green" th:text="${result}"></p>
+      <a th:if="${result}" href='/login'>Войти</a>
       <div th:each="err : ${errors}">
         <p style="color: red" th:text="${err}"></p>
       </div>

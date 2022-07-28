@@ -3,21 +3,25 @@
   font-size: 16px;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  /*background: rgb(181, 144, 202) url(../images/bg.png) no-repeat center center/cover fixed;*/
 }
 
 .container {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  min-height: 100%;
   max-width:960px;
   box-shadow: 0 0 4px black;
   color: rgb(48, 48, 48);
   background-color: rgba(255, 255, 255, 0.8);
-  min-height: 100vh;
 }
 
 header {
@@ -41,6 +45,7 @@ header a {
 
 .full-wrapper {
   display: flex;
+  flex-grow: 1;
 }
 
 .content {
@@ -48,7 +53,6 @@ header a {
   flex-direction: column;
   flex: 4 0 0;
   margin: 12px;
-  min-height: calc(100vh - 64px - 62px - 40px);
 }
 
 .sidebar {
@@ -79,14 +83,17 @@ footer {
   z-index: 5;
 }
 
-footer p {
-  font-size: 18px;
-}
-
 div#clock {
   text-align: center;
   font-size: 32px;
   padding: 0 12px;
+}
+
+.title {
+  font-size: 24px;
+  color: rgb(64, 128, 64);
+  align-self: center;
+  margin: 8px;
 }
 
 a {
@@ -101,14 +108,27 @@ p {
   padding: 8px;
 }
 
+label {
+  margin: 4px 2px 0;
+  color: rgb(64, 128, 64);
+}
+
 input {
   background-color: rgba(255, 255, 255, 1);
-  color: rgb(90, 90, 90);
-  padding: 4px;
+  outline-color: rgb(64, 128, 64);
+  padding: 12px;
   margin: 8px 0;
-  border: 1px solid rgb(90, 90, 90);
+  border: 1px solid rgb(64, 128, 64);
   border-radius: 6px;
-  height: 30px;
+  color: rgb(64, 128, 64) !important;
+}
+
+.btn-to-a {
+  border: none;
+  background: none;
+  color: rgb(64, 128, 64);
+  cursor: pointer;
+  padding: 8px;
 }
 
 .button {
@@ -125,6 +145,22 @@ input {
 .button:hover {
   color: white;
   background-color: rgb(64, 128, 64);
+}
+
+.button-delete {
+  border-radius: 6px;
+  background-color: white;
+  margin: 8px 0;
+  border: 1px solid red;
+  color: red;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button-delete:hover {
+  color: white;
+  background-color: red;
 }
 
 .form_center {
@@ -144,12 +180,14 @@ input {
   background-color: rgba(255, 255, 255, 1);
 }
 
-.btn-to-a {
-  border: none;
-  background: none;
-  color: rgb(64, 128, 64);
-  cursor: pointer;
-  padding: 8px;
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  margin: 4px;
+  padding: 4px;
+  border: 1px solid rgb(64, 128, 64);
 }
 
 @media (max-width: 960px) {

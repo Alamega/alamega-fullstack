@@ -11,11 +11,23 @@
     <div class="full-wrapper">
         <div class="content">
             <!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
-            <p th:text="${user.getUsername()}"></p>
+            <h1 class="title" th:text="${user.getUsername()}"></h1>
             <div th:switch="${user.getRole}">
-                <p th:case="'ADMIN'" style="color: red">Администратор</p>
-                <p th:case="'USER'" style="color: green">Пользователь</p>
-                <p th:case="*">Чёрт</p>
+                <p>
+                    Роль:
+                    <span th:case="'ADMIN'" style="color: red">Администратор</span>
+                    <span th:case="'USER'" style="color: green">Пользователь</span>
+                    <span th:case="*">Чёрт</span>
+                </p>
+            </div>
+
+            <div th:if="${currentUser.getRole() == 'ADMIN'}">
+                <form style="width: 100%" th:action="@{'/admin/users/role/'+${user.getId()}}" method="post">
+                    <button class="button" style="width: 100%; padding: 8px">Сменить роль</button>
+                </form>
+                <form style="width: 100%" th:action="@{'/admin/users/delete/'+${user.getId()}}" method="post">
+                    <button class="button-delete" style="margin:0; width: 100%">Удалить</button>
+                </form>
             </div>
         </div>
         <div class="sidebar">

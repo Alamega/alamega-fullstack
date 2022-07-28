@@ -12,7 +12,7 @@
       <div class="content">
         <!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
         <p th:inline="text" th:if="${user}!=null">
-          Здравствуйте, <a style="margin: 0" th:href="@{'/users/'+${user.getUsername()}}">[[${user.getUsername()}]]</a>!
+          Здравствуйте, <a style="padding: 0" th:href="@{'/users/'+${user.getUsername()}}">[[${user.getUsername()}]]</a>!
         </p>
         <button class="button" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
       </div>

