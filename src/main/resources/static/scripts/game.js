@@ -24,6 +24,7 @@ class Person {
     this.moveSpeed = moveSpeed;
     this.image = new Image();
     this.image.src = image;
+    this.kills = 0;
   }
   getCurrentPos() {
     return {
@@ -98,14 +99,14 @@ class Portal {
 class Projectile {
   constructor(shooter, endX, endY, width, height) {
     this.shooter = shooter;
-    this.startX = shooter.x + shooter.width / 2 - width / 2;
-    this.startY = shooter.y + shooter.height / 2 - height / 2;
-    this.x = this.startX;
-    this.y = this.startY;
+    this.startX = this.shooter.x + this.shooter.width / 2;
+    this.startY = this.shooter.y + this.shooter.height / 2;
     this.endX = endX;
     this.endY = endY;
     this.width = width;
     this.height = height;
+    this.x = this.startX - this.width / 2;
+    this.y = this.startY - this.height / 2;
   }
   getCurrentPos() {
     return {
@@ -128,6 +129,9 @@ PortalImage.src = "/images/game/portal.png";
 const CursorImage = new Image();
 CursorImage.src = "/images/game/cross.png";
 
+const FireballImage = new Image();
+FireballImage.src = "/images/game/fireball.png";
+
 const MapSetup = [
   [
     [1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -143,15 +147,28 @@ const MapSetup = [
   [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ],
 ];
@@ -163,6 +180,7 @@ var Portals = [];
 var Projectiles = [];
 
 function mapInit(mapIndex = 0, heroPosX = 1, heroPosY = 1) {
+  CurrentMapIndex = mapIndex;
   heroPosX *= BLOCK_SIZE_X;
   heroPosY *= BLOCK_SIZE_Y;
   CurrentMap = [];
@@ -195,10 +213,10 @@ function mapInit(mapIndex = 0, heroPosX = 1, heroPosY = 1) {
   //Для каждой карты набор порталов должен быть разным
   switch (mapIndex) {
     case 0:
-      Portals.push(new Portal(4, 1, 40, 40, 2, 9, 1));
+      Portals.push(new Portal(4, 1, 40, 40, 2, 2, 1));
       break;
     case 1:
-      Portals.push(new Portal(2, 9, 40, 40, 4, 1, 0));
+      Portals.push(new Portal(2, 2, 40, 40, 4, 1, 0));
       break;
     default:
       break;
@@ -292,13 +310,12 @@ document.addEventListener("keyup", (event) => {
 });
 
 game.addEventListener("mousemove", (event) => {
-  //Ну теперь оно "адаптивно"
   mouseX = Math.round((event.offsetX / game.clientWidth) * width);
   mouseY = Math.round((event.offsetY / game.clientHeight) * height);
 });
 
 game.addEventListener("click", (event) => {
-  Projectiles.push(new Projectile(Hero, mouseX + shiftMapX, mouseY + shiftMapY, 10, 10));
+  Projectiles.push(new Projectile(Hero, mouseX + shiftMapX, mouseY + shiftMapY, 40, 40));
 });
 
 //Переключение вкладки
@@ -400,19 +417,17 @@ function EnemiesMove() {
 
 function ProjectilesMove() {
   for (let i = 0; i < Projectiles.length; i++) {
-    //Дистанция
-    let dist = Math.sqrt(Math.pow(Projectiles[i].endX - Projectiles[i].startX, 2) + Math.pow(Projectiles[i].endY - Projectiles[i].startY, 2));
-    //Изменения x b y за единицу времени
-    let x = (Projectiles[i].endX - Projectiles[i].startX - Projectiles[i].width / 2) / dist;
-    let y = (Projectiles[i].endY - Projectiles[i].startY - Projectiles[i].width / 2) / dist;
-
+    Projectiles[i].x += (Projectiles[i].endX - Projectiles[i].startX) / 20;
+    Projectiles[i].y += (Projectiles[i].endY - Projectiles[i].startY) / 20;
     for (let j = 0; j < Enemies.length; j++) {
-      if (simpleCollision(Projectiles[i],Enemies[j])) {
+      if (simpleCollision(Projectiles[i], Enemies[j])) {
+        Hero.kills++;
         Enemies.splice(j, 1);
+        Projectiles.splice(i, 1);
+        i--;
+        break;
       }
     }
-    Projectiles[i].x += x * 10;
-    Projectiles[i].y += y * 10;
   }
 }
 
@@ -421,8 +436,6 @@ function Draw() {
   //Рисование карты
   for (let y = 0; y < CurrentMap.length; y++) {
     for (let x = 0; x < CurrentMap[y].length; x++) {
-      // context.fillStyle = CurrentMap[y][x].color;
-      // context.fillRect(CurrentMap[y][x].x - shiftMapX, CurrentMap[y][x].y - shiftMapY, CurrentMap[y][x].width, CurrentMap[y][x].height);
       context.drawImage(
           BlocksImages[CurrentMap[y][x].code],
           CurrentMap[y][x].x - shiftMapX,
@@ -440,17 +453,12 @@ function Draw() {
 
   //Рисование вражин
   for (let i = 0; i < Enemies.length; i++) {
-    // context.fillStyle = "black";
-    // context.fillText("Памагите", Enemies[i].x - shiftMapX - 12, Enemies[i].y - shiftMapY - 6);
-    // context.fillStyle = "blue";
-    // context.fillRect(Enemies[i].x - shiftMapX, Enemies[i].y - shiftMapY, Enemies[i].width, Enemies[i].height);
     context.drawImage(Enemies[i].image, Enemies[i].x - shiftMapX, Enemies[i].y - shiftMapY, Enemies[i].width, Enemies[i].height);
   }
 
   //Рисование снарядов
   for (let i = 0; i < Projectiles.length; i++) {
-    context.fillStyle = "brown";
-    context.fillRect(Projectiles[i].x - shiftMapX, Projectiles[i].y - shiftMapY, Projectiles[i].width, Projectiles[i].height);
+    context.drawImage(FireballImage, Projectiles[i].x - shiftMapX, Projectiles[i].y - shiftMapY, Projectiles[i].width, Projectiles[i].height);
   }
 
   //Рисование персонажа
@@ -462,11 +470,14 @@ function Draw() {
 
 //Игровой цикл
 function play() {
-  //context.clearRect(0, 0, width, height);
   context.fillStyle = "rgb(86,57,35)";
   context.fillRect(0, 0, width, height);
 
   Draw();
+
+  context.fillStyle = "rgb(46,124,0)";
+  context.font = '32px serif';
+  context.fillText("Убито тараканусов: " + Hero.kills, 220, 50);
 
   Hero.move();
   EnemiesMove();
