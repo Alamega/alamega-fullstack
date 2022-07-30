@@ -21,13 +21,38 @@
                 </p>
             </div>
 
-            <div th:if="${currentUser.getRole() == 'ADMIN'}">
-                <form style="width: 100%" th:action="@{'/admin/users/role/'+${user.getId()}}" method="post">
-                    <button class="button" style="width: 100%; padding: 8px">Сменить роль</button>
-                </form>
-                <form style="width: 100%" th:action="@{'/admin/users/delete/'+${user.getId()}}" method="post">
-                    <button class="button-delete" style="margin:0; width: 100%">Удалить</button>
-                </form>
+            <th:block th:if="${currentUser.getUsername() == user.getUsername()}" >
+                <script>
+                    function changeVisible() {
+                        let post = document.getElementById("new-post");
+                        if (post.style.display == "none"){
+                            post.style.display="";
+                        } else {
+                            post.style.display="none";
+                        }
+                    }
+                </script>
+                <button class="button" onclick="changeVisible()">Новый пост</button>
+                <div class="new-post" id="new-post" style="display: none">
+                    <form class="form_center" th:action="@{/posts}" method="post">
+                        <label for="title">Заголовок</label>
+                        <input type="text" name="title" id="title" />
+                        <label for="text">Содержание</label>
+                        <textarea name="text" id="text"></textarea>
+                        <button class="button">Опубликовать</button>
+                    </form>
+                </div>
+            </th:block>
+
+            <!--/*@thymesVar id="posts" type="com.alamega.alamegaspringapp.post.Post[]"*/-->
+            <div class="posts" th:if="${posts.length!=0}">
+            <div class="post" th:each="post : ${posts}">
+                <div class="post-title">
+                    <h1 th:text="${post.getTitle()}"></h1>
+                    <!--//TODO Кнопка удаление поста для автора/админа-->
+                </div>
+                <p th:text="${post.getText()}" class="post-text"></p>
+            </div>
             </div>
         </div>
         <div class="sidebar">

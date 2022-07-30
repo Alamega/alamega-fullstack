@@ -3,6 +3,10 @@
   font-size: 16px;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 html {
   height: 100%;
 }
@@ -188,6 +192,33 @@ input {
   margin: 4px;
   padding: 4px;
   border: 1px solid rgb(64, 128, 64);
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  margin: 4px 0;
+  padding: 4px;
+  border-top: 1px solid rgb(64, 128, 64);
+}
+
+.post-title {
+  display: flex;
+}
+
+.post-title h1 {
+  font-size: 20px;
+  margin: 8px;
+  color: rgb(64, 128, 64);
+}
+
+.post-text {
+
 }
 
 @media (max-width: 960px) {
