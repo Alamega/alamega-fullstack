@@ -7,13 +7,112 @@ const width = 720; //Ширина канваса
 game.height = height;
 game.width = width;
 
-//Ширина и высота обычных блоков
-const BLOCK_SIZE_X = 40;
-const BLOCK_SIZE_Y = 40;
+//Картиночки
+const BlocksImages = [];
+BlocksImages.push(new Image());
+BlocksImages[0].src = "/images/game/block0.png";
+BlocksImages.push(new Image());
+BlocksImages[1].src = "/images/game/block1.png";
+const CursorImage = new Image();
+CursorImage.src = "/images/game/cross.png";
+const FireballImage = new Image();
+FireballImage.src = "/images/game/fireball.png";
 
-//Сдвиг карты
-var shiftMapX = 0;
-var shiftMapY = 0;
+var keyW = false;
+var keyA = false;
+var keyS = false;
+var keyD = false;
+var mouseX = width / 2;
+var mouseY = height / 2;
+
+class Map {
+  static All = [
+    [
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ],
+  ];
+  static shiftX = 0;
+  static shiftY = 0;
+  static currentMap = [];
+  static currentMapIndex = 0;
+  static init(newMapIndex, heroPosX = 1, heroPosY = 1) {
+    Map.currentMapIndex = newMapIndex;
+    heroPosX *= Block.SIZE_X;
+    heroPosY *= Block.SIZE_Y;
+    Map.currentMap = [];
+    Enemy.All = [];
+    Portal.All = [];
+    Projectile.All = [];
+    for (let y = 0; y < Map.All[Map.currentMapIndex].length; y++) {
+      const tempArr = [];
+      for (let x = 0; x < Map.All[Map.currentMapIndex][y].length; x++) {
+        switch (Map.All[Map.currentMapIndex][y][x]) {
+          case 0:
+            tempArr.push(new Block(x * Block.SIZE_X, y * Block.SIZE_Y, Block.SIZE_X, Block.SIZE_Y, 0, false));
+            break;
+          case 1:
+            tempArr.push(new Block(x * Block.SIZE_X, y * Block.SIZE_Y, Block.SIZE_X, Block.SIZE_Y, 1, true));
+            break;
+          case 2:
+            tempArr.push(new Block(x * Block.SIZE_X, y * Block.SIZE_Y, Block.SIZE_X, Block.SIZE_Y, 0, false));
+            Enemy.All.push(new Enemy(x * Block.SIZE_X, y * Block.SIZE_Y, 4, 40, 40, "/images/game/tarakanus.png", null));
+            break;
+          default:
+            break;
+        }
+      }
+      Map.currentMap.push(tempArr);
+    }
+
+    clearInterval();
+
+    //Позиция героя на новой карте
+    Hero.x = heroPosX;
+    Hero.y = heroPosY;
+
+    //Это чтобы центр карты был равен позиции героя
+    Map.shiftX = Hero.x + Hero.width / 2 - width / 2;
+    Map.shiftY = Hero.y + Hero.height / 2 - height / 2;
+  }
+}
+
+class Block {
+  //Ширина и высота обычных блоков
+  static SIZE_X = 40;
+  static SIZE_Y = 40;
+  constructor(xpos, ypos, width, height, code, collision = false) {
+    this.x = xpos;
+    this.y = ypos;
+    this.width = width;
+    this.height = height;
+    this.code = code;
+    this.collision = collision;
+  }
+}
 
 class Person {
   constructor(xpos, ypos, moveSpeed, width, height, image) {
@@ -26,10 +125,10 @@ class Person {
     this.image.src = image;
     this.kills = 0;
   }
-  getCurrentPos() {
+  getCurrentPosBlock() {
     return {
-      x: Math.round(this.x / BLOCK_SIZE_X),
-      y: Math.round(this.y / BLOCK_SIZE_Y),
+      x: Math.round(this.x / Block.SIZE_X),
+      y: Math.round(this.y / Block.SIZE_Y),
     };
   }
 }
@@ -38,205 +137,50 @@ class PersonHero extends Person {
   move() {
     if (keyW && !getCollision(this).W) {
       this.y -= this.moveSpeed;
-      shiftMapY -= this.moveSpeed;
+      Map.shiftY -= this.moveSpeed;
     }
     if (keyA && !getCollision(this).A) {
       this.x -= this.moveSpeed;
-      shiftMapX -= this.moveSpeed;
+      Map.shiftX -= this.moveSpeed;
     }
     if (keyS && !getCollision(this).S) {
       this.y += this.moveSpeed;
-      shiftMapY += this.moveSpeed;
+      Map.shiftY += this.moveSpeed;
     }
     if (keyD && !getCollision(this).D) {
       this.x += this.moveSpeed;
-      shiftMapX += this.moveSpeed;
+      Map.shiftX += this.moveSpeed;
     }
-    for (let i = 0; i < Portals.length; i++) {
-      if (simpleCollision(this, Portals[i]) && Portal.lastUse <= new Date() - Portal.CD) {
-        mapInit(Portals[i].to, Portals[i].heroBlockX, Portals[i].heroBlockY);
+    for (let i = 0; i < Portal.All.length; i++) {
+      if (simpleCollision(this, Portal.All[i]) && Portal.lastUse <= new Date() - Portal.CD) {
+        Map.init(Portal.All[i].to, Portal.All[i].heroBlockX, Portal.All[i].heroBlockY);
         Portal.lastUse = new Date();
       }
     }
   }
 }
 
-class PersonEnemy extends Person {
+const Hero = new PersonHero(Block.SIZE_X * 5, Block.SIZE_Y * 5, 4, 40, 40, "/images/game/Hero.png");
+
+class Enemy extends Person {
+  static All = [];
   constructor(xpos, ypos, moveSpeed, width, height, image, direction) {
     super(xpos, ypos, moveSpeed, width, height, image);
     this.direction = direction;
-  }
-}
-
-const Hero = new PersonHero(1 * BLOCK_SIZE_X, 1 * BLOCK_SIZE_Y, 4, 40, 40, "/images/game/Hero.png");
-
-class MapBlock {
-  constructor(xpos, ypos, width, height, code, collision = false) {
-    this.x = xpos;
-    this.y = ypos;
-    this.width = width;
-    this.height = height;
-    this.code = code;
-    this.collision = collision;
-  }
-}
-
-class Portal {
-  static CD = 3000;
-  static lastUse = new Date() - this.CD;
-  constructor(BlockX, BlockY, width, height, heroBlockX, heroBlockY, to) {
-    this.x = BlockX * BLOCK_SIZE_X;
-    this.y = BlockY * BLOCK_SIZE_Y;
-    this.width = width;
-    this.height = height;
-    this.heroBlockX = heroBlockX;
-    this.heroBlockY = heroBlockY;
-    this.to = to;
-    this.from = CurrentMapIndex;
-  }
-}
-
-class Projectile {
-  constructor(shooter, endX, endY, width, height) {
-    this.shooter = shooter;
-    this.startX = this.shooter.x + this.shooter.width / 2;
-    this.startY = this.shooter.y + this.shooter.height / 2;
-    this.endX = endX;
-    this.endY = endY;
-    this.width = width;
-    this.height = height;
-    this.x = this.startX - this.width / 2;
-    this.y = this.startY - this.height / 2;
-  }
-  getCurrentPos() {
-    return {
-      x: Math.round(this.x / BLOCK_SIZE_X),
-      y: Math.round(this.y / BLOCK_SIZE_Y),
-    };
-  }
-}
-
-//Картиночки
-const BlocksImages = [];
-BlocksImages.push(new Image());
-BlocksImages[0].src = "/images/game/block0.png";
-BlocksImages.push(new Image());
-BlocksImages[1].src = "/images/game/block1.png";
-
-const PortalImage = new Image();
-PortalImage.src = "/images/game/portal.png";
-
-const CursorImage = new Image();
-CursorImage.src = "/images/game/cross.png";
-
-const FireballImage = new Image();
-FireballImage.src = "/images/game/fireball.png";
-
-const MapSetup = [
-  [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ],
-  [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ],
-];
-
-var CurrentMap = [];
-var CurrentMapIndex = 0;
-var Enemies = [];
-var Portals = [];
-var Projectiles = [];
-
-function mapInit(mapIndex = 0, heroPosX = 1, heroPosY = 1) {
-  CurrentMapIndex = mapIndex;
-  heroPosX *= BLOCK_SIZE_X;
-  heroPosY *= BLOCK_SIZE_Y;
-  CurrentMap = [];
-  Enemies = [];
-  Portals = [];
-  Projectiles = [];
-  for (let y = 0; y < MapSetup[mapIndex].length; y++) {
-    const tempArr = [];
-    for (let x = 0; x < MapSetup[mapIndex][y].length; x++) {
-      switch (MapSetup[mapIndex][y][x]) {
-        case 0:
-          tempArr.push(new MapBlock(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, BLOCK_SIZE_X, BLOCK_SIZE_Y, 0, false));
-          break;
-        case 1:
-          tempArr.push(new MapBlock(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, BLOCK_SIZE_X, BLOCK_SIZE_Y, 1, true));
-          break;
-        case 2:
-          tempArr.push(new MapBlock(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, BLOCK_SIZE_X, BLOCK_SIZE_Y, 0, false));
-          Enemies.push(new PersonEnemy(x * BLOCK_SIZE_X, y * BLOCK_SIZE_Y, 4, 40, 40, "/images/game/tarakanus.png", null));
-          break;
-        default:
-          break;
-      }
-    }
-    CurrentMap.push(tempArr);
-  }
-
-  clearInterval();
-
-  //Для каждой карты набор порталов должен быть разным
-  switch (mapIndex) {
-    case 0:
-      Portals.push(new Portal(4, 1, 40, 40, 2, 2, 1));
-      break;
-    case 1:
-      Portals.push(new Portal(2, 2, 40, 40, 4, 1, 0));
-      break;
-    default:
-      break;
-  }
-
-  for (let i = 0; i < Enemies.length; i++) {
     setInterval(() => {
-      if (Enemies[i]) {
+      if (this) {
         switch (Math.floor(Math.random() * 4) + 1) {
           case 1:
-            Enemies[i].direction = "W";
+            this.direction = "W";
             break;
           case 2:
-            Enemies[i].direction = "A";
+            this.direction = "A";
             break;
           case 3:
-            Enemies[i].direction = "S";
+            this.direction = "S";
             break;
           case 4:
-            Enemies[i].direction = "D";
+            this.direction = "D";
             break;
           default:
             break;
@@ -245,22 +189,88 @@ function mapInit(mapIndex = 0, heroPosX = 1, heroPosY = 1) {
     }, (Math.random() + 1) * 1000);
   }
 
-  //Позиция героя на новой карте
-  Hero.x = heroPosX;
-  Hero.y = heroPosY;
-
-  //Это чтобы центр карты был равен позиции героя
-  shiftMapX = Hero.x + Hero.width / 2 - width / 2;
-  shiftMapY = Hero.y + Hero.height / 2 - height / 2;
+  static MoveAll() {
+    for (let i = 0; i < Enemy.All.length; i++) {
+      switch (Enemy.All[i].direction) {
+        case "W":
+          if (!getCollision(Enemy.All[i]).W) {
+            Enemy.All[i].y -= Enemy.All[i].moveSpeed;
+          }
+          break;
+        case "A":
+          if (!getCollision(Enemy.All[i]).A) {
+            Enemy.All[i].x -= Enemy.All[i].moveSpeed;
+          }
+          break;
+        case "S":
+          if (!getCollision(Enemy.All[i]).S) {
+            Enemy.All[i].y += Enemy.All[i].moveSpeed;
+          }
+          break;
+        case "D":
+          if (!getCollision(Enemy.All[i]).D) {
+            Enemy.All[i].x += Enemy.All[i].moveSpeed;
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
 }
-mapInit(CurrentMapIndex, 4, 4);
 
-var keyW = false;
-var keyA = false;
-var keyS = false;
-var keyD = false;
-var mouseX = width / 2;
-var mouseY = height / 2;
+class Portal {
+  static All = [];
+  static CD = 3000;
+  static lastUse = new Date() - this.CD;
+  static image = () => {
+    let img = new Image();
+    img.src = "/images/game/portal.png";
+    return img;
+  };
+  constructor(BlockX, BlockY, width, height, heroBlockX, heroBlockY, to) {
+    this.x = BlockX * Block.SIZE_X;
+    this.y = BlockY * Block.SIZE_Y;
+    this.width = width;
+    this.height = height;
+    this.heroBlockX = heroBlockX;
+    this.heroBlockY = heroBlockY;
+    this.to = to;
+    this.from = Map.currentMapIndex;
+  }
+}
+
+class Projectile {
+  static All = [];
+  constructor(shooter, endX, endY, width, height, speed) {
+    this.shooter = shooter;
+    this.startX = this.shooter.x + this.shooter.width / 2;
+    this.startY = this.shooter.y + this.shooter.height / 2;
+    this.endX = endX;
+    this.endY = endY;
+    this.width = width;
+    this.height = height;
+    this.speed = speed;
+    this.x = this.startX - this.width / 2;
+    this.y = this.startY - this.height / 2;
+  }
+  static MoveAll() {
+    for (let i = 0; i < this.All.length; i++) {
+      let dist = Math.sqrt(Math.pow(Projectile.All[i].endX - Projectile.All[i].startX, 2) + Math.pow(Projectile.All[i].endY - Projectile.All[i].startY, 2));
+      Projectile.All[i].x += ((Projectile.All[i].endX - Projectile.All[i].startX) / dist) * Projectile.All[i].speed;
+      Projectile.All[i].y += ((Projectile.All[i].endY - Projectile.All[i].startY) / dist) * Projectile.All[i].speed;
+      for (let j = 0; j < Enemy.All.length; j++) {
+        if (simpleCollision(Projectile.All[i], Enemy.All[j])) {
+          Hero.kills++;
+          Enemy.All.splice(j, 1);
+          Projectile.All.splice(i, 1);
+          i--;
+          break;
+        }
+      }
+    }
+  }
+}
 
 document.addEventListener("keydown", (event) => {
   switch (event.code) {
@@ -295,15 +305,6 @@ document.addEventListener("keyup", (event) => {
     case "KeyD":
       keyD = false;
       break;
-    case "KeyT":
-      //Это тестовая штука для просмотра всех карт
-      if (CurrentMapIndex < MapSetup.length - 1) {
-        CurrentMapIndex++;
-      } else {
-        CurrentMapIndex = 0;
-      }
-      mapInit(CurrentMapIndex);
-      break;
     default:
       break;
   }
@@ -314,8 +315,8 @@ game.addEventListener("mousemove", (event) => {
   mouseY = Math.round((event.offsetY / game.clientHeight) * height);
 });
 
-game.addEventListener("click", (event) => {
-  Projectiles.push(new Projectile(Hero, mouseX + shiftMapX, mouseY + shiftMapY, 40, 40));
+game.addEventListener("click", () => {
+  Projectile.All.push(new Projectile(Hero, mouseX + Map.shiftX, mouseY + Map.shiftY, 40, 40, 10));
 });
 
 //Переключение вкладки
@@ -354,22 +355,26 @@ function getCollision(person) {
   };
 
   //Коллизия с картой
-  for (let y = person.getCurrentPos().y - 1; y < CurrentMap.length && y < person.getCurrentPos().y + person.height / BLOCK_SIZE_Y + 1; y++) {
-    if (CurrentMap[y] != null) {
-      for (let x = person.getCurrentPos().x - 1; x < CurrentMap[y].length && x < person.getCurrentPos().x + person.width / BLOCK_SIZE_X + 1; x++) {
-        if (CurrentMap[y][x] != null && CurrentMap[y][x].collision) {
-          setElCollision(person, CurrentMap[y][x], coll);
+  for (let y = person.getCurrentPosBlock().y - 1; y < Map.currentMap.length && y < person.getCurrentPosBlock().y + person.height / Block.SIZE_Y + 1; y++) {
+    if (Map.currentMap[y] != null) {
+      for (
+          let x = person.getCurrentPosBlock().x - 1;
+          x < Map.currentMap[y].length && x < person.getCurrentPosBlock().x + person.width / Block.SIZE_X + 1;
+          x++
+      ) {
+        if (Map.currentMap[y][x] != null && Map.currentMap[y][x].collision) {
+          setElCollision(person, Map.currentMap[y][x], coll);
           // Отрисовать все читаемые блоки
           // context.fillStyle = "red";
-          // context.fillRect(CurrentMap[y][x].x - shiftMapX, CurrentMap[y][x].y - shiftMapY, CurrentMap[y][x].width, CurrentMap[y][x].height);
+          // context.fillRect(Map.currentMap[y][x].x - Map.shiftX, Map.currentMap[y][x].y - Map.shiftY, Map.currentMap[y][x].width, Map.currentMap[y][x].height);
         }
       }
     }
   }
 
   //Коллизия с врагами
-  for (let i = 0; i < Enemies.length; i++) {
-    setElCollision(person, Enemies[i], coll);
+  for (let i = 0; i < Enemy.All.length; i++) {
+    setElCollision(person, Enemy.All[i], coll);
   }
 
   //Коллизия с героем
@@ -386,79 +391,34 @@ function simpleCollision(el1, el2) {
   return el1.x < el2.x + el2.width && el1.x + el1.width > el2.x && el1.y < el2.y + el2.height && el1.height + el1.y > el2.y;
 }
 
-function EnemiesMove() {
-  for (let i = 0; i < Enemies.length; i++) {
-    switch (Enemies[i].direction) {
-      case "W":
-        if (!getCollision(Enemies[i]).W) {
-          Enemies[i].y -= Enemies[i].moveSpeed;
-        }
-        break;
-      case "A":
-        if (!getCollision(Enemies[i]).A) {
-          Enemies[i].x -= Enemies[i].moveSpeed;
-        }
-        break;
-      case "S":
-        if (!getCollision(Enemies[i]).S) {
-          Enemies[i].y += Enemies[i].moveSpeed;
-        }
-        break;
-      case "D":
-        if (!getCollision(Enemies[i]).D) {
-          Enemies[i].x += Enemies[i].moveSpeed;
-        }
-        break;
-      default:
-        break;
-    }
-  }
-}
-
-function ProjectilesMove() {
-  for (let i = 0; i < Projectiles.length; i++) {
-    Projectiles[i].x += (Projectiles[i].endX - Projectiles[i].startX) / 20;
-    Projectiles[i].y += (Projectiles[i].endY - Projectiles[i].startY) / 20;
-    for (let j = 0; j < Enemies.length; j++) {
-      if (simpleCollision(Projectiles[i], Enemies[j])) {
-        Hero.kills++;
-        Enemies.splice(j, 1);
-        Projectiles.splice(i, 1);
-        i--;
-        break;
-      }
-    }
-  }
-}
-
 //Отрисовка
 function Draw() {
   //Рисование карты
-  for (let y = 0; y < CurrentMap.length; y++) {
-    for (let x = 0; x < CurrentMap[y].length; x++) {
+  for (let y = 0; y < Map.currentMap.length; y++) {
+    for (let x = 0; x < Map.currentMap[y].length; x++) {
       context.drawImage(
-          BlocksImages[CurrentMap[y][x].code],
-          CurrentMap[y][x].x - shiftMapX,
-          CurrentMap[y][x].y - shiftMapY,
-          CurrentMap[y][x].width,
-          CurrentMap[y][x].height
+          BlocksImages[Map.currentMap[y][x].code],
+          Map.currentMap[y][x].x - Map.shiftX,
+          Map.currentMap[y][x].y - Map.shiftY,
+          Map.currentMap[y][x].width,
+          Map.currentMap[y][x].height
       );
     }
   }
 
   //Рисование порталов
-  for (let i = 0; i < Portals.length; i++) {
-    context.drawImage(PortalImage, Portals[i].x - shiftMapX, Portals[i].y - shiftMapY, Portals[i].width, Portals[i].height);
+  for (let i = 0; i < Portal.All.length; i++) {
+    context.drawImage(Portal.image(), Portal.All[i].x - Map.shiftX, Portal.All[i].y - Map.shiftY, Portal.All[i].width, Portal.All[i].height);
   }
 
   //Рисование вражин
-  for (let i = 0; i < Enemies.length; i++) {
-    context.drawImage(Enemies[i].image, Enemies[i].x - shiftMapX, Enemies[i].y - shiftMapY, Enemies[i].width, Enemies[i].height);
+  for (let i = 0; i < Enemy.All.length; i++) {
+    context.drawImage(Enemy.All[i].image, Enemy.All[i].x - Map.shiftX, Enemy.All[i].y - Map.shiftY, Enemy.All[i].width, Enemy.All[i].height);
   }
 
   //Рисование снарядов
-  for (let i = 0; i < Projectiles.length; i++) {
-    context.drawImage(FireballImage, Projectiles[i].x - shiftMapX, Projectiles[i].y - shiftMapY, Projectiles[i].width, Projectiles[i].height);
+  for (let i = 0; i < Projectile.All.length; i++) {
+    context.drawImage(FireballImage, Projectile.All[i].x - Map.shiftX, Projectile.All[i].y - Map.shiftY, Projectile.All[i].width, Projectile.All[i].height);
   }
 
   //Рисование персонажа
@@ -468,6 +428,9 @@ function Draw() {
   context.drawImage(CursorImage, mouseX - 20, mouseY - 20, 40, 40);
 }
 
+//Начало игры
+Map.init(0, 3, 3);
+
 //Игровой цикл
 function play() {
   context.fillStyle = "rgb(86,57,35)";
@@ -475,13 +438,13 @@ function play() {
 
   Draw();
 
-  context.fillStyle = "rgb(46,124,0)";
-  context.font = '32px serif';
+  context.fillStyle = "red";
+  context.font = "32px serif";
   context.fillText("Убито тараканусов: " + Hero.kills, 220, 50);
 
   Hero.move();
-  EnemiesMove();
-  ProjectilesMove();
+  Enemy.MoveAll();
+  Projectile.MoveAll();
 
   requestAnimationFrame(play);
 }
