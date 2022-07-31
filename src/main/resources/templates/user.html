@@ -11,7 +11,7 @@
     <div class="full-wrapper">
         <div class="content">
             <!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
-            <h1 class="title" th:text="${user.getUsername()}"></h1>
+            <p class="title" th:text="${user.getUsername()}"></p>
             <div th:switch="${user.getRole}">
                 <p>
                     Роль:
@@ -21,6 +21,7 @@
                 </p>
             </div>
 
+            <!--/*@thymesVar id="currentUser" type="com.alamega.alamegaspringapp.user.User"*/-->
             <th:block th:if="${currentUser.getUsername() == user.getUsername()}" >
                 <script>
                     function changeVisible() {
@@ -33,26 +34,45 @@
                     }
                 </script>
                 <button class="button" onclick="changeVisible()">Новый пост</button>
-                <div class="new-post" id="new-post" style="display: none">
+                <div id="new-post" style="display: none">
                     <form class="form_center" th:action="@{/posts}" method="post">
-                        <label for="title">Заголовок</label>
-                        <input type="text" name="title" id="title" />
-                        <label for="text">Содержание</label>
-                        <textarea name="text" id="text"></textarea>
+                        <label for="text">Содержание поста</label>
+                        <textarea maxlength="1024" rows="5" class="new-post-textarea" name="text" id="text"></textarea>
                         <button class="button">Опубликовать</button>
                     </form>
                 </div>
             </th:block>
 
             <!--/*@thymesVar id="posts" type="com.alamega.alamegaspringapp.post.Post[]"*/-->
-            <div class="posts" th:if="${posts.length!=0}">
-            <div class="post" th:each="post : ${posts}">
-                <div class="post-title">
-                    <h1 th:text="${post.getTitle()}"></h1>
-                    <!--//TODO Кнопка удаление поста для автора/админа-->
+            <div class="posts">
+                <div class="post" th:each="post : ${posts}">
+                    <div class="post-header">
+                        <script th:inline="javascript">
+                            hour = [[${post.getDate().get(11)}]];
+                            min = [[${post.getDate().get(12)}]];
+                            day = [[${post.getDate().get(5)}]];
+                            month = [[${(post.getDate().get(2) + 1)}]];
+                            year = [[${post.getDate().get(1)}]];
+                            if ((min + "").length == 1) {
+                                min = "0" + min;
+                            }
+                            if ((day + "").length == 1) {
+                                day = "0" + day;
+                            }
+                            if ((month + "").length == 1) {
+                                month = "0" + month;
+                            }
+                            document.write("<p class=\"post-date\">" + hour + ":" + min + " " + day + "." + month + "." + year + "</p>");
+                        </script>
+                        <th:block th:if="${currentUser.getRole() == 'ADMIN' || currentUser.getId() == user.getId()}">
+                            <form style="width: 100%" th:action="@{'/posts/delete/'+${post.getId()}}" method="post">
+                                <button class="btn-to-a">Удалить</button>
+                            </form>
+                        </th:block>
+                    </div>
+                    <hr>
+                    <p class="post-text" th:text="${post.getText()}"></p>
                 </div>
-                <p th:text="${post.getText()}" class="post-text"></p>
-            </div>
             </div>
         </div>
         <div class="sidebar">

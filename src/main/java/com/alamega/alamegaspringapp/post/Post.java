@@ -3,8 +3,13 @@ package com.alamega.alamegaspringapp.post;
 import com.alamega.alamegaspringapp.user.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -20,17 +25,18 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User author;
 
-    private String title;
-
+    @Column(length=1024)
     private String text;
+
+    @CreatedDate
+    private Date date = new Date();
 
     public  Post() {
 
     }
 
-    public Post(User author, String title, String text) {
+    public Post(User author, String text) {
         this.author = author;
-        this.title = title;
         this.text = text;
     }
 
@@ -50,19 +56,19 @@ public class Post {
         this.author = author;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Calendar getDate() {
+        return new Calendar.Builder().setInstant(date).build();
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
