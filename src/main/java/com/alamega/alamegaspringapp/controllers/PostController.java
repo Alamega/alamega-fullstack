@@ -1,5 +1,7 @@
-package com.alamega.alamegaspringapp.post;
+package com.alamega.alamegaspringapp.controllers;
 
+import com.alamega.alamegaspringapp.post.Post;
+import com.alamega.alamegaspringapp.post.PostRepository;
 import com.alamega.alamegaspringapp.user.User;
 import com.alamega.alamegaspringapp.user.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;

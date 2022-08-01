@@ -10,7 +10,17 @@
 
   <div class="full-wrapper">
     <div class="content">
-      <button class="button" onclick="window.location.href = '/admin/users'">Управление пользователями</button>
+      <p>Задержка 2 секунды</p>
+      <p>Контент до скрипта</p>
+      <script>
+        fetch("/api/test").then((response) => response.json()).then((result) => {
+          for (let i = 0; i < result.length; i++) {
+            document.getElementById("el").insertAdjacentHTML("afterbegin", "<p style='color: green'>" + result[i] + "</p>")
+          }
+        });
+      </script>
+      <div id="el"></div>
+      <p>Контент после скрипта</p>
     </div>
     <div class="sidebar">
       <div th:replace="layout :: sidebar"></div>

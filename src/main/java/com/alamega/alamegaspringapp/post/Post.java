@@ -6,8 +6,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -31,9 +29,7 @@ public class Post {
     @CreatedDate
     private Date date = new Date();
 
-    public  Post() {
-
-    }
+    public  Post() {}
 
     public Post(User author, String text) {
         this.author = author;
