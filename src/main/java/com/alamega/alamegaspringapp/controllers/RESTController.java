@@ -23,13 +23,10 @@ public class RESTController {
 
     @GetMapping("/test")
     public List<String> test() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ignored) {}
         List<String> list = new ArrayList<>();
-        list.add("Строка 3");
-        list.add("Строка 2");
         list.add("Строка 1");
+        list.add("Строка 2");
+        list.add("Строка 3");
         return list;
     }
 }

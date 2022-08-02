@@ -37,8 +37,8 @@ public class MainController {
         return "game";
     }
 
-    @GetMapping("/asyncTest")
+    @GetMapping("/test")
     public String test() {
-        return "asyncTest";
+        return "test";
     }
 }

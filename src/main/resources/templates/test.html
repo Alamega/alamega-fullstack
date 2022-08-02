@@ -12,13 +12,7 @@
     <div class="content">
       <p>Задержка 2 секунды</p>
       <p>Контент до скрипта</p>
-      <script>
-        fetch("/api/test").then((response) => response.json()).then((result) => {
-          for (let i = 0; i < result.length; i++) {
-            document.getElementById("el").insertAdjacentHTML("afterbegin", "<p style='color: green'>" + result[i] + "</p>")
-          }
-        });
-      </script>
+      <script src="/scripts/fetch.js" onload="getList('/api/test')"></script>
       <div id="el"></div>
       <p>Контент после скрипта</p>
     </div>

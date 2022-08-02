@@ -15,7 +15,6 @@
           Здравствуйте, <a style="padding: 0" th:href="@{'/users/'+${user.getUsername()}}">[[${user.getUsername()}]]</a>!
         </p>
         <button class="button" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
-        <a href="/asyncTest">Тест fetch</a>
       </div>
       <div class="sidebar">
         <div th:replace="layout :: sidebar"></div>
