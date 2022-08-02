@@ -23,17 +23,7 @@
 
             <!--/*@thymesVar id="currentUser" type="com.alamega.alamegaspringapp.user.User"*/-->
             <th:block th:if="${currentUser.getUsername() == user.getUsername()}" >
-                <script>
-                    function changeVisible() {
-                        let post = document.getElementById("new-post");
-                        if (post.style.display == "none"){
-                            post.style.display="";
-                        } else {
-                            post.style.display="none";
-                        }
-                    }
-                </script>
-                <button class="button" onclick="changeVisible()">Новый пост</button>
+                <button class="button" onclick="toggleById('new-post')">Новый пост</button>
                 <div id="new-post" style="display: none">
                     <form class="form_center" th:action="@{/posts}" method="post">
                         <label for="text">Содержание поста</label>

