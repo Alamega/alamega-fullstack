@@ -1,5 +1,6 @@
 package com.alamega.alamegaspringapp;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+    @Value("${security.key}")
+    String key;
     final DataSource dataSource;
     public SecurityConfiguration(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -40,7 +43,15 @@ public class SecurityConfiguration {
                 .defaultSuccessUrl("/", true)
                 .permitAll()
             .and()
+                .rememberMe()
+                .key(key)
+                .rememberMeCookieName("rememberMe")
+                .tokenValiditySeconds(60*60*24)
+                .alwaysRemember(true)
+                .useSecureCookie(true)
+            .and()
                 .logout()
+                .deleteCookies("JSESSIONID", "rememberMe")
                 .logoutSuccessUrl("/")
                 .permitAll();
         return http.build();
