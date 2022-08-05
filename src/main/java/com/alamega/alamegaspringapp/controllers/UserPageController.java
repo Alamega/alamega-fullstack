@@ -25,29 +25,39 @@ public class UserPageController {
 
     @GetMapping({"/users/{username}"})
     public String user(Model model, @PathVariable String username) {
-        User user = userRepository.findByUsername(username);
-        if (user!=null){
-            model.addAttribute("user", user);
-            model.addAttribute("currentUser", userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-            List<Post> bdPosts = postRepository.findAllByAuthor(user);
+        User pageOwner = userRepository.findByUsername(username);
+        User currentUser = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (pageOwner!=null) {
+            List<Post> bdPosts = postRepository.findAllByAuthor(pageOwner);
             List<Post> posts = new ArrayList<>();
             for(int i = bdPosts.size() - 1; i >=0; i--) {
                 posts.add(bdPosts.get(i));
             }
+            model.addAttribute("pageOwner", pageOwner);
             model.addAttribute("posts", posts.toArray());
-            return "user";
+        } else {
+            //Если искомого юзера не существует
+            if (currentUser!=null) {
+                //И текущий юзер авторизован
+                return "redirect:/users/" + currentUser.getUsername();
+            } else {
+                //И текущий юзер - не авторизован
+                return "redirect:/login";
+            }
         }
+        model.addAttribute("currentUser", currentUser);
         return "user";
     }
 
     @PostMapping("/posts")
     public String newPost(@ModelAttribute("text") String text){
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (user!=null) {
+        if (user!=null && text.length() <= 1024) {
             postRepository.save(new Post(user, text));
-            return "redirect:/users/"+user.getUsername();
+            return "redirect:/users/" + user.getUsername();
+        } else {
+            return "redirect:/login";
         }
-        return "redirect:/";
     }
 
     @PostMapping("/posts/delete/{id}")
@@ -57,7 +67,8 @@ public class UserPageController {
         if (post.isPresent() && (user.getRole().equals("ADMIN") || user.getId().equals(post.get().getAuthor().getId()))) {
             postRepository.deleteById(id);
             return "redirect:/users/" + post.get().getAuthor().getUsername();
+        } else {
+            return "redirect:/login";
         }
-        return "redirect:/";
     }
 }

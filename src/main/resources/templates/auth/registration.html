@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:include="layout :: head"></th:block>
-  <title>Регистрация</title>
+  <th:block th:include="layout :: head('Регистрация')"></th:block>
 </head>
 <body>
 <div class="container">
@@ -14,9 +13,9 @@
 
       <form class="form_center" th:action="@{/registration}" method="post">
         <label for="username">Никнейм</label>
-        <input type="text" name="username" id="username" />
+        <input type="text" name="username" id="username" maxlength="20"/>
         <label for="password">Пароль</label>
-        <input type="password" name="password" id="password" />
+        <input type="password" name="password" id="password" maxlength="20"/>
         <button class="button">Зарегистрироваться</button>
       </form>
 

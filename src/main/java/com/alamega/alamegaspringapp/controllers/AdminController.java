@@ -30,11 +30,8 @@ public class AdminController {
 
     @PostMapping("/users/role/{id}")
     public String setUserRole(@PathVariable UUID id) {
-        User user = null;
         if (userRepository.findById(id).isPresent()) {
-            user = userRepository.findById(id).get();
-        }
-        if (user!=null){
+            User user = userRepository.findById(id).get();
             if (user.getRole().equals("USER")){
                 user.setRole("ADMIN");
             } else {

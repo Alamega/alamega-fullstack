@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="users" type="com.alamega.alamegaspringapp.user.User[]"*/-->
 <head>
-  <th:block th:include="layout :: head"></th:block>
-  <title>Управление пользователями</title>
+  <th:block th:include="layout :: head('Управление пользователями')"></th:block>
 </head>
 <body>
   <div class="container">
@@ -11,7 +11,6 @@
     <div class="full-wrapper">
 
       <div class="content">
-        <!--/*@thymesVar id="users" type="com.alamega.alamegaspringapp.user.User[]"*/-->
         <div th:each="user : ${users}">
           <div class="user-card">
             <p>ID: <span th:text="${user.getId()}"></span></p>

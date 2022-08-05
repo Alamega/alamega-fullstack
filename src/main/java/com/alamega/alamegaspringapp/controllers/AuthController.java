@@ -2,6 +2,7 @@ package com.alamega.alamegaspringapp.controllers;
 
 import com.alamega.alamegaspringapp.user.User;
 import com.alamega.alamegaspringapp.user.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,20 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        return "auth/login";
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+            return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
+        } else {
+            return "auth/login";
+        }
     }
 
     @GetMapping("/registration")
     public String registration() {
-        return "auth/registration";
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+            return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
+        } else {
+            return "auth/registration";
+        }
     }
 
     @PostMapping("/registration")
@@ -34,21 +43,18 @@ public class AuthController {
         List<String> errors = new ArrayList<>();
 
         //Гениальная валидация
-        if (userRepository.findByUsername(username) != null){
-            errors.add("Пользователь с таким никнеймом уже существует!");
-        }
-        if (username.length()<4){
-            errors.add("Имя пользователя должно быть длиннее 4 символов!");
-        }
-        if (password.length()<8){
-            errors.add("Пароль должно быть длиннее 8 символов!");
-        }
+        if (userRepository.findByUsername(username) != null){ errors.add("Пользователь с таким никнеймом уже существует!"); }
+        if (username.length()<4){ errors.add("Имя пользователя должно содержать минимум 4 символа!"); }
+        if (username.length()>20){ errors.add("Имя пользователя должно содержать не более 20 символов!"); }
+        if (password.length()<8){ errors.add("Пароль должен содержать минимум 8 символов!"); }
+        if (password.length()>20){ errors.add("Пароль должен содержать не более 20 символов!"); }
 
         //Если ошибок нету
         if (errors.isEmpty()){
             User user = new User();
             user.setUsername(username);
             user.setPassword(new BCryptPasswordEncoder().encode(password));
+            //Ну с таким никнеймом...
             if (username.equals("Alamega")) {
                 user.setRole("ADMIN");
             } else {

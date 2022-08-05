@@ -25,8 +25,8 @@ public class MainController {
 
     @GetMapping({"/", "index", "index.html"})
     public String index(Model model) {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (user!=null){
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+            User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
             model.addAttribute("user", user);
         }
         return "index";

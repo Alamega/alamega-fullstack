@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 //Пускать только админов
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 //Пускать только авторизированных
-                .antMatchers("/users/**").authenticated()
+                .antMatchers("/authenticated/**").authenticated()
                 //Пускать всех
                 .antMatchers("/**").permitAll()
             .and()
