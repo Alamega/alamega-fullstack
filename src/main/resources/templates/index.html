@@ -13,7 +13,7 @@
         <p th:inline="text" th:if="${user}!=null">
           Здравствуйте, <a style="padding: 0" th:href="@{'/users/'+${user.getUsername()}}" th:text="${user.getUsername()}"></a>!
         </p>
-        <button class="button" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
+        <button class="button-green" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
       </div>
       <div class="sidebar">
         <div th:replace="layout :: sidebar"></div>

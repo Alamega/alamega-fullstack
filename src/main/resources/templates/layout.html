@@ -32,9 +32,7 @@
   <a href="/game">Игра</a>
   <script src="/scripts/anime.js"></script>
   <a style="cursor: pointer" onclick="anime()">Бяк бяк</a>
-  <form class="form_center" th:action="@{/logout}" th:method="post" th:if="${#httpServletRequest.getRemoteUser()}">
-    <button class="btn-to-a">Выход</button>
-  </form>
+  <a href="/logout" th:if="${#httpServletRequest.getRemoteUser()}">Выход</a>
 </div>
 
 <!--SIDEBAR-->

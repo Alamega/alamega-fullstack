@@ -38,11 +38,6 @@
     color: rgb(64, 128, 64);
 }
 
-.navbar_menu .btn-to-a {
-    padding: 8px;
-    text-align: left;
-}
-
 @media (max-width: 960px) {
     .navbar {
         display: flex;

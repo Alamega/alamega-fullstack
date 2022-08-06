@@ -23,7 +23,7 @@ body {
   margin: 0 auto;
   min-height: 100%;
   max-width:960px;
-  box-shadow: 0 0 4px black;
+  box-shadow: 5px 5px 10px lightgray, -5px -5px 10px lightgray;
   color: rgb(48, 48, 48);
   background-color: rgba(255, 255, 255, 0.8);
 }
@@ -70,11 +70,6 @@ header a {
   background-color: rgba(255, 255, 255, 1);
 }
 
-.sidebar a:hover, .sidebar .btn-to-a:hover  {
-  color: white;
-  background-color: rgb(64, 128, 64);
-}
-
 footer {
   display: flex;
   justify-content: start;
@@ -103,6 +98,7 @@ a {
   text-decoration: none;
   color: rgb(64, 128, 64);
   padding: 8px;
+  transition: all 0.2s;
 }
 
 p {
@@ -112,12 +108,12 @@ p {
   word-break: break-word;
 }
 
-label {
+.label-green {
   margin: 4px 2px 0;
   color: rgb(64, 128, 64);
 }
 
-input {
+.input-green {
   background-color: rgba(255, 255, 255, 1);
   outline-color: rgb(64, 128, 64);
   padding: 8px;
@@ -127,15 +123,7 @@ input {
   color: rgb(64, 128, 64) !important;
 }
 
-.btn-to-a {
-  border: none;
-  background: none;
-  color: rgb(64, 128, 64);
-  cursor: pointer;
-  padding: 8px;
-}
-
-.button {
+.button-green {
   border-radius: 6px;
   background-color: white;
   margin: 8px 0;
@@ -144,9 +132,10 @@ input {
   padding: 8px;
   cursor: pointer;
   text-align: center;
+  transition: all 0.2s;
 }
 
-.button:hover {
+.button-green:hover {
   color: white;
   background-color: rgb(64, 128, 64);
 }
@@ -160,11 +149,17 @@ input {
   padding: 8px;
   cursor: pointer;
   text-align: center;
+  transition: all 0.2s;
 }
 
 .button-delete:hover {
   color: white;
   background-color: red;
+}
+
+.sidebar a:hover {
+  color: white;
+  background-color: rgb(64, 128, 64);
 }
 
 .form_center {
@@ -194,7 +189,7 @@ input {
   border: 1px solid rgb(64, 128, 64);
 }
 
-.new-post-textarea {
+.textarea-green {
   outline-color: rgb(64, 128, 64);
   padding: 8px;
   margin: 8px 0;
@@ -222,12 +217,8 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
   border-radius: 6px 6px 0 0;
-}
-
-.post-header .btn-to-a:hover {
-  text-decoration: underline green;
 }
 
 .post-date {
@@ -249,6 +240,8 @@ hr {
 .post-text {
   border-radius: 0 0 6px 6px;
 }
+
+
 
 @media (max-width: 960px) {
   .flex_cont {

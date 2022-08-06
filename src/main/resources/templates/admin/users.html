@@ -19,7 +19,7 @@
               Роль: <span th:text="${user.getRole()}"></span>
             </p>
             <form style="width: 100%" th:action="@{'/admin/users/role/'+${user.getId()}}" method="post">
-              <button class="button" style="width: 100%; padding: 8px">Сменить роль</button>
+              <button class="button-green" style="width: 100%; padding: 8px">Сменить роль</button>
             </form>
             <form style="width: 100%" th:action="@{'/admin/users/delete/'+${user.getId()}}" method="post">
               <button class="button-delete" style="margin:0; width: 100%">Удалить</button>

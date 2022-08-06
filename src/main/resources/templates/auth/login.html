@@ -12,11 +12,11 @@
       <p class="title">Вход</p>
 
       <form class="form_center" th:action="@{/login}" method="post">
-        <label for="username">Никнейм</label>
-        <input type="text" name="username" id="username" maxlength="20"/>
-        <label for="password">Пароль</label>
-        <input type="password" name="password" id="password" maxlength="20"/>
-        <button class="button">Войти</button>
+        <label class="label-green"  for="username">Никнейм</label>
+        <input class="input-green" type="text" name="username" id="username" maxlength="20"/>
+        <label class="label-green"  for="password">Пароль</label>
+        <input class="input-green" type="password" name="password" id="password" maxlength="20"/>
+        <button class="button-green">Войти</button>
       </form>
 
       <p style="color: red" th:if="${param.error}">Неверный логин или пароль.</p>

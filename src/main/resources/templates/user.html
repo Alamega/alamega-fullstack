@@ -24,12 +24,12 @@
             </div>
 
             <th:block th:if="${currentUser!=null && (currentUser.getUsername() == pageOwner.getUsername())}" >
-                <button class="button" onclick="toggleById('new-post')">Новый пост</button>
+                <button class="button-green" onclick="toggleById('new-post')">Новый пост</button>
                 <div id="new-post" style="display: none">
                     <form class="form_center" th:action="@{/posts}" method="post">
-                        <label for="text">Содержание поста</label>
-                        <textarea maxlength="1024" rows="5" class="new-post-textarea" name="text" id="text"></textarea>
-                        <button class="button">Опубликовать</button>
+                        <label class="label-green" for="text">Содержание поста</label>
+                        <textarea maxlength="1024" rows="5" class="textarea-green" name="text" id="text"></textarea>
+                        <button class="button-green">Опубликовать</button>
                     </form>
                 </div>
             </th:block>
@@ -50,8 +50,8 @@
                         </script>
 
                         <th:block th:if="${currentUser!=null && (currentUser.getRole() == 'ADMIN' || currentUser.getId() == pageOwner.getId())}">
-                            <form style="width: 100%" th:action="@{'/posts/delete/'+${post.getId()}}" method="post">
-                                <button class="btn-to-a">Удалить</button>
+                            <form th:action="@{'/posts/delete/'+${post.getId()}}" method="post">
+                                <input type="image" src="/images/delete.png" width="20" style="padding: 8px" alt="Удалить">
                             </form>
                         </th:block>
                     </div>
