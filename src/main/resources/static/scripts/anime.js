@@ -71,9 +71,10 @@ function anime() {
         })
         document.getElementsByClassName("container").item(0).appendChild(idol);
     }
-    setInterval(() => {
+    const intervalId = setInterval(() => {
         if (!document.getElementById("idol")) {
             document.getElementsByTagName("style")[1].remove();
+            clearInterval(intervalId);
         }
     }, 1000)
 }
