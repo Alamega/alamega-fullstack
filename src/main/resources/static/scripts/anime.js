@@ -51,7 +51,6 @@ function anime() {
       }
     `;
     document.head.appendChild(anime_stylesheet);
-
     for (let i = 0; i < 32; i++) {
         const idol = document.createElement("img");
         idol.src = "/images/idol.png";
@@ -72,7 +71,6 @@ function anime() {
         })
         document.getElementsByClassName("container").item(0).appendChild(idol);
     }
-
     setInterval(() => {
         if (!document.getElementById("idol")) {
             document.getElementsByTagName("style")[1].remove();
