@@ -28,13 +28,8 @@ public class UserPageController {
         User pageOwner = userRepository.findByUsername(username);
         User currentUser = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (pageOwner!=null) {
-            List<Post> bdPosts = postRepository.findAllByAuthor(pageOwner);
-            List<Post> posts = new ArrayList<>();
-            for(int i = bdPosts.size() - 1; i >=0; i--) {
-                posts.add(bdPosts.get(i));
-            }
             model.addAttribute("pageOwner", pageOwner);
-            model.addAttribute("posts", posts.toArray());
+            model.addAttribute("posts", postRepository.findAllByAuthor(pageOwner).toArray());
         } else {
             //Если искомого юзера не существует
             if (currentUser!=null) {
@@ -50,10 +45,12 @@ public class UserPageController {
     }
 
     @PostMapping("/posts")
-    public String newPost(@ModelAttribute("text") String text){
+    public String newPost(Model model, @ModelAttribute("text") String text){
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (user!=null && text.length() <= 1024) {
-            postRepository.save(new Post(user, text));
+        if (user!=null) {
+            if (text.length() >= 1 && text.length() <= 1024) {
+                postRepository.save(new Post(user, text));
+            }
             return "redirect:/users/" + user.getUsername();
         } else {
             return "redirect:/login";
