@@ -192,7 +192,7 @@ p {
 .textarea-green {
   outline-color: rgb(64, 128, 64);
   padding: 8px;
-  margin: 8px 0;
+  margin: 8px 0 0;
   border: 1px solid rgb(64, 128, 64);
   border-radius: 6px;
   color: rgb(64, 128, 64);
@@ -201,7 +201,7 @@ p {
 
 .posts {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .post {

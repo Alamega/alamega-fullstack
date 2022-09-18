@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +28,11 @@ public class UserPageController {
         User currentUser = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (pageOwner!=null) {
             model.addAttribute("pageOwner", pageOwner);
-            model.addAttribute("posts", postRepository.findAllByAuthor(pageOwner).toArray());
+            List<Post> posts = postRepository.findAllByAuthorOrderByDateDesc(pageOwner);
+            for (Post post : posts) {
+                post.setText(post.getText().replaceAll("\n", "<br/>"));
+            }
+            model.addAttribute("posts", posts);
         } else {
             //Если искомого юзера не существует
             if (currentUser!=null) {
