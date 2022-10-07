@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link type="image/png" sizes="320x320" rel="icon" href="/images/icon.png" />
   <link rel="stylesheet" type="text/css" href="/styles/main.css" />
-  <link rel="stylesheet" type="text/css" href="/styles/navbar.css" />
-  <link rel="stylesheet" type="text/css" href="/styles/bg.css" />
   <script src="/scripts/toggleElVisible.js"></script>
   <!--/*@thymesVar id="title" type="String"*/-->
   <title th:text="${title}"></title>
@@ -14,7 +12,7 @@
 
 <!--HEADER-->
 <header th:fragment="header">
-  <a href="/">Alamega</a>
+  <a href="/"><h1>Alamega</h1></a>
   <div id="clock">Где я потерял свои часы?</div>
   <script src="/scripts/clock.js"></script>
   <div class="navbar" id="navbar">
@@ -29,9 +27,9 @@
   <a href="/login" th:if="!${#httpServletRequest.getRemoteUser()}">Вход</a>
   <a href="/registration" th:if="!${#httpServletRequest.getRemoteUser()}">Регистрация</a>
   <a th:href="@{'/users/'+${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.getRemoteUser()}">Личный кабинет</a>
-  <a href="/game">Игра</a>
+  <a href="/game" th:if="${#httpServletRequest.getRemoteUser()}">Игра</a>
   <script src="/scripts/anime.js"></script>
-  <a style="cursor: pointer" onclick="anime()">Бяк бяк</a>
+  <a style="cursor: pointer" onclick="anime()" th:if="${#httpServletRequest.getRemoteUser()}">Бяк бяк</a>
   <a href="/logout" th:if="${#httpServletRequest.getRemoteUser()}">Выход</a>
 </div>
 

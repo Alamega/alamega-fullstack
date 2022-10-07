@@ -1,13 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
 * {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: "Ubuntu", sans-serif;
 }
 
 ::-webkit-scrollbar {
   width: 0;
 }
 
+::selection {
+  background: rgb(205, 255, 205);
+  color: green;
+}
+
 html {
+  background: white url(../images/bg.png) no-repeat center center/cover fixed;
   height: 100%;
 }
 
@@ -23,7 +31,7 @@ body {
   margin: 0 auto;
   min-height: 100%;
   max-width:960px;
-  box-shadow: 5px 5px 10px lightgray, -5px -5px 10px lightgray;
+  box-shadow: 0 0 4px black;
   color: rgb(48, 48, 48);
   background-color: rgba(255, 255, 255, 0.8);
 }
@@ -41,7 +49,7 @@ header {
   z-index: 5;
 }
 
-header a {
+header h1 {
   color: rgb(48, 48, 48);
   font-size: 32px;
   margin: 0;
@@ -84,12 +92,12 @@ footer {
 
 div#clock {
   text-align: center;
-  font-size: 32px;
+  font-size: 39px;
   padding: 0 12px;
 }
 
-.title {
-  font-size: 28px;
+.title-green {
+  font-size: 32px;
   color: rgb(64, 128, 64);
   align-self: center;
 }
@@ -241,7 +249,44 @@ hr {
   border-radius: 0 0 6px 6px;
 }
 
+.navbar {
+  display: none;
+  flex-direction: column;
+  margin: auto 0 0 0;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+}
 
+.navbar:hover {
+  box-shadow: 0 0 4px black;
+}
+
+.navbar_icon {
+  background: url(../images/burger.png) center/40px 40px;
+  align-self: flex-end;
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  border: none;
+}
+
+.navbar_menu {
+  display: flex;
+  flex-direction: column;
+  margin: 6px;
+  border-radius: 8px;
+  box-shadow: 0 0 2px black;
+}
+
+.navbar:hover .navbar_icon {
+  transform: scale(1.1);
+}
+
+.navbar_menu a {
+  padding: 12px;
+  font-size: 16px;
+  color: rgb(64, 128, 64);
+}
 
 @media (max-width: 960px) {
   .flex_cont {
@@ -254,5 +299,9 @@ hr {
 
   .sidebar, div#clock {
     display: none;
+  }
+
+  .navbar {
+    display: flex;
   }
 }
