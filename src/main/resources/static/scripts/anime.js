@@ -51,7 +51,7 @@ function anime() {
       }
     `;
     document.head.appendChild(anime_stylesheet);
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 24; i++) {
         const idol = document.createElement("img");
         idol.src = "/images/idol.png";
         idol.height = 128;
@@ -59,8 +59,8 @@ function anime() {
         idol.style.position = "absolute";
         idol.style.zIndex = "1000";
         idol.id = "idol";
-        idol.style.top = Math.random() * window.innerHeight - 64 + "px";
-        idol.style.left = Math.random() * window.innerWidth - 64 + "px";
+        idol.style.top = Math.random() * (document.body.clientHeight - 128) + "px";
+        idol.style.left = 190 + Math.random() * (document.body.clientWidth - 520) + "px";
         if (i%2===0) {
             idol.style.animation = "knock 0.4s linear infinite, move1 4s linear infinite";
         } else {
