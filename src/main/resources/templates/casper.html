@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="layout :: head('Касперский красава')"></th:block>
+</head>
+<body>
+<div class="container">
+  <header th:include="layout :: header"></header>
+
+  <div class="full-wrapper">
+    <div class="content">
+      <a href="/knuckles">Knuckles</a>
+    </div>
+    <div class="sidebar">
+      <div th:replace="layout :: sidebar"></div>
+    </div>
+  </div>
+
+  <footer th:include="layout :: footer"></footer>
+</div>
+</body>
+</html>

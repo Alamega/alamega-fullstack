@@ -14,6 +14,7 @@
           Здравствуйте, <a style="padding: 0" th:href="@{'/users/'+${user.getUsername()}}" th:text="${user.getUsername()}"></a>!
         </p>
         <button class="button-green" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
+        <a href="/casper">Касперский</a>
       </div>
       <div class="sidebar">
         <div th:replace="layout :: sidebar"></div>

@@ -51,7 +51,7 @@ function anime() {
       }
     `;
     document.head.appendChild(anime_stylesheet);
-    for (let i = 0; i < 32; i++) {
+    for (let i = 0; i < 12; i++) {
         const idol = document.createElement("img");
         idol.src = "/images/idol.png";
         idol.height = 128;

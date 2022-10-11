@@ -195,6 +195,7 @@ p {
   margin: 4px;
   padding: 4px;
   border: 1px solid rgb(64, 128, 64);
+  border-radius: 6px;
 }
 
 .textarea-green {
@@ -273,7 +274,7 @@ hr {
 .navbar_menu {
   display: flex;
   flex-direction: column;
-  margin: 6px;
+  margin: 10px;
   border-radius: 8px;
   box-shadow: 0 0 2px black;
 }
@@ -286,6 +287,10 @@ hr {
   padding: 12px;
   font-size: 16px;
   color: rgb(64, 128, 64);
+}
+
+.anime-link {
+  display: block;
 }
 
 @media (max-width: 960px) {
@@ -303,5 +308,9 @@ hr {
 
   .navbar {
     display: flex;
+  }
+
+  .anime-link {
+    display: none;
   }
 }
