@@ -290,6 +290,7 @@ hr {
 }
 
 .anime-link {
+  cursor: pointer;
   display: block;
 }
 

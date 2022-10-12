@@ -23,11 +23,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/casper")
-    public String casper() {
-        return "casper";
-    }
-
     @GetMapping("/knuckles")
     public String knuckles() {
         return "knuckles";

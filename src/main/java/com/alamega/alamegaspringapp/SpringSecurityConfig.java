@@ -14,11 +14,11 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class SpringSecurityConfig {
     @Value("${security.key}")
     String key;
     final DataSource dataSource;
-    public SecurityConfiguration(DataSource dataSource) {
+    public SpringSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
