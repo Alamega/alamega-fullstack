@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="layout :: head('Чатик')"></th:block>
+</head>
+<body>
+<div class="container">
+  <header th:include="layout :: header"></header>
+
+  <div class="full-wrapper">
+    <div class="content">
+      <label class="label-green" for="message">Сообщение</label>
+      <input class="input-green" id="message" type="text" name="message" maxlength="256">
+      <button class="button-green" onclick="sendMessage()">Отправить</button>
+      <p style="color: red; padding: 0 0 6px;" id="errors"></p>
+      <div id="messages" class="posts">
+
+      <script>
+        let socket = new WebSocket("ws://" + window.location.host + "/webSocketChat");
+        let author = "[[${#httpServletRequest.getRemoteUser()}]]";
+        if (author === "") { author = "Гость" }
+
+        function sendMessage() {
+          document.getElementById("errors").innerHTML = "";
+          let outgoingMessage = this.message.value;
+          if (this.message.value.length !== 0) {
+            socket.send(JSON.stringify({author: author, text: outgoingMessage}));
+          } else {
+            document.getElementById("errors").innerHTML = "Сообщение не может быть пустым!"
+          }
+          this.message.value = "";
+        }
+
+        socket.onmessage = function(event) {
+          let message = JSON.parse(event.data)
+          let messageElem = document.createElement('div');
+          messageElem.className = "post";
+          messageElem.innerHTML = `<div class="post-header"><p>` + message.author + `</p></div><hr><p class="post-text">` + message.text + `</p>`;
+          document.getElementById('messages').prepend(messageElem);
+        }
+      </script>
+
+      </div>
+    </div>
+    <div class="sidebar">
+      <div th:replace="layout :: sidebar"></div>
+    </div>
+  </div>
+
+  <footer th:include="layout :: footer"></footer>
+</div>
+</body>
+</html>

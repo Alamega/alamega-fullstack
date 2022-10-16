@@ -27,6 +27,7 @@
   <a href="/login" th:if="!${#httpServletRequest.getRemoteUser()}">Вход</a>
   <a href="/registration" th:if="!${#httpServletRequest.getRemoteUser()}">Регистрация</a>
   <a th:href="@{'/users/'+${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.getRemoteUser()}">Личный кабинет</a>
+  <a href="/chat" th:if="${#httpServletRequest.getRemoteUser()}">Чат</a>
   <script src="/scripts/anime.js"></script>
   <a href="/knuckles" th:if="${#httpServletRequest.getRemoteUser()}">Наклз</a>
   <a class="anime-link" onclick="anime()" th:if="${#httpServletRequest.getRemoteUser()}">Бяк бяк</a>

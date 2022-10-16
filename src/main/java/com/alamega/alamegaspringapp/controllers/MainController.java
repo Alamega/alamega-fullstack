@@ -23,6 +23,11 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/chat")
+    public String chat() {
+        return "chat";
+    }
+
     @GetMapping("/knuckles")
     public String knuckles() {
         return "knuckles";
