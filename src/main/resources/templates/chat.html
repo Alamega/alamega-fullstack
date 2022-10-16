@@ -16,7 +16,7 @@
       <div id="messages" class="posts">
 
       <script>
-        let socket = new WebSocket("ws://" + window.location.host + "/webSocketChat");
+        let socket = new WebSocket("wss://" + window.location.host + "/webSocketChat");
         let author = "[[${#httpServletRequest.getRemoteUser()}]]";
         if (author === "") { author = "Гость" }
 
