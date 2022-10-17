@@ -10,9 +10,9 @@
   <div class="full-wrapper">
     <div class="content">
       <label class="label-green" for="message">Сообщение</label>
-      <input class="input-green" id="message" type="text" name="message" maxlength="256">
+      <textarea class="textarea-green" id="message" maxlength="256"></textarea>
       <button class="button-green" onclick="sendMessage()">Отправить</button>
-      <p style="color: red; padding: 0 0 6px;" id="errors"></p>
+      <p style="color: red; padding: 0 0 6px; text-align: center" id="errors"></p>
       <div id="messages" class="posts">
 
       <script>
@@ -47,7 +47,7 @@
                 <p style="color: rgb(64, 128, 64)">` + message.time + `</p>
             </div>
             <hr>
-            <p class="post-text">` + message.text + `</p>
+            <p class="post-text">` + message.text.replaceAll("\n", "</br>") + `</p>
           `;
           messagesDiv.prepend(messageElem);
           if(document.getElementsByClassName("post").length > 10) {
