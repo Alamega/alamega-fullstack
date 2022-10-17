@@ -16,9 +16,11 @@
       <div id="messages" class="posts">
 
       <script>
-        let socket = new WebSocket("wss://" + window.location.host + "/webSocketChat");
+        let socket = new WebSocket("ws://" + window.location.host + "/webSocketChat");
         let author = "[[${#httpServletRequest.getRemoteUser()}]]";
         if (author === "") { author = "Гость" }
+
+        let messagesDiv = document.getElementById('messages');
 
         setInterval(() => {
           socket.send("ping");
@@ -40,7 +42,10 @@
           let messageElem = document.createElement('div');
           messageElem.className = "post";
           messageElem.innerHTML = `<div class="post-header"><p>` + message.author + `</p></div><hr><p class="post-text">` + message.text + `</p>`;
-          document.getElementById('messages').prepend(messageElem);
+          messagesDiv.prepend(messageElem);
+          if(document.getElementsByClassName("post").length > 10) {
+            document.getElementsByClassName("post")[10].remove();
+          }
         }
       </script>
 
