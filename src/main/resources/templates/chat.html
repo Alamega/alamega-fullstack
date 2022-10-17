@@ -20,6 +20,10 @@
         let author = "[[${#httpServletRequest.getRemoteUser()}]]";
         if (author === "") { author = "Гость" }
 
+        setInterval(() => {
+          socket.send("ping");
+        }, 30000)
+
         function sendMessage() {
           document.getElementById("errors").innerHTML = "";
           let outgoingMessage = this.message.value;

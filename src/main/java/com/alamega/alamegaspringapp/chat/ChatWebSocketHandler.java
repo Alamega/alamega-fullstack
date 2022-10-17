@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatWebSocketHandler extends TextWebSocketHandler {
-
     private final List<WebSocketSession> webSocketSessions = new ArrayList<>();
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
         webSocketSessions.add(session);
@@ -18,8 +18,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        for (WebSocketSession webSocketSession : webSocketSessions) {
-            webSocketSession.sendMessage(message);
+        if (!message.getPayload().equals("ping")) {
+            for (WebSocketSession webSocketSession : webSocketSessions) {
+                webSocketSession.sendMessage(message);
+            }
         }
     }
 
