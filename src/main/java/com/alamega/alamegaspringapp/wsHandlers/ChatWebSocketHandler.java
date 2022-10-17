@@ -1,4 +1,4 @@
-package com.alamega.alamegaspringapp.chat;
+package com.alamega.alamegaspringapp.wsHandlers;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
