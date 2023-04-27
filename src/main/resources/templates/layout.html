@@ -1,4 +1,5 @@
-<!--HEAD-->
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:fragment="head(title)">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,7 +10,7 @@
   <!--/*@thymesVar id="title" type="String"*/-->
   <title th:text="${title}"></title>
 </head>
-
+<body>
 <!--HEADER-->
 <header th:fragment="header">
   <a href="/"><h1>Alamega</h1></a>
@@ -17,27 +18,29 @@
   <script src="/scripts/clock.js"></script>
   <div class="navbar" id="navbar">
     <button class="navbar_icon" id="navbar_btn"></button>
-    <div class="navbar_menu" id="navbar_menu" th:include="layout :: menu"></div>
+    <div class="navbar_menu" id="navbar_menu" th:replace="~{layout :: menu}"></div>
   </div>
   <script src="/scripts/navbar.js"></script>
 </header>
 
 <!--MENU-->
-<div th:fragment="menu">
-  <a href="/login" th:if="!${#httpServletRequest.getRemoteUser()}">Вход</a>
-  <a href="/registration" th:if="!${#httpServletRequest.getRemoteUser()}">Регистрация</a>
-  <a th:href="@{'/users/'+${#httpServletRequest.getRemoteUser()}}" th:if="${#httpServletRequest.getRemoteUser()}">Личный кабинет</a>
-  <a href="/chat" th:if="${#httpServletRequest.getRemoteUser()}">Чат</a>
-  <script src="/scripts/anime.js"></script>
-  <a href="/knuckles" th:if="${#httpServletRequest.getRemoteUser()}">Наклз</a>
-  <a class="anime-link" onclick="anime()" th:if="${#httpServletRequest.getRemoteUser()}">Бяк бяк</a>
-  <a href="/logout" th:if="${#httpServletRequest.getRemoteUser()}">Выход</a>
-</div>
+<th:block th:fragment="menu">
+        <a href="/login" sec:authorize="!isAuthenticated()">Вход</a>
+        <a href="/registration" sec:authorize="!isAuthenticated()">Регистрация</a>
+        <a href="/me" sec:authorize="isAuthenticated()">Личный кабинет</a>
+        <a href="/chat" sec:authorize="isAuthenticated()">Чат</a>
+        <script src="/scripts/anime.js"></script>
+        <a href="/knuckles" sec:authorize="isAuthenticated()">Наклз</a>
+        <a class="anime-link" onclick="anime()" sec:authorize="isAuthenticated()">Бяк бяк</a>
+        <a href="/logout" sec:authorize="isAuthenticated()">Выход</a>
+</th:block>
 
 <!--SIDEBAR-->
-<th:block th:fragment="sidebar" th:include="layout :: menu"></th:block>
+<th:block th:fragment="sidebar" th:replace="~{layout :: menu}"></th:block>
 
 <!--FOOTER-->
 <footer th:fragment="footer">
   <p>&copy Made by Alamega</p>
 </footer>
+</body>
+</html>

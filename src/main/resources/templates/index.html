@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="user" type="com.alamega.alamegaspringapp.user.User"*/-->
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-  <th:block th:include="layout :: head('Сайтик')"></th:block>
+  <th:block th:replace="~{layout :: head('Сайтик')}"></th:block>
 </head>
 <body>
   <div class="container">
-    <header th:include="layout :: header"></header>
+    <header th:replace="~{layout :: header}"></header>
 
     <div class="full-wrapper">
       <div class="content">
-        <p th:inline="text" th:if="${user}!=null">
-          Здравствуйте, <a style="padding: 0" th:href="@{'/users/'+${user.getUsername()}}" th:text="${user.getUsername()}"></a>!
+        <p th:inline="text" sec:authorize="isAuthenticated()">
+          Здравствуйте, <a style="padding: 0" href="/me" sec:authentication="name"></a>!
         </p>
-        <button class="button-green" onclick="window.location.href = '/admin'" th:if="${user!=null && user.getRole() == 'ADMIN'}">Админка</button>
+        <button class="button-green" onclick="window.location.href = '/admin'" sec:authorize="hasAuthority('ADMIN')">Админка</button>
+
       </div>
       <div class="sidebar">
-        <div th:replace="layout :: sidebar"></div>
+        <div th:replace="~{layout :: sidebar}"></div>
       </div>
     </div>
 
-    <footer th:include="layout :: footer"></footer>
+    <footer th:replace="~{layout :: footer}"></footer>
   </div>
 </body>
 </html>

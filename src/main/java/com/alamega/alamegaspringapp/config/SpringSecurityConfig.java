@@ -30,13 +30,13 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
+            .authorizeHttpRequests()
                 //Пускать только админов
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 //Пускать только авторизированных
-                .antMatchers("/authenticated/**").authenticated()
+                .requestMatchers("/authenticated/**").authenticated()
                 //Пускать всех
-                .antMatchers("/**").permitAll()
+                .requestMatchers("/**").permitAll()
             .and()
                 .formLogin()
                 .loginPage("/login")

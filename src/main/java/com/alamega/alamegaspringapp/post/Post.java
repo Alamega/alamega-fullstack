@@ -1,11 +1,11 @@
 package com.alamega.alamegaspringapp.post;
 
 import com.alamega.alamegaspringapp.user.User;
+import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;

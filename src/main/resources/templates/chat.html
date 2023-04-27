@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-  <th:block th:include="layout :: head('Чатик')"></th:block>
+  <th:block th:replace="~{layout :: head('Чатик')}"></th:block>
 </head>
 <body>
 <div class="container">
-  <header th:include="layout :: header"></header>
+  <header th:replace="~{layout :: header}"></header>
 
   <div class="full-wrapper">
     <div class="content">
@@ -14,12 +14,13 @@
       <button class="button-green" onclick="sendMessage()">Отправить</button>
       <p style="color: red; padding: 0 0 6px; text-align: center" id="errors"></p>
       <div id="messages" class="posts">
-
       <script>
-        let socket = new WebSocket("wss://" + window.location.host + "/webSocketChat");
-        let author = "[[${#httpServletRequest.getRemoteUser()}]]";
-        if (author === "") { author = "Гость" }
-
+        let socket;
+        if (location.protocol !== 'https:') {
+          socket = new WebSocket("ws://" + window.location.host + "/webSocketChat")
+        } else {
+          socket = new WebSocket("wss://" + window.location.host + "/webSocketChat")
+        }
         let messagesDiv = document.getElementById('messages');
 
         setInterval(() => {
@@ -30,7 +31,7 @@
           document.getElementById("errors").innerHTML = "";
           let outgoingMessage = this.message.value;
           if (this.message.value.length !== 0) {
-            socket.send(JSON.stringify({author: author, text: outgoingMessage, time: new Date().toLocaleTimeString()}));
+            socket.send(JSON.stringify({author: "", text: outgoingMessage, time: new Date().toLocaleTimeString()}));
           } else {
             document.getElementById("errors").innerHTML = "Сообщение не может быть пустым!"
           }
@@ -39,6 +40,7 @@
 
         socket.onmessage = function(event) {
           let message = JSON.parse(event.data)
+          console.log(message, event.data)
           let messageElem = document.createElement('div');
           messageElem.className = "post";
           messageElem.innerHTML = `
@@ -59,11 +61,11 @@
       </div>
     </div>
     <div class="sidebar">
-      <div th:replace="layout :: sidebar"></div>
+      <div th:replace="~{layout :: sidebar}"></div>
     </div>
   </div>
 
-  <footer th:include="layout :: footer"></footer>
+  <footer th:replace="~{layout :: footer}"></footer>
 </div>
 </body>
 </html>

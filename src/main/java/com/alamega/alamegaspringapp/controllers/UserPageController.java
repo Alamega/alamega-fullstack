@@ -22,6 +22,11 @@ public class UserPageController {
         this.postRepository = postRepository;
     }
 
+    @GetMapping({"/me"})
+    public String me() {
+        return "redirect:/users/" + SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     @GetMapping({"/users/{username}"})
     public String user(Model model, @PathVariable String username) {
         User pageOwner = userRepository.findByUsername(username);
@@ -48,7 +53,7 @@ public class UserPageController {
     }
 
     @PostMapping("/posts")
-    public String newPost(Model model, @ModelAttribute("text") String text){
+    public String newPost(@ModelAttribute("text") String text){
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (user!=null) {
             if (text.length() >= 1 && text.length() <= 1024) {
