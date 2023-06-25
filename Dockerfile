@@ -1,9 +1,8 @@
-FROM openjdk:18
+FROM 3.9.2-amazoncorretto-20 AS build
+COPY . .
+RUN mvn clean package -Pprod -DskipTests
+
+FROM openjdk:20
+COPY --from=build ./target/*.jar ./app.jar
 EXPOSE 8080
-ADD ./target/*.jar ./app.jar
-
-
-#ENTRYPOINT ["java","-jar","app.jar"]
-
-#docker build -t alamega .
-#docker run -p 8080:8080 alamega
+ENTRYPOINT ["java","-jar","app.jar"]
