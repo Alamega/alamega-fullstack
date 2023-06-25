@@ -1,7 +1,9 @@
 FROM openjdk:18
-ADD target/alamega-spring-app-1.0.0.jar server.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","server.jar"]
+ADD ./target/*.jar ./app.jar
+
+
+#ENTRYPOINT ["java","-jar","app.jar"]
 
 #docker build -t alamega .
 #docker run -p 8080:8080 alamega

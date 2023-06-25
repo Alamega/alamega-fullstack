@@ -3,8 +3,10 @@ package com.alamega.alamegaspringapp.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -29,31 +31,37 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests()
+        http.csrf(AbstractHttpConfigurer::disable);
+
+        http.authorizeHttpRequests(requests -> requests
                 //Пускать только админов
-                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/admin/**").hasAuthority("ADMIN")
                 //Пускать только авторизированных
                 .requestMatchers("/authenticated/**").authenticated()
                 //Пускать всех
                 .requestMatchers("/**").permitAll()
-            .and()
-                .formLogin()
+        );
+
+        http.formLogin(formLogin -> formLogin
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
-            .and()
-                .rememberMe()
+        );
+
+        http.rememberMe(rememberMe -> rememberMe
                 .key(key)
                 .rememberMeCookieName("rememberMe")
                 .tokenValiditySeconds(60*60*24)
                 .alwaysRemember(true)
                 .useSecureCookie(true)
-            .and()
-                .logout()
+        );
+
+        http.logout(logout -> logout
                 .deleteCookies("JSESSIONID", "rememberMe")
                 .logoutSuccessUrl("/")
-                .permitAll();
+                .permitAll()
+        );
+
         return http.build();
     }
 

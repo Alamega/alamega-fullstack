@@ -9,10 +9,15 @@
 
     <div class="full-wrapper">
       <div class="content">
-        <p th:inline="text" sec:authorize="isAuthenticated()">
-          Здравствуйте, <a style="padding: 0" href="/me" sec:authentication="name"></a>!
-        </p>
-        <button class="button-green" onclick="window.location.href = '/admin'" sec:authorize="hasAuthority('ADMIN')">Админка</button>
+
+        <th:block sec:authorize="isAuthenticated()">
+          <p>Здравствуйте, <a style="padding: 0" href="/me" sec:authentication="name"></a>!</p>
+          <button class="button-green" onclick="window.location.href = '/admin'" sec:authorize="hasAuthority('ADMIN')">Админка</button>
+        </th:block>
+
+        <th:block sec:authorize="!isAuthenticated()">
+          <p>Мб <a style="padding: 0" href="/login">войдешь</a> или хотя бы <a style="padding: 0" href="/registration">зарегаешься</a>?</p>
+        </th:block>
 
       </div>
       <div class="sidebar">

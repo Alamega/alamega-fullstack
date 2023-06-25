@@ -1,13 +1,12 @@
 const menu = document.getElementById("navbar_menu");
 const navbar = document.getElementById("navbar");
-const btn = document.getElementById("navbar_btn");
 menu.style.display = "none";
-btn.addEventListener("click", () => {
-    if (menu.style.display) {
+function switchNavbar() {
+    if (menu.style.display === "none") {
         navbar.style.boxShadow = "0 0 4px black";
-        menu.style.display = "";
+        menu.style.display = "flex";
     } else {
         navbar.style.boxShadow = "";
         menu.style.display = "none";
     }
-});
+}

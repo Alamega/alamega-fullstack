@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>3.1.1</version>
         <relativePath/>
     </parent>
     <groupId>com.alamega</groupId>
@@ -35,12 +35,12 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
         <dependency>
@@ -54,9 +54,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230227</version>
         </dependency>
     </dependencies>
 

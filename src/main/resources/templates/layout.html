@@ -13,14 +13,14 @@
 <body>
 <!--HEADER-->
 <header th:fragment="header">
-  <a href="/"><h1>Alamega</h1></a>
-  <div id="clock">Где я потерял свои часы?</div>
-  <script src="/scripts/clock.js"></script>
-  <div class="navbar" id="navbar">
-    <button class="navbar_icon" id="navbar_btn"></button>
-    <div class="navbar_menu" id="navbar_menu" th:replace="~{layout :: menu}"></div>
-  </div>
-  <script src="/scripts/navbar.js"></script>
+    <a href="/"><h1>Alamega</h1></a>
+    <div id="clock">Где я потерял свои часы?</div>
+    <script src="/scripts/clock.js"></script>
+    <div class="navbar" id="navbar">
+        <button class="navbar_icon" id="navbar_btn" onclick="switchNavbar()"></button>
+        <div class="navbar_menu" id="navbar_menu"><div th:replace="~{layout :: menu}"></div></div>
+    </div>
+    <script src="/scripts/navbar.js"></script>
 </header>
 
 <!--MENU-->
