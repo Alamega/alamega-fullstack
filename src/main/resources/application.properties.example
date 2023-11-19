@@ -11,6 +11,4 @@ spring.datasource.url=
 spring.datasource.username=
 spring.datasource.password=
 
-spring.jpa.show-sql=true
-
-security.key="test_key"
+security.key=
