@@ -7,9 +7,9 @@ spring.jpa.open-in-view=false
 
 spring.datasource.driver-class-name=org.postgresql.Driver
 
-spring.datasource.url=jdbc:postgresql://ep-raspy-sun-158388.eu-central-1.aws.neon.tech/neondb
-spring.datasource.username=Alamega
-spring.datasource.password=xaDmsk6FINq8
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
 
 spring.jpa.show-sql=true
 
