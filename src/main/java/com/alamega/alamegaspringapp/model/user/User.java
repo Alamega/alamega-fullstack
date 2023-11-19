@@ -1,4 +1,4 @@
-package com.alamega.alamegaspringapp.user;
+package com.alamega.alamegaspringapp.model.user;
 
 
 import jakarta.persistence.*;

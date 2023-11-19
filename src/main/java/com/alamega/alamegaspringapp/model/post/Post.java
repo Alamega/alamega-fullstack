@@ -1,6 +1,6 @@
-package com.alamega.alamegaspringapp.post;
+package com.alamega.alamegaspringapp.model.post;
 
-import com.alamega.alamegaspringapp.user.User;
+import com.alamega.alamegaspringapp.model.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

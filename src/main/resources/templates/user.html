@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<!--/*@thymesVar id="pageOwner" type="com.alamega.alamegaspringapp.user.User"*/-->
-<!--/*@thymesVar id="currentUser" type="com.alamega.alamegaspringapp.user.User"*/-->
-<!--/*@thymesVar id="posts" type="com.alamega.alamegaspringapp.post.Post[]"*/-->
+<!--/*@thymesVar id="pageOwner" type="com.alamega.alamegaspringapp.model.user.User"*/-->
+<!--/*@thymesVar id="currentUser" type="com.alamega.alamegaspringapp.model.user.User"*/-->
+<!--/*@thymesVar id="posts" type="com.alamega.alamegaspringapp.model.post.Post[]"*/-->
 <head>
     <th:block th:replace="~{layout :: head(${pageOwner.getUsername()})}"></th:block>
 </head>

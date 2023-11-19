@@ -1,9 +1,9 @@
 package com.alamega.alamegaspringapp.controllers;
 
-import com.alamega.alamegaspringapp.post.Post;
-import com.alamega.alamegaspringapp.post.PostRepository;
-import com.alamega.alamegaspringapp.user.User;
-import com.alamega.alamegaspringapp.user.UserRepository;
+import com.alamega.alamegaspringapp.model.post.Post;
+import com.alamega.alamegaspringapp.model.post.PostRepository;
+import com.alamega.alamegaspringapp.model.user.User;
+import com.alamega.alamegaspringapp.model.user.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

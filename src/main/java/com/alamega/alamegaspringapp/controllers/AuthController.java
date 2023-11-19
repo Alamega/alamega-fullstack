@@ -1,7 +1,7 @@
 package com.alamega.alamegaspringapp.controllers;
 
-import com.alamega.alamegaspringapp.user.User;
-import com.alamega.alamegaspringapp.user.UserRepository;
+import com.alamega.alamegaspringapp.model.user.User;
+import com.alamega.alamegaspringapp.model.user.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;

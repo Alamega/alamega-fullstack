@@ -1,11 +1,13 @@
 package com.alamega.alamegaspringapp.controllers;
 
-import com.alamega.alamegaspringapp.user.User;
-import com.alamega.alamegaspringapp.user.UserRepository;
+import com.alamega.alamegaspringapp.model.user.User;
+import com.alamega.alamegaspringapp.model.user.UserRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -29,9 +31,11 @@ public class AdminController {
     }
 
     @PostMapping("/users/role/{id}")
+    @Transactional
     public String setUserRole(@PathVariable UUID id) {
-        if (userRepository.findById(id).isPresent()) {
-            User user = userRepository.findById(id).get();
+        Optional<User> findUser = userRepository.findById(id);
+        if (findUser.isPresent()) {
+            User user = findUser.get();
             if (user.getRole().equals("USER")){
                 user.setRole("ADMIN");
             } else {
