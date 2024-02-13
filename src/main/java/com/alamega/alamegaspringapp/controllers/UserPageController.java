@@ -7,7 +7,10 @@ import com.alamega.alamegaspringapp.model.user.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,25 +33,17 @@ public class UserPageController {
     @GetMapping({"/users/{username}"})
     public String user(Model model, @PathVariable String username) {
         User pageOwner = userRepository.findByUsername(username);
-        User currentUser = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (pageOwner!=null) {
-            model.addAttribute("pageOwner", pageOwner);
-            List<Post> posts = postRepository.findAllByAuthorOrderByDateDesc(pageOwner);
-            for (Post post : posts) {
-                post.setText(post.getText().replaceAll("\n", "<br/>"));
-            }
-            model.addAttribute("posts", posts);
-        } else {
-            //Если искомого юзера не существует
-            if (currentUser!=null) {
-                //И текущий юзер авторизован
-                return "redirect:/users/" + currentUser.getUsername();
-            } else {
-                //И текущий юзер - не авторизован
-                return "redirect:/login";
-            }
+        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (pageOwner == null) {
+            return "redirect:/users/" + currentUserName;
         }
-        model.addAttribute("currentUser", currentUser);
+        List<Post> posts = postRepository.findAllByAuthorOrderByDateDesc(pageOwner);
+        for (Post post : posts) {
+            post.setText(post.getText().replaceAll("\n", "<br/>"));
+        }
+        model.addAttribute("currentUserName", currentUserName);
+        model.addAttribute("pageOwner", pageOwner);
+        model.addAttribute("posts", posts);
         return "user";
     }
 
@@ -56,7 +51,7 @@ public class UserPageController {
     public String newPost(@ModelAttribute("text") String text){
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (user!=null) {
-            if (text.length() >= 1 && text.length() <= 1024) {
+            if (!text.isEmpty() && text.length() <= 1024) {
                 postRepository.save(new Post(user, text));
             }
             return "redirect:/users/" + user.getUsername();
