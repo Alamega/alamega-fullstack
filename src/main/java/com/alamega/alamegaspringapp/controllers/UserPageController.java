@@ -20,6 +20,7 @@ import java.util.UUID;
 public class UserPageController {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+
     public UserPageController(UserRepository userRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -34,6 +35,7 @@ public class UserPageController {
     public String user(Model model, @PathVariable String username) {
         User pageOwner = userRepository.findByUsername(username);
         String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+
         if (pageOwner == null) {
             return "redirect:/users/" + currentUserName;
         }
