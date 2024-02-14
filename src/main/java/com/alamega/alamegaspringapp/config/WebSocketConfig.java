@@ -1,6 +1,6 @@
 package com.alamega.alamegaspringapp.config;
 
-import com.alamega.alamegaspringapp.wsHandlers.ChatWebSocketHandler;
+import com.alamega.alamegaspringapp.websockets.ChatWebSocketHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;

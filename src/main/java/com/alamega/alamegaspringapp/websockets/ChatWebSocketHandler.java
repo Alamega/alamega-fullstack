@@ -1,4 +1,4 @@
-package com.alamega.alamegaspringapp.wsHandlers;
+package com.alamega.alamegaspringapp.websockets;
 
 import org.json.JSONObject;
 import org.springframework.lang.NonNull;
