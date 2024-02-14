@@ -19,7 +19,7 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     <S extends Post> S save(@NonNull S entity);
 
     //TODO Я хз как
-    @CacheEvict(cacheNames = "posts", allEntries = true)
+    @CacheEvict(cacheNames = "posts", key = "#root.target.findById(#id).get().author.id", beforeInvocation = true)
     @Override
     void deleteById(@NonNull UUID id);
 }
