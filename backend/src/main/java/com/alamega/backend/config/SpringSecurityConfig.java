@@ -20,6 +20,7 @@ public class SpringSecurityConfig {
     @Value("${security.key}")
     String key;
     final DataSource dataSource;
+
     public SpringSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -44,14 +45,14 @@ public class SpringSecurityConfig {
 
         http.formLogin(formLogin -> formLogin
                 .loginPage("/login")
-                 //.defaultSuccessUrl("/", true)
+                //.defaultSuccessUrl("/", true)
                 .permitAll()
         );
 
         http.rememberMe(rememberMe -> rememberMe
                 .key(key)
                 .rememberMeCookieName("rememberMe")
-                .tokenValiditySeconds(60*60*24)
+                .tokenValiditySeconds(60 * 60 * 24)
                 .alwaysRemember(true)
                 .useSecureCookie(true)
         );

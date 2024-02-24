@@ -18,6 +18,7 @@ import java.util.List;
 @Controller
 public class AuthController {
     private final UserRepository userRepository;
+
     public AuthController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -45,14 +46,24 @@ public class AuthController {
         List<String> errors = new ArrayList<>();
 
         //Гениальная валидация
-        if (userRepository.findByUsername(username) != null){ errors.add("Пользователь с таким никнеймом уже существует!"); }
-        if (username.length()<4){ errors.add("Имя пользователя должно содержать минимум 4 символа!"); }
-        if (username.length()>20){ errors.add("Имя пользователя должно содержать не более 20 символов!"); }
-        if (password.length()<8){ errors.add("Пароль должен содержать минимум 8 символов!"); }
-        if (password.length()>20){ errors.add("Пароль должен содержать не более 20 символов!"); }
+        if (userRepository.findByUsername(username) != null) {
+            errors.add("Пользователь с таким никнеймом уже существует!");
+        }
+        if (username.length() < 4) {
+            errors.add("Имя пользователя должно содержать минимум 4 символа!");
+        }
+        if (username.length() > 20) {
+            errors.add("Имя пользователя должно содержать не более 20 символов!");
+        }
+        if (password.length() < 8) {
+            errors.add("Пароль должен содержать минимум 8 символов!");
+        }
+        if (password.length() > 20) {
+            errors.add("Пароль должен содержать не более 20 символов!");
+        }
 
         //Если ошибок нету
-        if (errors.isEmpty()){
+        if (errors.isEmpty()) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(new BCryptPasswordEncoder().encode(password));

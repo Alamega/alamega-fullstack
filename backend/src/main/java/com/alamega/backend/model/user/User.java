@@ -2,6 +2,7 @@ package com.alamega.backend.model.user;
 
 
 import jakarta.persistence.*;
+
 import java.util.UUID;
 
 @Entity
@@ -21,7 +22,8 @@ public class User {
 
     private String role;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String password, String role, boolean enabled) {
         this.username = username;

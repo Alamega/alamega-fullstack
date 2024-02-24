@@ -23,13 +23,14 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User author;
 
-    @Column(length=1024)
+    @Column(length = 1024)
     private String text;
 
     @CreatedDate
     private Date date = new Date();
 
-    public  Post() {}
+    public Post() {
+    }
 
     public Post(User author, String text) {
         this.author = author;

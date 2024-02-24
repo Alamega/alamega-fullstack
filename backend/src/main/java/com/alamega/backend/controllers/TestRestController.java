@@ -20,6 +20,7 @@ public class TestRestController {
             this.message = message;
         }
     }
+
     @GetMapping("/test")
     public MyString test() {
         return new MyString("Hello World");

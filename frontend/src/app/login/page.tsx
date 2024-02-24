@@ -1,4 +1,5 @@
 import {Metadata} from "next";
+import LoginForm from "@/app/login/loginForm";
 
 export const metadata: Metadata = {
     title: "Вход",
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Login() {
-    return <>Вход</>;
+    return <><LoginForm/></>;
 }

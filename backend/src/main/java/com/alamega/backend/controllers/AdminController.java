@@ -5,7 +5,10 @@ import com.alamega.backend.model.user.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -15,6 +18,7 @@ import java.util.UUID;
 public class AdminController {
     final
     UserRepository userRepository;
+
     public AdminController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -24,7 +28,7 @@ public class AdminController {
         return "admin/admin_panel";
     }
 
-    @GetMapping( "/users")
+    @GetMapping("/users")
     public String users(Model model) {
         model.addAttribute("users", userRepository.findAll().toArray());
         return "admin/users";
@@ -36,7 +40,7 @@ public class AdminController {
         Optional<User> findUser = userRepository.findById(id);
         if (findUser.isPresent()) {
             User user = findUser.get();
-            if (user.getRole().equals("USER")){
+            if (user.getRole().equals("USER")) {
                 user.setRole("ADMIN");
             } else {
                 user.setRole("USER");

@@ -1,5 +1,5 @@
-async function getData() : Promise<MyString> {
-    const res : Response = await fetch('http://localhost:8080/test')
+async function getData(): Promise<MyString> {
+    const res: Response = await fetch('http://localhost:8080/test')
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -7,7 +7,7 @@ async function getData() : Promise<MyString> {
 }
 
 export default async function Test() {
-    const data : MyString = await getData();
+    const data: MyString = await getData();
 
     return <>{data.message}</>
 }

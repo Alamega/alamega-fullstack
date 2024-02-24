@@ -50,9 +50,9 @@ public class UserPageController {
     }
 
     @PostMapping("/posts")
-    public String newPost(@ModelAttribute("text") String text){
+    public String newPost(@ModelAttribute("text") String text) {
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (user!=null) {
+        if (user != null) {
             if (!text.isEmpty() && text.length() <= 1024) {
                 postRepository.save(new Post(user, text));
             }
@@ -63,7 +63,7 @@ public class UserPageController {
     }
 
     @PostMapping("/posts/delete/{id}")
-    public String deletePost(@PathVariable UUID id){
+    public String deletePost(@PathVariable UUID id) {
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent() && (user.getRole().equals("ADMIN") || user.getId().equals(post.get().getAuthor().getId()))) {
