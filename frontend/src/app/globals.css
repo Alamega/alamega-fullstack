@@ -5,6 +5,13 @@
   font-family: "Ubuntu", sans-serif;
 }
 
+html {
+  background: white url("/images/bg.png") no-repeat center center/cover fixed;
+  height: 100%;
+
+  overflow-y: scroll;
+}
+
 ::-webkit-scrollbar {
   width: 0;
 }
@@ -14,45 +21,89 @@
   color: green;
 }
 
-html {
-  background: white url("/images/bg.png") no-repeat center center/cover fixed;
-  height: 100%;
-}
-
 body {
-  height: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-}
-
-.container {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
   min-height: 100%;
   max-width: 1080px;
   box-shadow: 0 0 4px black;
   color: rgb(48, 48, 48);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-header {
+header, footer {
+  z-index: 5;
   display: flex;
   max-height: 40px;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 4px black;
-  margin: 8px 8px 0;
   padding: 12px;
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 1);
-  z-index: 5;
 }
 
-header h1 {
+header {
+  margin: 8px 8px 0;
+  top: 8px;
+  position: sticky;
+}
+
+footer {
+  margin: 0 8px 8px;
+}
+
+header > a > h1 {
   color: rgb(48, 48, 48);
   font-size: 32px;
   margin: 0;
+  padding: 8px;
+}
+
+div#clock {
+  text-align: center;
+  font-size: 39px;
+  padding: 0 12px;
+}
+
+div#navbar {
+  display: none;
+  flex-direction: column;
+  margin: auto 0 0 0;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+}
+
+div#navbar:hover {
+  box-shadow: 0 0 4px black;
+}
+
+.navbar_icon {
+  background: url("/images/burger.png") center/40px 40px;
+  align-self: flex-end;
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  border: none;
+}
+
+div#navbar_menu {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 2px black;
+}
+
+.navbar:hover .navbar_icon {
+  transform: scale(1.1);
+}
+
+div#navbar_menu > a, .sidebar > a {
+  padding: 12px;
+  color: rgb(64, 128, 64);
 }
 
 .full-wrapper {
@@ -63,7 +114,7 @@ header h1 {
 .content {
   display: flex;
   flex-direction: column;
-  flex: 4.7 0 0;
+  flex: 5 0 0;
   margin: 12px;
 }
 
@@ -73,38 +124,19 @@ header h1 {
   text-align: center;
   flex: 1 0 0;
   margin-right: 16px;
-  border-right: 1px solid gray;
-  border-left: 1px solid gray;
+  border-right: 1px solid rgb(128, 128, 128);
+  border-left: 1px solid rgb(128, 128, 128);
   background-color: rgba(255, 255, 255, 1);
 }
 
-footer {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  box-shadow: 0 0 4px black;
-  margin: 0 8px 8px;
-  padding: 12px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 1);
-}
-
-div#clock {
-  text-align: center;
-  font-size: 39px;
-  padding: 0 12px;
-}
-
-.title-green {
-  font-size: 32px;
-  color: rgb(64, 128, 64);
-  align-self: center;
+.sidebar > a:hover {
+  color: white;
+  background-color: rgb(64, 128, 64);
 }
 
 a {
   text-decoration: none;
   color: rgb(64, 128, 64);
-  padding: 8px;
   transition: all 0.2s;
 }
 
@@ -162,11 +194,6 @@ p {
 .button-delete:hover {
   color: white;
   background-color: red;
-}
-
-.sidebar a:hover {
-  color: white;
-  background-color: rgb(64, 128, 64);
 }
 
 .form_center {
@@ -249,50 +276,6 @@ hr {
   border-radius: 0 0 6px 6px;
 }
 
-div#navbar {
-  display: none;
-  flex-direction: column;
-  margin: auto 0 0 0;
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 8px;
-}
-
-div#navbar:hover {
-  box-shadow: 0 0 4px black;
-}
-
-.navbar_icon {
-  background: url("/images/burger.png") center/40px 40px;
-  align-self: flex-end;
-  height: 40px;
-  width: 40px;
-  border-radius: 8px;
-  border: none;
-}
-
-div#navbar_menu {
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 2px black;
-}
-
-.navbar:hover .navbar_icon {
-  transform: scale(1.1);
-}
-
-div#navbar_menu a {
-  padding: 12px;
-  font-size: 16px;
-  color: rgb(64, 128, 64);
-}
-
-.anime-link {
-  cursor: pointer;
-  display: block;
-}
-
 @media (max-width: 1080px) {
   .flex_cont {
     flex-direction: column;
@@ -309,9 +292,5 @@ div#navbar_menu a {
 
   div#navbar {
     display: flex;
-  }
-
-  .anime-link {
-    display: none;
   }
 }

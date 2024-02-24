@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Menu from "./menu";
+import Menu from "@/components/menu";
 
 export default function Navbar() {
   const [display, setDisplay] = useState("none");
@@ -17,9 +17,14 @@ export default function Navbar() {
     }
   };
 
+  const handleLeave = () => {
+      setShadow("");
+      setDisplay("none");
+  };
+
   return (
     <>
-      <div id="navbar" style={{ boxShadow: shadow }}>
+      <div id="navbar" onMouseLeave={handleLeave} style={{ boxShadow: shadow }}>
         <button className="navbar_icon" id="navbar_btn" onClick={handleClick}></button>
         <div id="navbar_menu" style={{ display: display }}>
           <Menu />
