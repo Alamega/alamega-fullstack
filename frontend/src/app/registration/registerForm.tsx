@@ -13,11 +13,12 @@ export default function RegisterForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/api/register', {
+            const response = await axios.post('http://localhost:8080/register', {
                 username,
                 password,
             });
-
+            console.log(response);
+            console.log(response.data.token);
             if (response.status === 200) {
                 // Обработка успешной регистрации
             } else {

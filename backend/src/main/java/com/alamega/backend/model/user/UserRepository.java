@@ -5,11 +5,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
     @Cacheable(value = "users")
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     @CacheEvict(cacheNames = "users", allEntries = true)
     @Override

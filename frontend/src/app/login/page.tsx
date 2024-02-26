@@ -1,4 +1,5 @@
 import {Metadata} from "next";
+import React from "react";
 import LoginForm from "@/app/login/loginForm";
 
 export const metadata: Metadata = {
@@ -6,6 +7,11 @@ export const metadata: Metadata = {
     description: "Вход",
 };
 
+
 export default async function Login() {
-    return <><LoginForm/></>;
+    return (
+        <>
+            <LoginForm/>
+        </>
+    )
 }

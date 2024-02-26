@@ -13,16 +13,19 @@ export default function LoginForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('/api/login', {
+            const response = await axios.post('http://localhost:8080/authenticate', {
                 username,
                 password,
             });
+            console.log(response);
+            console.log(response.data.token);
             if (response.status === 200) {
+                // Обработка успешной регистрации
             } else {
-                setError('Неверный логин или пароль');
+                setError('Ошибка при регистрации');
             }
         } catch (err) {
-            setError('Ошибка при авторизации');
+            setError('Ошибка при регистрации');
         }
     };
 

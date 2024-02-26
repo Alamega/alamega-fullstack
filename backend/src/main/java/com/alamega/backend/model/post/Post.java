@@ -2,6 +2,10 @@ package com.alamega.backend.model.post;
 
 import com.alamega.backend.model.user.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,6 +14,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "posts")
 public class Post {
@@ -29,43 +37,7 @@ public class Post {
     @CreatedDate
     private Date date = new Date();
 
-    public Post() {
-    }
-
-    public Post(User author, String text) {
-        this.author = author;
-        this.text = text;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Calendar getDate() {
         return new Calendar.Builder().setInstant(date).build();
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }
