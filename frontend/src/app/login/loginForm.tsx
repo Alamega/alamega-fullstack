@@ -17,15 +17,14 @@ export default function LoginForm() {
                 username,
                 password,
             });
-            console.log(response);
-            console.log(response.data.token);
             if (response.status === 200) {
-                // Обработка успешной регистрации
+                const userInfo = await axios.get('http://localhost:8080/userinfo/' + response.data.token);
+                console.log(userInfo.data.username)
             } else {
-                setError('Ошибка при регистрации');
+                setError('Ошибка при входе');
             }
         } catch (err) {
-            setError('Ошибка при регистрации');
+            setError('Ошибка при входе');
         }
     };
 

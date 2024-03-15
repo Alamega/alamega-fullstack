@@ -3,12 +3,11 @@ package com.alamega.backend.controllers;
 import com.alamega.backend.model.api.request.AuthenticationRequest;
 import com.alamega.backend.model.api.request.RegisterRequest;
 import com.alamega.backend.model.api.response.AuthenticationResponse;
+import com.alamega.backend.model.api.response.UserInfoResponse;
 import com.alamega.backend.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,5 +22,10 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @GetMapping("/userinfo/{token}")
+    public ResponseEntity<UserInfoResponse> getUserInfo(@PathVariable String token) {
+        return ResponseEntity.ok(authenticationService.getUserInfoByToken(token));
     }
 }
