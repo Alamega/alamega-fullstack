@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import "./clock.css"
 
-const Clock = () => {
+export default function Clock() {
     const [time, setTime] = useState(new Date());
     const [isMounted, setIsMounted] = useState(false);
 
@@ -27,5 +27,3 @@ const Clock = () => {
         </div>
     );
 };
-
-export default Clock;
