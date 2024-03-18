@@ -13,12 +13,12 @@ export default function LoginForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/authenticate', {
+            const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/authenticate', {
                 username,
                 password,
             });
             if (response.status === 200) {
-                const userInfo = await axios.get('http://localhost:8080/userinfo/' + response.data.token);
+                const userInfo = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/userinfo/' + response.data.token);
                 console.log(userInfo.data.username)
             } else {
                 setError('Ошибка при входе');
