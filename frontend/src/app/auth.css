@@ -1,36 +1,31 @@
-.label-green {
-    margin: 4px 2px 0;
-    color: rgb(64, 128, 64);
-}
-
 .input-green {
-    background-color: rgba(255, 255, 255, 1);
-    outline-color: rgb(64, 128, 64);
-    padding: 8px;
-    margin: 8px 0;
-    border: 1px solid rgb(64, 128, 64);
-    border-radius: 6px;
-    color: rgb(64, 128, 64) !important;
+  background-color: var(--background-color);
+  outline-color: var(--border-color);
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: rgb(64, 128, 64) !important;
 }
 
 .button-green {
-    border-radius: 6px;
-    background-color: white;
-    margin: 8px 0;
-    border: 1px solid rgb(64, 128, 64);
-    color: rgb(64, 128, 64);
-    padding: 8px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
+  border-radius: 6px;
+  background-color: var(--background-color);
+  margin: 8px 0;
+  border: 1px solid var(--border-color);
+  color: var(--button-color);
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
 }
 
 .button-green:hover {
-    color: white;
-    background-color: rgb(64, 128, 64);
+  color: white;
+  background-color: var(--button-background-color-hover);
 }
 
 .error {
-    color: red;
-    text-align: center;
+  color: red;
+  text-align: center;
 }

@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.menu > a {
+  text-align: center;
+  padding: 12px;
+  color: var(--button-color);
+}
+
+.menu > a:hover {
+  color: var(--button-color-hover);
+  background-color: var(--button-background-color-hover);
+}
