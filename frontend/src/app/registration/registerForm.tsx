@@ -12,8 +12,10 @@ export default function RegisterForm() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://alamega-api.onrender.com";
+
         try {
-            const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/register', {
+            const response = await axios.post(API_URL + '/register', {
                 username,
                 password,
             });
