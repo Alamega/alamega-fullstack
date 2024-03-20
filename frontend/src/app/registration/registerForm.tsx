@@ -14,21 +14,16 @@ export default function RegisterForm() {
 
         const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://alamega-api.onrender.com";
 
-        try {
-            const response = await axios.post(API_URL + '/register', {
-                username,
-                password,
-            });
-            console.log(response);
-            console.log(response.data.token);
+        await axios.post(API_URL + '/register', {
+            username,
+            password,
+        }).then(response => {
             if (response.status === 200) {
-                // Обработка успешной регистрации
-            } else {
-                setError('Ошибка при регистрации');
+                document.cookie = `token=${response.data.token}; path=/`;
             }
-        } catch (err) {
-            setError('Ошибка при регистрации');
-        }
+        }).catch(error => {
+            setError(error.response.data.message)
+        });
     };
 
     return (

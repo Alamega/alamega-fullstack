@@ -1,16 +1,18 @@
 .menu {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .menu > a {
-  text-align: center;
-  padding: 12px;
-  color: var(--button-color);
+    margin: 4px;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    color: var(--button-color);
 }
 
 .menu > a:hover {
-  color: var(--button-color-hover);
-  background-color: var(--button-background-color-hover);
+    color: var(--button-color-hover);
+    background-color: var(--button-background-color-hover);
 }

@@ -1,42 +1,45 @@
 .navbar {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: none;
-  flex-direction: column;
-  margin: auto 0 0 0;
-  background-color: var(--background-color);
-  border-radius: 8px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: none;
+    flex-direction: column;
+    margin: auto 0 0 0;
+    background-color: var(--background-color);
+    border-radius: 8px;
 }
 
 .navbar:hover {
-  box-shadow: 0 0 4px var(--shadow-color);
+    box-shadow: 0 0 4px var(--shadow-color);
 }
 
 .navbar_icon {
-  background: url("/images/burger.png") center/40px 40px;
-  align-self: flex-end;
-  height: 40px;
-  width: 40px;
-  border-radius: 8px;
-  border: none;
+    background: url("/images/burger.png") center/40px 40px;
+    align-self: flex-end;
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+    border: none;
 }
 
 .navbar_menu {
-  display: flex;
-  margin-bottom: 4%;
+    display: flex;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 4px;
+    box-shadow: 0 0 4px var(--shadow-color) inset;
 }
 
 .navbar_menu > a {
-  border-radius: 8px;
+    border-radius: 8px;
 }
 
 .navbar:hover .navbar_icon {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 @media (max-width: 1080px) {
-  .navbar {
-    display: flex;
-  }
+    .navbar {
+        display: flex;
+    }
 }

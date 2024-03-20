@@ -1,7 +1,7 @@
 div#clock {
     text-align: center;
     font-size: 39px;
-    padding: 0 12px;
+    padding: 0 6px;
 }
 
 @media (max-width: 1080px) {
