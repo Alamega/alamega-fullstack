@@ -16,12 +16,28 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.register(request));
+        try {
+            AuthenticationResponse response = authenticationService.register(request);
+            response.setMessage("Пользователь зарегистрирован.");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            AuthenticationResponse errorResponse = new AuthenticationResponse();
+            errorResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        try {
+            AuthenticationResponse response = authenticationService.authenticate(request);
+            response.setMessage("Пользователь аутентифицирован.");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            AuthenticationResponse errorResponse = new AuthenticationResponse();
+            errorResponse.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
     }
 
     @GetMapping("/userinfo/{token}")

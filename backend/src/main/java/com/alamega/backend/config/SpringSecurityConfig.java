@@ -3,7 +3,6 @@ package com.alamega.backend.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -46,8 +45,8 @@ public class SpringSecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/**").authenticated()
+                //.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                //.requestMatchers("/api/**").authenticated()
                 .requestMatchers("/**").permitAll()
         );
 

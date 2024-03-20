@@ -14,20 +14,16 @@ export default function LoginForm() {
 
         const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://alamega-api.onrender.com";
 
-        try {
-            const response = await axios.post(API_URL + '/authenticate', {
-                username,
-                password,
-            });
+        await axios.post(API_URL + '/authenticate', {
+            username,
+            password,
+        }).then(response => {
             if (response.status === 200) {
-                const userInfo = await axios.get(API_URL + '/userinfo/' + response.data.token);
-                console.log(userInfo.data.username)
-            } else {
-                setError('Ошибка при входе');
+                document.cookie = `token=${response.data.token}; path=/`;
             }
-        } catch (err) {
-            setError('Ошибка при входе');
-        }
+        }).catch(error => {
+            setError(error.response.data.message)
+        });
     };
 
     return (

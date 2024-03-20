@@ -21,6 +21,11 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        //Если такой чувак уже имеется – то сразу ошибка
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new RuntimeException("Имя пользователя занято.");
+        }
+
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -29,18 +34,36 @@ public class AuthenticationService {
         userRepository.save(user);
         return AuthenticationResponse.builder()
                 .token(jwtService.generateToken(user))
+                .id(user.getId().toString())
+                .username(user.getUsername())
+                .role(user.getRole())
                 .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
+        //Если пользователь не найден
+        User user = userRepository.findByUsername(request.getUsername()).orElseThrow(
+                () -> new RuntimeException("Пользователь не найден.")
         );
+
+        //Если пароль не верен
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Пароль не верен.");
+        }
+
+        //Если всё гуд
         return AuthenticationResponse.builder()
-                .token(jwtService.generateToken(userRepository.findByUsername(request.getUsername()).orElseThrow()))
+                .token(jwtService.generateToken(user))
+                .id(user.getId().toString())
+                .username(user.getUsername())
+                .role(user.getRole())
                 .build();
     }
 
