@@ -51,7 +51,7 @@ public class SpringSecurityConfig {
         );
 
         http.logout(logout -> logout
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("token")
                 .permitAll()
         );
 

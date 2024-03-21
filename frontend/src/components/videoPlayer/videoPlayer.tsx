@@ -1,84 +1,115 @@
 "use client";
 
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import Image from "next/image";
 import "./videoPlayer.css";
+import playIcon from "./play.png";
+import pauseIcon from "./pause.png";
+import fullScreenIcon from "./fullscreen.png";
+import exitFullScreenIcon from "./exit-fullscreen.png";
 
 export default function VideoPlayer({href}: Readonly<{ href: string }>) {
     const wrapper = useRef<HTMLDivElement>(null);
     const video = useRef<HTMLVideoElement>(null);
-
     const [isPlaying, setIsPlaying] = useState(false);
-    const [volume, setVolume] = useState(0.5);
     const [currentTime, setCurrentTime] = useState(0);
+    const [durationBarText, setDurationBarText] = useState("00:00/00:00");
+    const [volume, setVolume] = useState(0);
     const [isFullScreen, setIsFullScreen] = useState(false);
 
-    const handlePlayPause = () => {
+    useEffect(() => {
+        if (volume == 0) {
+            const localVolume = localStorage.getItem('volume');
+            setVolume(Number.parseFloat(localVolume ? localVolume : "0.5"));
+        }
+        if (video.current) {
+            video.current.volume = volume;
+        }
+    }, [volume]);
+
+    useEffect(() => {
+        let currSec = Math.floor(currentTime % 60);
+        let durSec = Math.floor((video.current?.duration || 0) % 60);
+        setDurationBarText(Math.floor(currentTime / 60) + ":" + ((currSec < 10) ? "0" + currSec : currSec) + "/" + Math.floor((video.current?.duration || 0) / 60) + ":" + ((durSec < 10) ? "0" + durSec : durSec))
+    }, [currentTime]);
+
+    async function handlePlayPause() {
         if (video.current) {
             if (video.current.paused) {
-                video.current.play();
+                await video.current.play();
             } else {
                 video.current.pause();
             }
             setIsPlaying(!isPlaying);
         }
-    };
+    }
 
-    const handleFullScreen = () => {
-        if (wrapper.current) {
-            if (isFullScreen) {
-                document.exitFullscreen();
-            } else {
-                wrapper.current.requestFullscreen();
+    async function handleFullScreen() {
+        if (!document.fullscreenElement) {
+            if (wrapper.current) {
+                try {
+                    await wrapper.current.requestFullscreen();
+                    setIsFullScreen(true);
+                } catch (err) {
+                    console.error(err);
+                }
             }
-            setIsFullScreen(!isFullScreen);
+        } else {
+            try {
+                await document.exitFullscreen();
+                setIsFullScreen(false);
+            } catch (err) {
+                console.error(err);
+            }
         }
-    };
+    }
 
-    const handleVolumeChange = (event: { target: { value: string } }) => {
+    async function handleVolumeChange(event: { target: { value: string } }) {
         const newVolume = parseFloat(event.target.value);
         setVolume(newVolume);
-        if (video.current) {
-            video.current.volume = newVolume;
-        }
-    };
+        localStorage.setItem('volume', newVolume.toString());
+    }
 
-    const handleTimeUpdate = () => {
+    async function handleTimeUpdate() {
         if (video.current) {
             setCurrentTime(video.current.currentTime);
         }
-    };
+    }
 
-    const handleSeek = (time: number) => {
+    function handleSeek(time: number) {
         if (video.current) {
             video.current.currentTime = time;
         }
-    };
+    }
 
     return (
-        <div ref={wrapper} className="player-wrapper">
+        <div ref={wrapper} className="player-wrapper"
+             onResize={() => setIsFullScreen(false)}>
             <video ref={video} src={href} className="player-video" onClick={handlePlayPause}
                    onTimeUpdate={handleTimeUpdate}/>
-
             <div className="player-control-wrapper">
                 <input
                     className="player-control-timeline"
                     type="range"
                     min="0"
                     max={video.current?.duration || 0}
-                    step="0.01"
+                    step="1"
                     value={currentTime}
                     onChange={(event) => handleSeek(parseFloat(event.target.value))}
                 />
                 <div className="player-control-bottom">
-                    <button className="player-button" onClick={handlePlayPause}>
-                        {isPlaying ? "Пауза" : "Продолжить"}
-                    </button>
-                    <input className="player-volume" type="range" min="0" max="1" step="0.01" value={volume}
+                    <Image className="player-button" onClick={handlePlayPause} src={isPlaying ? pauseIcon : playIcon}
+                           alt="Старт/Стоп"
+                           width={24} height={24}/>
+                    <div className="player-duration-bar">
+                        <span>{durationBarText}</span>
+                    </div>
+                    <input className="player-volume" type="range" min="0" max="1" step="0.05" value={volume}
                            onChange={handleVolumeChange}/>
-
-                    <button className="player-button" onClick={handleFullScreen}>
-                        {isFullScreen ? "Не полный" : "Полный"}
-                    </button>
+                    <span className="player-space-creator-kekw"></span>
+                    <Image className="player-button" onClick={handleFullScreen}
+                           src={isFullScreen ? exitFullScreenIcon : fullScreenIcon}
+                           alt="Полноэкранный режим" width={24} height={24}/>
                 </div>
             </div>
         </div>

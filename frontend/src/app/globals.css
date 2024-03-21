@@ -23,6 +23,7 @@
 
 html {
     background: white url("/images/bg.png") no-repeat center center/cover fixed;
+    min-height: 100vh;
     height: 100%;
     overflow-y: scroll;
 }
@@ -42,7 +43,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    min-width: 400px;
     max-width: 1080px;
     box-shadow: 0 0 4px var(--shadow-color);
     color: var(--text-color);
