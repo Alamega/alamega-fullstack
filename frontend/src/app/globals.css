@@ -101,7 +101,6 @@ header > a > h1 {
 
 a {
     text-decoration: none;
-    background-color: var(--button-background-color);
     color: var(--button-color);
     transition: all 0.2s;
 }
@@ -112,6 +111,39 @@ p {
     padding: 8px;
     word-break: break-word;
 }
+
+.input-green {
+    background-color: var(--background-color);
+    outline-color: var(--border-color);
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: rgb(64, 128, 64) !important;
+}
+
+.button-green {
+    border-radius: 6px;
+    background-color: var(--background-color);
+    margin: 8px 0;
+    border: 1px solid var(--border-color);
+    color: var(--button-color);
+    padding: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.button-green:hover {
+    color: white;
+    background-color: var(--button-background-color-hover);
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
 
 @media (max-width: 1080px) {
     .sidebar {

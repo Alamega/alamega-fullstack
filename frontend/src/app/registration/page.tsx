@@ -1,5 +1,4 @@
 import {Metadata} from "next";
-import RegisterForm from "@/app/registration/registerForm";
 
 export const metadata: Metadata = {
     title: "Регистрация",
@@ -7,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Registration() {
-    return <><RegisterForm/></>;
+    return <></>;
 }
