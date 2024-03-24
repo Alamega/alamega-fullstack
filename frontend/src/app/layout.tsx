@@ -30,7 +30,9 @@ export default async function RootLayout({children}: Readonly<{ children: React.
                 <h1>Alamega</h1>
             </Link>
             <Clock/>
-            <Navbar/>
+            <Navbar>
+                <Menu/>
+            </Navbar>
         </header>
 
         <div className="full-wrapper">

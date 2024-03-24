@@ -23,29 +23,42 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
 }
 
-export async function login(formData: FormData) {
+async function handleAuth(response: any) {
+    if (!response) {
+        return "Неизвестная ошибка."
+    }
+
+    switch (response.status) {
+        case 200: {
+            const user: User = response.data;
+            const expires = new Date(Date.now() + expirationTime);
+            const session = await encrypt({user, expires});
+            cookies().set("session", session, {expires, httpOnly: true});
+            return redirect("/");
+        }
+        default:
+            return response.data.message;
+    }
+}
+
+
+export async function login(formData: FormData): Promise<string> {
     return await axios.post(process.env.NEXT_PUBLIC_API_URL + '/authenticate', {
         username: formData.get('username'),
         password: formData.get('password'),
     }).catch((error: AxiosError) => {
         return error.response
-    }).then(async (response: any) => {
-        if (!response) {
-            return "Неизвестная ошибка."
-        }
+    }).then(handleAuth)
+}
 
-        switch (response.status) {
-            case 200: {
-                const user: User = response.data;
-                const expires = new Date(Date.now() + expirationTime);
-                const session = await encrypt({user, expires});
-                cookies().set("session", session, {expires, httpOnly: true});
-                return redirect("/");
-            }
-            default:
-                return response.data.message;
-        }
-    })
+export async function registration(formData: FormData): Promise<string> {
+    return await axios.post(process.env.NEXT_PUBLIC_API_URL + '/register', {
+        username: formData.get('username'),
+        password: formData.get('password'),
+        //Тут еще емэил будет имена фамилии явки и весь остальной ненужный кринж так что неважно что дубликат с логином
+    }).catch((error: AxiosError) => {
+        return error.response
+    }).then(handleAuth)
 }
 
 export async function logout() {

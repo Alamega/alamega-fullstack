@@ -1,19 +1,19 @@
 "use client"
 
-import {login} from "@/lib";
+import {registration} from "@/lib";
 import {useState} from "react";
 
-export default function LoginForm() {
+export default function RegistrationForm() {
     const [error, setError] = useState<string>()
 
-    async function handleLogin(formData: FormData) {
-        setError(await login(formData));
+    async function handleRegistration(formData: FormData) {
+        setError(await registration(formData));
     }
 
     return (
         <>
             <form style={{display: "flex", flexDirection: "column"}}
-                  action={handleLogin}>
+                  action={handleRegistration}>
                 <input className="input-green"
                        name="username" type="text"
                        autoComplete={"username"}
@@ -22,7 +22,7 @@ export default function LoginForm() {
                        name="password" type="password"
                        autoComplete={"current-password"}
                        placeholder="Пароль"/>
-                <button className="button-green" type="submit">Войти</button>
+                <button className="button-green" type="submit">Зарегистрироваться</button>
             </form>
             {error && <div className="error">{error}</div>}
         </>

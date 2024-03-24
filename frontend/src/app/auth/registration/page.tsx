@@ -1,4 +1,5 @@
 import {Metadata} from "next";
+import RegistrationForm from "@/app/auth/registration/registration-form";
 
 export const metadata: Metadata = {
     title: "Регистрация",
@@ -6,5 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Registration() {
-    return <></>;
+    return <>
+        <RegistrationForm/>
+    </>;
 }

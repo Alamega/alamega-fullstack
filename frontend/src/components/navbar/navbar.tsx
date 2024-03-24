@@ -2,9 +2,8 @@
 
 import React, {useState} from "react";
 import "./navbar.css";
-import Menu from "@/components/menu/menu";
 
-export default function Navbar() {
+export default function Navbar({children}: Readonly<{ children: React.ReactNode }>) {
     const [display, setDisplay] = useState("none");
     const [shadow, setShadow] = useState("");
 
@@ -28,7 +27,7 @@ export default function Navbar() {
             <div className="navbar" onMouseLeave={handleLeave} style={{boxShadow: shadow}}>
                 <button className="navbar_icon" onClick={handleClick}></button>
                 <div className="navbar_menu" style={{display: display}}>
-                    <Menu/>
+                    {children}
                 </div>
             </div>
         </>

@@ -1,21 +1,28 @@
-"use client"
+"use server"
 
 import Link from "next/link";
 import "./menu.css";
-import {logout} from "@/lib";
+import {getSession} from "@/lib";
 import React from "react";
+import {LogoutLink} from "@/components/logout";
 
-export default function Menu() {
-    const signOut = async () => {
-        await logout();
-    };
+export default async function Menu() {
+    const session: Session | null = await getSession();
+
     return (
         <div className="menu">
-
             <Link href={"/"}>Главная</Link>
-            <Link href={"/auth/login"}>Вход</Link>
-            <Link href={"/auth/registration"}>Регистрация</Link>
-            <a style={{cursor: "pointer"}} onClick={signOut}>Выйти</a>
+            {!session &&
+                <>
+                    <Link href={"/auth/login"}>Вход</Link>
+                    <Link href={"/auth/registration"}>Регистрация</Link>
+                </>
+            }
+            {session &&
+                <>
+                    <LogoutLink/>
+                </>
+            }
             <Link href={"/movies"}>Плеер</Link>
         </div>
     );
