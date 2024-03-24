@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: "description",
 };
 
-export default function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="ru">
         <body className={ubuntuFont.className}>

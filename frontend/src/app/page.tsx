@@ -1,5 +1,6 @@
 import {Metadata} from "next";
 import React from "react";
+import {getSession} from "@/lib";
 
 export const metadata: Metadata = {
     title: "Главная",
@@ -7,9 +8,11 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
+    const session: Session | null = await getSession();
     return (
         <>
-            <p>Страница на стадии разработки, так и знайте!</p>
+            {session && <p>Приветствую товарищ {session.user.username}!</p>}
+            {!session && <p>Чувствую присутствие неавторизованного пользователя.</p>}
         </>
     );
 }
