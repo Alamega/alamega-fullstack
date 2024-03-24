@@ -3,11 +3,13 @@ package com.alamega.backend.controllers;
 import com.alamega.backend.model.api.request.AuthenticationRequest;
 import com.alamega.backend.model.api.request.RegisterRequest;
 import com.alamega.backend.model.api.response.AuthenticationResponse;
-import com.alamega.backend.model.api.response.UserInfoResponse;
 import com.alamega.backend.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class AuthenticationController {
         } catch (RuntimeException e) {
             AuthenticationResponse errorResponse = new AuthenticationResponse();
             errorResponse.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
 
@@ -36,12 +38,7 @@ public class AuthenticationController {
         } catch (RuntimeException e) {
             AuthenticationResponse errorResponse = new AuthenticationResponse();
             errorResponse.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
-    }
-
-    @GetMapping("/userinfo/{token}")
-    public ResponseEntity<UserInfoResponse> getUserInfo(@PathVariable String token) {
-        return ResponseEntity.ok(authenticationService.getUserInfoByToken(token));
     }
 }

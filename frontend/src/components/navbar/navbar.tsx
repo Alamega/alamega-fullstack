@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import {useState} from "react";
-import Menu from "@/components/menu/menu";
+import React, {useState} from "react";
 import "./navbar.css";
+import Menu from "@/components/menu/menu";
 
 export default function Navbar() {
     const [display, setDisplay] = useState("none");

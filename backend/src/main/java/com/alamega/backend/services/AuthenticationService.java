@@ -3,7 +3,6 @@ package com.alamega.backend.services;
 import com.alamega.backend.model.api.request.AuthenticationRequest;
 import com.alamega.backend.model.api.request.RegisterRequest;
 import com.alamega.backend.model.api.response.AuthenticationResponse;
-import com.alamega.backend.model.api.response.UserInfoResponse;
 import com.alamega.backend.model.user.User;
 import com.alamega.backend.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -64,12 +63,6 @@ public class AuthenticationService {
                 .id(user.getId().toString())
                 .username(user.getUsername())
                 .role(user.getRole())
-                .build();
-    }
-
-    public UserInfoResponse getUserInfoByToken(String token) {
-        return UserInfoResponse.builder()
-                .username(jwtService.extractUsername(token))
                 .build();
     }
 }
