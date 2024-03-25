@@ -10,9 +10,4 @@ RUN mvn -f /app/pom.xml clean package
 FROM container-registry.oracle.com/graalvm/native-image:21 as graalvm
 COPY --from=build /app/target/backend-1.0.0.jar /app/backend-1.0.0.jar
 RUN native-image -jar /app/backend-1.0.0.jar
-
-FROM frolvlad/alpine-glibc
-COPY --from=graalvm /app/backend-1.0.0 /app/backend-1.0.0
 ENTRYPOINT ["/app/backend-1.0.0"]
-
-
