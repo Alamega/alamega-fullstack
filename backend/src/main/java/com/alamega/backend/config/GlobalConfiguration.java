@@ -1,6 +1,6 @@
 package com.alamega.backend.config;
 
-import com.alamega.backend.model.user.UserRepository;
+import com.alamega.backend.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
-public class AppConfig {
-    private final UserRepository userRepository;
+public class GlobalConfiguration {
+    private final UserService userService;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Пользователь с таким именем не найден."));
+        return username -> userService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Пользователь с таким именем не найден."));
     }
 
     @Bean

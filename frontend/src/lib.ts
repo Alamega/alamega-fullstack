@@ -43,7 +43,7 @@ async function handleAuth(response: any) {
 
 
 export async function login(formData: FormData): Promise<string> {
-    return await axios.post(process.env.NEXT_PUBLIC_API_URL + '/authenticate', {
+    return await axios.post(process.env.NEXT_PUBLIC_API_URL + '/api/auth/authenticate', {
         username: formData.get('username'),
         password: formData.get('password'),
     }).catch((error: AxiosError) => {
@@ -52,7 +52,7 @@ export async function login(formData: FormData): Promise<string> {
 }
 
 export async function registration(formData: FormData): Promise<string> {
-    return await axios.post(process.env.NEXT_PUBLIC_API_URL + '/register', {
+    return await axios.post(process.env.NEXT_PUBLIC_API_URL + '/api/auth/register', {
         username: formData.get('username'),
         password: formData.get('password'),
         //Тут еще емэил будет имена фамилии явки и весь остальной ненужный кринж так что неважно что дубликат с логином

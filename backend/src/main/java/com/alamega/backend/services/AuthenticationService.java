@@ -1,10 +1,9 @@
 package com.alamega.backend.services;
 
-import com.alamega.backend.model.api.request.AuthenticationRequest;
-import com.alamega.backend.model.api.request.RegisterRequest;
-import com.alamega.backend.model.api.response.AuthenticationResponse;
 import com.alamega.backend.model.user.User;
-import com.alamega.backend.model.user.UserRepository;
+import com.alamega.backend.schemas.request.AuthenticationRequest;
+import com.alamega.backend.schemas.request.RegisterRequest;
+import com.alamega.backend.schemas.response.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,24 +13,23 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
-        //Если такой чувак уже имеется – то сразу ошибка
-        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new RuntimeException("Имя пользователя занято.");
-        }
-
+    public AuthResponse register(RegisterRequest request) {
+        userService.findByUsername(request.getUsername()).ifPresent((user -> {
+            //Если такой чувак уже имеется – то сразу ошибка
+            throw new RuntimeException("Имя \"" + user.getUsername() + "\" уже занято.");
+        }));
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("USER")
                 .build();
-        userRepository.save(user);
-        return AuthenticationResponse.builder()
+        userService.createUser(user);
+        return AuthResponse.builder()
                 .token(jwtService.generateToken(user))
                 .id(user.getId().toString())
                 .username(user.getUsername())
@@ -39,13 +37,9 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthResponse authenticate(AuthenticationRequest request) {
         //Если пользователь не найден
-        User user = userRepository.findByUsername(request.getUsername()).orElseThrow(
-                () -> new RuntimeException("Пользователь не найден.")
-        );
-
-        //Если пароль не верен
+        User user = userService.findByUsername(request.getUsername()).orElseThrow(() -> new RuntimeException("Пользователь не найден."));
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -58,7 +52,7 @@ public class AuthenticationService {
         }
 
         //Если всё гуд
-        return AuthenticationResponse.builder()
+        return AuthResponse.builder()
                 .token(jwtService.generateToken(user))
                 .id(user.getId().toString())
                 .username(user.getUsername())

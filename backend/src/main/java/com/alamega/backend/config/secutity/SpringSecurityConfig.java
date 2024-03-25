@@ -1,4 +1,4 @@
-package com.alamega.backend.config;
+package com.alamega.backend.config.secutity;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -45,8 +45,10 @@ public class SpringSecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests(requests -> requests
+                //Порядок важен!!!
                 //.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
-                //.requestMatchers("/api/**").authenticated()
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/**").permitAll()
         );
 

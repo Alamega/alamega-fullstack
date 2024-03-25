@@ -1,4 +1,4 @@
-package com.alamega.backend.model.api.response;
+package com.alamega.backend.schemas.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class AuthResponse {
     private String message;
     private String token;
     private String id;

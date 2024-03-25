@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import "./navbar.css";
 
-export default function Navbar({children}: Readonly<{ children: React.ReactNode }>) {
+export default function Navbar({children}: { children: React.ReactNode }) {
     const [display, setDisplay] = useState("none");
     const [shadow, setShadow] = useState("");
 

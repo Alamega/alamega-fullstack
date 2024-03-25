@@ -1,4 +1,4 @@
-package com.alamega.backend.config;
+package com.alamega.backend.config.secutity;
 
 import com.alamega.backend.services.JwtService;
 import jakarta.servlet.FilterChain;

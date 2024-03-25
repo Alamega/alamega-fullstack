@@ -1,4 +1,4 @@
-package com.alamega.backend.model.api.request;
+package com.alamega.backend.schemas.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class CreateUserRequest {
     private String username;
     private String password;
+    private String role;
 }

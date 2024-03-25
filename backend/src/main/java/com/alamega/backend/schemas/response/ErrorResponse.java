@@ -1,4 +1,4 @@
-package com.alamega.backend.model.api.request;
+package com.alamega.backend.schemas.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TokenRequest {
-    private String token;
+public class ErrorResponse {
+    private String message;
 }
