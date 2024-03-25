@@ -1,0 +1,27 @@
+services:
+  - type: web
+    plan: free
+    name: backend
+    runtime: docker
+    buildCommand: docker build ./backend
+    startCommand: docker run -p 8080:8080 -env-file .env backend
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: JDBC_URL
+        sync: false
+      - key: JDBC_USERNAME
+        sync: false
+      - key: JDBC_PASSWORD
+        sync: false
+      - key: JWT_KEY
+        generateValue: true
+  - type: web
+    plan: free
+    name: frontend
+    runtime: docker
+    buildCommand: docker build ./frontend
+    startCommand: docker run -p 3000:3000 frontend
+    envVars:
+      - key: PORT
+        value: 3000
