@@ -3,8 +3,9 @@ services:
     plan: free
     name: backend
     runtime: docker
+    dockerfilePath: ./backend
+    dockerContext: ./backend
     buildCommand: docker build ./backend
-    startCommand: docker run -p 8080:8080 -env-file .env backend
     envVars:
       - key: PORT
         value: 8080
@@ -20,8 +21,9 @@ services:
     plan: free
     name: frontend
     runtime: docker
+    dockerfilePath: ./frontend
+    dockerContext: ./frontend
     buildCommand: docker build ./frontend
-    startCommand: docker run -p 3000:3000 frontend
     envVars:
       - key: PORT
         value: 3000
