@@ -119,23 +119,29 @@
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
-                <version>0.9.28</version>
+                <extensions>true</extensions>
                 <executions>
                     <execution>
-                        <id>native-image</id>
+                        <id>build-native</id>
                         <goals>
                             <goal>compile-no-fork</goal>
                         </goals>
                         <phase>package</phase>
                     </execution>
+                    <execution>
+                        <id>test-native</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
                 </executions>
                 <configuration>
+                    <imageName>backend</imageName>
                     <mainClass>com.alamega.backend.AlamegaSpringApplication</mainClass>
+                    <fallback>false</fallback>
                     <buildArgs>
-                        -J-Xmx4g
-                        --no-fallback
-                        --enable-http
-                        --enable-https
+                        <buildArg>-J-Xmx8g</buildArg>
                     </buildArgs>
                 </configuration>
             </plugin>
