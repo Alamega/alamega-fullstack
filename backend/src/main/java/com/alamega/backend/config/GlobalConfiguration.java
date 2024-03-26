@@ -20,7 +20,6 @@ public class GlobalConfiguration {
         this.userService = userService;
     }
 
-
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Пользователь с таким именем не найден."));
