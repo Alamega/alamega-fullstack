@@ -1,7 +1,6 @@
 package com.alamega.backend.config;
 
 import com.alamega.backend.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,9 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@RequiredArgsConstructor
 public class GlobalConfiguration {
     private final UserService userService;
+
+    public GlobalConfiguration(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @Bean
     public UserDetailsService userDetailsService() {

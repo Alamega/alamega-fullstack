@@ -4,37 +4,33 @@ import com.alamega.backend.model.user.User;
 import com.alamega.backend.schemas.request.AuthenticationRequest;
 import com.alamega.backend.schemas.request.RegisterRequest;
 import com.alamega.backend.schemas.response.AuthResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class AuthenticationService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    public AuthenticationService(UserService userService, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
+
     public AuthResponse register(RegisterRequest request) {
         userService.findByUsername(request.getUsername()).ifPresent((user -> {
             //Если такой чувак уже имеется – то сразу ошибка
             throw new RuntimeException("Имя \"" + user.getUsername() + "\" уже занято.");
         }));
-        User user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role("USER")
-                .build();
+        User user = new User(request.getUsername(), passwordEncoder.encode(request.getPassword()), "USER");
         userService.createUser(user);
-        return AuthResponse.builder()
-                .token(jwtService.generateToken(user))
-                .id(user.getId().toString())
-                .username(user.getUsername())
-                .role(user.getRole())
-                .build();
+        return new AuthResponse(jwtService.generateToken(user), user.getId().toString(), user.getUsername(), user.getRole());
     }
 
     public AuthResponse authenticate(AuthenticationRequest request) {
@@ -50,13 +46,7 @@ public class AuthenticationService {
         } catch (RuntimeException e) {
             throw new RuntimeException("Пароль не верен.");
         }
-
         //Если всё гуд
-        return AuthResponse.builder()
-                .token(jwtService.generateToken(user))
-                .id(user.getId().toString())
-                .username(user.getUsername())
-                .role(user.getRole())
-                .build();
+        return new AuthResponse(jwtService.generateToken(user), user.getId().toString(), user.getUsername(), user.getRole());
     }
 }
