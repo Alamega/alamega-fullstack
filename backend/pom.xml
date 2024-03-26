@@ -141,7 +141,7 @@
                     <mainClass>com.alamega.backend.AlamegaSpringApplication</mainClass>
                     <fallback>false</fallback>
                     <buildArgs>
-                        <buildArg>-J-Xmx8g</buildArg>
+                        <buildArg>-J-Xmx4g</buildArg>
                     </buildArgs>
                 </configuration>
             </plugin>
