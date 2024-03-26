@@ -12,7 +12,11 @@ WORKDIR /app
 COPY . .
 RUN curl -L https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz | tar xz
 ENV PATH="/app/apache-maven-3.9.6/bin:${PATH}"
-RUN export MAVEN_OPTS=-Xmx4G && mvn -Pnative clean package
+RUN mvn -Pnative clean package
+#RUN mvn native:compile-no-fork
+RUN ls
+WORKDIR /target
+RUN ls
 ENTRYPOINT ["/app/target/backend"]
 
 #FROM frolvlad/alpine-glibc
