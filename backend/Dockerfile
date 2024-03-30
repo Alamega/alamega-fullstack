@@ -1,20 +1,16 @@
-# Образ с JDK 21 и curl
-FROM openjdk:21-jdk
-
-# Копирование из папки с Dockerfile хоста в папку /app образа
+FROM maven:3.9.6-amazoncorretto-21 as builder
 COPY . /app
-
-# Установка MAVEN
 WORKDIR /app/utils
 RUN curl -L https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz | tar xz
 ENV PATH="/app/utils/apache-maven-3.9.6/bin:${PATH}"
-
-# Сборка jar
 WORKDIR /app
 RUN mvn -f /app/pom.xml clean package
-# Точка входа
-ENTRYPOINT ["java","-jar","/app/target/backend-1.0.0.jar"]
 
+FROM amazoncorretto:21.0.2-alpine as runner
+COPY --from=builder /app/target/backend-1.0.0.jar /app/backend.jar
+ENTRYPOINT ["java","-jar","/app/backend.jar"]
+
+#Не в 2024
 #FROM container-registry.oracle.com/graalvm/native-image:21
 #COPY . /app
 #WORKDIR /app/utils
