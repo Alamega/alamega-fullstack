@@ -3,11 +3,10 @@ import Image from "next/image";
 import "./errors.css"
 
 export const metadata: Metadata = {
-    title: "Страница не найдена",
-    description: "Регистрация",
+    title: "Страница не найдена"
 };
 
-export default async function Registration() {
+export default async function NotFound() {
     return <>
         <div className="error-wrapper">
             <div className="image-wrapper">

@@ -1,10 +1,9 @@
 import {Metadata} from "next";
 import React from "react";
-import {getSession} from "@/lib";
+import {getSession} from "@/libs/auth";
 
 export const metadata: Metadata = {
-    title: "Главная",
-    description: "Главная",
+    title: "Главная"
 };
 
 export default async function Home() {

@@ -1,7 +1,7 @@
 "use client"
 
-import {registration} from "@/lib";
 import {useState} from "react";
+import {registration} from "@/libs/auth";
 
 export default function RegistrationForm() {
     const [error, setError] = useState<string>()
@@ -13,15 +13,19 @@ export default function RegistrationForm() {
     return (
         <>
             <form style={{display: "flex", flexDirection: "column"}}
-                  action={handleRegistration}>
+                  action={handleRegistration}
+                  autoComplete={"off"}
+            >
                 <input className="input-green"
+                       autoComplete={"off"}
                        name="username" type="text"
-                       autoComplete={"username"}
-                       placeholder="Логин"/>
+                       placeholder="Логин"
+                />
                 <input className="input-green"
+                       autoComplete={"off"}
                        name="password" type="password"
-                       autoComplete={"current-password"}
-                       placeholder="Пароль"/>
+                       placeholder="Пароль"
+                />
                 <button className="button-green" type="submit">Зарегистрироваться</button>
             </form>
             {error && <div className="error">{error}</div>}

@@ -20,8 +20,8 @@ public class JwtService {
     private final SecretKey SECRET_KEY;
     private final JwtParser jwtParser;
 
-    public JwtService(@Value("${jwt.secret}") String secretKey) {
-        this.SECRET_KEY = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+    public JwtService(@Value("${jwt.secret}") String secretFromEnv) {
+        this.SECRET_KEY = new SecretKeySpec(secretFromEnv.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         this.jwtParser = Jwts.parser().verifyWith(SECRET_KEY).build();
     }
 

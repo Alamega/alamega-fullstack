@@ -2,6 +2,7 @@ package com.alamega.backend.model.post;
 
 import com.alamega.backend.model.user.User;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "posts")
+@Data
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,43 +34,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(UUID id, User author, String text, Date date) {
-        this.id = id;
-        this.author = author;
-        this.text = text;
-        this.date = date;
-    }
-
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Calendar getDate() {
         return new Calendar.Builder().setInstant(date).build();
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

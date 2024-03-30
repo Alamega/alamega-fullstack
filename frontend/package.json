@@ -1,5 +1,5 @@
 {
-  "name": "alamega-frontend-nextjs",
+  "name": "frontend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,14 +8,14 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "proxy": "http://localhost:8080",
   "dependencies": {
-    "axios": "^1.6.7",
-    "jose": "^5.2.3",
-    "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sharp": "^0.33.3",
+    "axios": "^1.6.7",
+    "jose": "^5.2.3",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6",

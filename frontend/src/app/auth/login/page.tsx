@@ -2,11 +2,10 @@ import {Metadata} from "next";
 import LoginForm from "@/app/auth/login/login-form";
 
 export const metadata: Metadata = {
-    title: "Вход",
-    description: "Вход",
+    title: "Вход"
 };
 
-export default async function Login() {
+export default async function LoginPage() {
     return <>
         <LoginForm/>
     </>

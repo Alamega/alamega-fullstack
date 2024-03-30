@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import "./menu.css";
-import {getSession} from "@/lib";
+import {getSession} from "@/libs/auth";
 import React from "react";
 import {LogoutLink} from "@/components/logout";
 

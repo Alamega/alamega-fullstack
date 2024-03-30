@@ -1,7 +1,7 @@
 "use client"
 
-import {login} from "@/lib";
 import {useState} from "react";
+import {login} from "@/libs/auth";
 
 export default function LoginForm() {
     const [error, setError] = useState<string>()

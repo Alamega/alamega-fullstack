@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import {logout} from "@/lib";
+import {logout} from "@/libs/auth";
 
 const signOut = async () => {
     await logout();
