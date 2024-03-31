@@ -1,6 +1,6 @@
 'use server'
 
-import {jwtVerify, SignJWT} from "jose";
+import {JWTPayload, jwtVerify, SignJWT} from "jose";
 import {cookies} from "next/headers";
 import axios, {AxiosError} from "axios";
 import {redirect} from "next/navigation";
@@ -8,7 +8,7 @@ import {redirect} from "next/navigation";
 const key = new TextEncoder().encode("secret");
 const expirationTime = 24 * 60 * 60 * 1000;
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: JWTPayload) {
     return await new SignJWT(payload)
         .setProtectedHeader({alg: "HS256"})
         .setIssuedAt()
@@ -16,8 +16,8 @@ export async function encrypt(payload: any) {
         .sign(key);
 }
 
-export async function decrypt(input: string): Promise<any> {
-    const {payload} = await jwtVerify(input, key, {
+export async function decrypt(sessionToken: string): Promise<any> {
+    const {payload} = await jwtVerify(sessionToken, key, {
         algorithms: ["HS256"],
     });
     return payload;
@@ -32,8 +32,8 @@ async function handleAuth(response: any) {
         case 200: {
             const user: User = response.data;
             const expires = new Date(Date.now() + expirationTime);
-            const session = await encrypt({user, expires});
-            cookies().set("session", session, {expires, httpOnly: true});
+            const sessionToken = await encrypt({user, expires});
+            cookies().set("session", sessionToken, {expires, httpOnly: true});
             return redirect("/");
         }
         default:
@@ -66,7 +66,7 @@ export async function logout() {
 }
 
 export async function getSession(): Promise<Session | null> {
-    const session = cookies().get("session")?.value;
-    if (!session) return null;
-    return await decrypt(session);
+    const sessionToken = cookies().get("session")?.value;
+    if (!sessionToken) return null
+    return await decrypt(sessionToken);
 }

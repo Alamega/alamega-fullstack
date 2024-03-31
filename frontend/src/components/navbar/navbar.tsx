@@ -6,7 +6,7 @@ import "./navbar.css";
 export default function Navbar({children}: { children: React.ReactNode }) {
     const [display, setDisplay] = useState("none");
     const [shadow, setShadow] = useState("");
-
+    
     const handleClick = () => {
         if (display === "none") {
             setShadow("0 0 4px black");

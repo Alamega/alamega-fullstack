@@ -8,7 +8,7 @@ import {LogoutLink} from "@/components/logout";
 
 export default async function Menu() {
     const session: Session | null = await getSession();
-
+    
     return (
         <div className="menu">
             <Link href={"/"}>Главная</Link>
