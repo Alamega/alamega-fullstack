@@ -20,6 +20,7 @@
 * {
     font-size: 18px;
     user-select: none;
+    -webkit-user-drag: none;
 }
 
 html {
@@ -68,15 +69,19 @@ header {
     position: sticky;
 }
 
-footer {
-    margin: 0 8px 8px;
-}
-
 header > a > h1 {
     color: var(--text-color);
     font-size: 32px;
     margin: 0;
     padding: 8px;
+}
+
+footer {
+    margin: 0 8px 8px;
+}
+
+footer > p {
+    user-select: none;
 }
 
 .full-wrapper {

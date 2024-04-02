@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Alamega@ep-raspy-sun-158388.eu-central-1.aws.neon.tech" uuid="5b48964f-a23c-499d-8f03-306873a92475">
+    <data-source source="LOCAL" name="Alamega@ep-raspy-sun-158388.eu-central-1.aws.neon.tech" uuid="e1ac3eb7-0a7e-4766-9958-61e06dcdda5b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ep-raspy-sun-158388.eu-central-1.aws.neon.tech:5432/Alamega</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
