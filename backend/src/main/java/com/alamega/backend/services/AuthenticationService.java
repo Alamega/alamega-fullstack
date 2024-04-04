@@ -1,5 +1,6 @@
 package com.alamega.backend.services;
 
+import com.alamega.backend.exceptions.UnauthorizedException;
 import com.alamega.backend.model.user.User;
 import com.alamega.backend.schemas.request.AuthenticationRequest;
 import com.alamega.backend.schemas.request.RegisterRequest;
@@ -7,6 +8,7 @@ import com.alamega.backend.schemas.response.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,10 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request) throws UnauthorizedException {
         userService.findByUsername(request.getUsername()).ifPresent((user -> {
             //Если такой чувак уже имеется – то сразу ошибка
-            throw new RuntimeException("Имя \"" + user.getUsername() + "\" уже занято.");
+            throw new UnauthorizedException("Имя \"" + user.getUsername() + "\" уже занято.");
         }));
         User user = new User(request.getUsername(), passwordEncoder.encode(request.getPassword()), "USER");
         userService.createUser(user);
@@ -34,9 +36,9 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthResponse authenticate(AuthenticationRequest request) {
+    public AuthResponse authenticate(AuthenticationRequest request) throws UnauthorizedException {
         //Если пользователь не найден
-        User user = userService.findByUsername(request.getUsername()).orElseThrow(() -> new RuntimeException("Пользователь не найден."));
+        User user = userService.findByUsername(request.getUsername()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден."));
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -44,8 +46,8 @@ public class AuthenticationService {
                             request.getPassword()
                     )
             );
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Пароль не верен.");
+        } catch (AuthenticationException e) {
+            throw new UnauthorizedException("Пароль не верен.");
         }
         //Если всё гуд
         return AuthResponse

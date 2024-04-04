@@ -46,9 +46,7 @@ public class SpringSecurityConfig {
 
         http.authorizeHttpRequests(requests -> requests
                 //Порядок важен!!!
-                //.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/**").authenticated()
+                //.requestMatchers("/users/**").hasRole("ADMIN")
                 .requestMatchers("/**").permitAll()
         );
 

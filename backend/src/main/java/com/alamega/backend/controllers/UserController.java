@@ -5,91 +5,74 @@ import com.alamega.backend.schemas.request.CreateUserRequest;
 import com.alamega.backend.schemas.response.ErrorResponse;
 import com.alamega.backend.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @Tag(name = "Пользователи", description = "API для управления данными пользователей")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(value = "/users", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    
-    @Operation(summary = "Получение пользователя по ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", content = {
-                    @Content(
-                            schema = @Schema(implementation = User.class),
-                            mediaType = "application/json"
-                    )
-            }),
-            @ApiResponse(responseCode = "404", content = {
-                    @Content(
-                            schema = @Schema(implementation = ErrorResponse.class),
-                            mediaType = "application/json"
-                    )
-            })
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable UUID id) {
-        Optional<User> user = userService.findById(id);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return new ResponseEntity<>(new ErrorResponse("Пользователь с таким id не найден."), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+    @Operation(summary = "Получение всех пользователей")
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> getAll() {
+        return userService.findAll();
     }
 
     @Operation(summary = "Добавление нового пользователя")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", content = {
-                    @Content(
-                            schema = @Schema(implementation = User.class),
-                            mediaType = "application/json"
-                    )
-            }),
-            @ApiResponse(responseCode = "500", content = {
-                    @Content(
-                            schema = @Schema(implementation = ErrorResponse.class),
-                            mediaType = "application/json"
-                    )
-            })
-    })
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody CreateUserRequest user) {
-        try {
-            User createdUser = new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), "USER");
-            return new ResponseEntity<>(userService.createUser(createdUser), HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(new ErrorResponse("Не удалось создать пользователя."), HttpStatus.INTERNAL_SERVER_ERROR);
+    @ResponseStatus(HttpStatus.CREATED)
+    public User createUser(@RequestBody CreateUserRequest user) {
+        return userService.createUser(new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), "USER"));
+    }
+
+    @Operation(summary = "Получение пользователя по ID")
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserById(@PathVariable UUID id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("Пользователь с таким id не найден.");
+        }
+    }
+
+    @Operation(summary = "Получение пользователя по имени")
+    @GetMapping("/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserByUsername(@PathVariable String username) {
+        Optional<User> user = userService.findByUsername(username);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("Пользователь с таким именем не найден.");
         }
     }
 
     @Operation(summary = "Удаление пользователя по ID")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", content = @Content),
-            @ApiResponse(responseCode = "404", content = {
-                    @Content(
-                            schema = @Schema(implementation = ErrorResponse.class),
-                            mediaType = "application/json"
-                    )
-            })
-    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse authenticate(RuntimeException exception) {
+        return new ErrorResponse(exception.getMessage());
     }
 }

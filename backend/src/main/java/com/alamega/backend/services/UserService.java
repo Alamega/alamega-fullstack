@@ -5,6 +5,7 @@ import com.alamega.backend.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,7 +13,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
