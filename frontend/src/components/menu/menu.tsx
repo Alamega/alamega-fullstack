@@ -8,7 +8,7 @@ import {LogoutLink} from "@/components/logout";
 
 export default async function Menu() {
     const session: Session | null = await getSession();
-    
+
     return (
         <div className="menu">
             <Link href={"/"}>Главная</Link>
@@ -24,6 +24,7 @@ export default async function Menu() {
                 </>
             }
             <Link href={"/movies"}>Плеер</Link>
+            <Link href={"/modal"}>Модальное окно</Link>
         </div>
     );
 }

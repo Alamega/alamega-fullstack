@@ -25,7 +25,7 @@ export async function decrypt(sessionToken: string): Promise<any> {
 
 async function handleAuth(response: any) {
     if (!response) {
-        return "Неизвестная ошибка."
+        return "Сервер авторизации недоступен."
     }
 
     switch (response.status) {
