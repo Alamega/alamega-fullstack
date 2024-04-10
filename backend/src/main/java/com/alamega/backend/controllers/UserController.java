@@ -26,6 +26,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @Operation(summary = "Получение всех пользователей")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAll() {

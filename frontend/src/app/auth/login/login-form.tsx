@@ -12,8 +12,8 @@ export default function LoginForm() {
 
     return (
         <>
-            <form style={{display: "flex", flexDirection: "column"}}
-                  action={handleLogin}>
+            <form
+                action={handleLogin}>
                 <input className="input-green"
                        name="username" type="text"
                        autoComplete={"username"}

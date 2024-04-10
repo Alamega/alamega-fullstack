@@ -12,9 +12,9 @@ export default function RegistrationForm() {
 
     return (
         <>
-            <form style={{display: "flex", flexDirection: "column"}}
-                  action={handleRegistration}
-                  autoComplete={"off"}
+            <form
+                action={handleRegistration}
+                autoComplete={"off"}
             >
                 <input className="input-green"
                        autoComplete={"off"}

@@ -119,6 +119,11 @@ p {
     user-select: text;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
 .input-green {
     background-color: var(--background-color);
     outline-color: var(--border-color);
