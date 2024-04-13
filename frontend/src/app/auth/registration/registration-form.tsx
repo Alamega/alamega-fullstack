@@ -16,16 +16,14 @@ export default function RegistrationForm() {
                 action={handleRegistration}
                 autoComplete={"off"}
             >
-                <input className="input-green"
-                       autoComplete={"off"}
-                       name="username" type="text"
-                       placeholder="Логин"
-                />
-                <input className="input-green"
-                       autoComplete={"off"}
-                       name="password" type="password"
-                       placeholder="Пароль"
-                />
+                <label>Имя пользователя: <br/>
+                    <input className="input-green" name="username" type="text"/>
+                </label>
+                
+                <label>Пароль: <br/>
+                    <input className="input-green" name="password" type="password"/>
+                </label>
+
                 <button className="button-green" type="submit">Зарегистрироваться</button>
             </form>
             {error && <div className="error">{error}</div>}

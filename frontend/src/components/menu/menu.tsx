@@ -4,7 +4,7 @@ import Link from "next/link";
 import "./menu.css";
 import {getSession} from "@/libs/auth";
 import React from "react";
-import {LogoutLink} from "@/components/logout";
+import {LogoutLink} from "@/components/logout/logout";
 
 export default async function Menu() {
     const session: Session | null = await getSession();
@@ -24,7 +24,6 @@ export default async function Menu() {
                 </>
             }
             <Link href={"/movies"}>Плеер</Link>
-            <Link href={"/modal"}>Модальное окно</Link>
         </div>
     );
 }
