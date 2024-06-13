@@ -1,6 +1,6 @@
 "use client"
 
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import {registration} from "@/libs/auth";
 import Loader from "@/components/loader/loader";
 
@@ -8,19 +8,20 @@ export default function RegistrationForm() {
     const [error, setError] = useState<string>()
     const [isLoading, setLoading] = useState<boolean>(false)
 
-    async function handleRegistration(formData: FormData) {
-        setLoading(true)
-        registration(formData).then((errMessage) => {
-            setError(errMessage);
-        })
-        setLoading(false)
+    async function handleRegistration(event: FormEvent<HTMLFormElement>) {
+        setLoading(true);
+        try {
+            setError(await registration(new FormData(event.currentTarget)));
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
         <>
             {!isLoading &&
                 <form
-                    action={handleRegistration}
+                    onSubmit={handleRegistration}
                     autoComplete={"off"}
                 >
                     <label>Имя пользователя: <br/>
@@ -34,8 +35,10 @@ export default function RegistrationForm() {
                     <button className="button-green" type="submit">Зарегистрироваться</button>
                 </form>
             }
-            {isLoading && <Loader/>}
+
             {error && <div className="error">{error}</div>}
+
+            {isLoading && <Loader/>}
         </>
     )
 }
