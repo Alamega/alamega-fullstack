@@ -5,11 +5,12 @@ import {registration} from "@/libs/auth";
 import Loader from "@/components/loader/loader";
 
 export default function RegistrationForm() {
-    const [error, setError] = useState<string>()
+    const [error, setError] = useState<string | null>();
     const [isLoading, setLoading] = useState<boolean>(false)
 
     async function handleRegistration(event: FormEvent<HTMLFormElement>) {
         setLoading(true);
+        setError(null);
         try {
             setError(await registration(new FormData(event.currentTarget)));
         } finally {

@@ -5,11 +5,12 @@ import Loader from "@/components/loader/loader";
 import {login} from "@/libs/auth";
 
 export default function LoginForm() {
-    const [error, setError] = useState<string>();
+    const [error, setError] = useState<string | null>();
     const [isLoading, setLoading] = useState<boolean>(false);
 
     async function handleLogin(event: FormEvent<HTMLFormElement>) {
         setLoading(true);
+        setError(null);
         try {
             setError(await login(new FormData(event.currentTarget)));
         } finally {
