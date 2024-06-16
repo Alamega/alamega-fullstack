@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import "./menu.css";
-import {getSession} from "@/libs/auth";
 import React from "react";
+import {getSession} from "@/libs/auth";
 import {LogoutLink} from "@/components/logout/logout";
 
 export default async function Menu() {
@@ -20,6 +20,7 @@ export default async function Menu() {
             }
             {session &&
                 <>
+                    <Link href={"/users/" + session.user.id}>Личный кабинет</Link>
                     <LogoutLink/>
                 </>
             }

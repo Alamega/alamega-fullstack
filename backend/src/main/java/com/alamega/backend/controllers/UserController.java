@@ -52,17 +52,17 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "Получение пользователя по имени")
-    @GetMapping("/{username}")
-    @ResponseStatus(HttpStatus.OK)
-    public User getUserByUsername(@PathVariable String username) {
-        Optional<User> user = userService.findByUsername(username);
-        if (user.isPresent()) {
-            return user.get();
-        } else {
-            throw new RuntimeException("Пользователь с таким именем не найден.");
-        }
-    }
+//    @Operation(summary = "Получение пользователя по имени")
+//    @GetMapping("/{username}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public User getUserByUsername(@PathVariable String username) {
+//        Optional<User> user = userService.findByUsername(username);
+//        if (user.isPresent()) {
+//            return user.get();
+//        } else {
+//            throw new RuntimeException("Пользователь с таким именем не найден.");
+//        }
+//    }
 
     @Operation(summary = "Удаление пользователя по ID")
     @DeleteMapping("/{id}")
