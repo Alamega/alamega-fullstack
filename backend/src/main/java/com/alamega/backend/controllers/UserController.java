@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAll() {
-        return userService.findAll();
+        return userService.getUsers();
     }
 
     @Operation(summary = "Добавление нового пользователя")
@@ -44,25 +44,13 @@ public class UserController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User getUserById(@PathVariable UUID id) {
-        Optional<User> user = userService.findById(id);
+        Optional<User> user = userService.getUserById(id);
         if (user.isPresent()) {
             return user.get();
         } else {
             throw new RuntimeException("Пользователь с таким id не найден.");
         }
     }
-
-//    @Operation(summary = "Получение пользователя по имени")
-//    @GetMapping("/{username}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public User getUserByUsername(@PathVariable String username) {
-//        Optional<User> user = userService.findByUsername(username);
-//        if (user.isPresent()) {
-//            return user.get();
-//        } else {
-//            throw new RuntimeException("Пользователь с таким именем не найден.");
-//        }
-//    }
 
     @Operation(summary = "Удаление пользователя по ID")
     @DeleteMapping("/{id}")
@@ -73,7 +61,7 @@ public class UserController {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse authenticate(RuntimeException exception) {
+    public ErrorResponse errorResponse(RuntimeException exception) {
         return new ErrorResponse(exception.getMessage());
     }
 }

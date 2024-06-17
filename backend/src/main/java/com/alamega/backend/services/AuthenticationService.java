@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,15 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    public static User getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() == null || SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            throw new UnauthorizedException("Необходима аутентификация!");
+        }
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
     public AuthResponse register(RegisterRequest request) throws UnauthorizedException {
-        userService.findByUsername(request.getUsername()).ifPresent((user -> {
+        userService.getUserByUsername(request.getUsername()).ifPresent((user -> {
             //Если такой чувак уже имеется – то сразу ошибка
             throw new UnauthorizedException("Имя \"" + user.getUsername() + "\" уже занято.");
         }));
@@ -38,7 +46,7 @@ public class AuthenticationService {
 
     public AuthResponse authenticate(AuthenticationRequest request) throws UnauthorizedException {
         //Если пользователь не найден
-        User user = userService.findByUsername(request.getUsername()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден."));
+        User user = userService.getUserByUsername(request.getUsername()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден."));
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

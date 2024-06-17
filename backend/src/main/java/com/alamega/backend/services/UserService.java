@@ -14,15 +14,15 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<User> findAll() {
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findByUsername(String username) {
+    public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<User> findById(UUID id) {
+    public Optional<User> getUserById(UUID id) {
         return userRepository.findById(id);
     }
 

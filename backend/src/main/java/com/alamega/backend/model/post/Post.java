@@ -22,7 +22,7 @@ public class Post {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "author")
     private User author;
 
     @Column(length = 1024)
@@ -32,6 +32,11 @@ public class Post {
     private Date date = new Date();
 
     public Post() {
+    }
+
+    public Post(User author, String text) {
+        this.author = author;
+        this.text = text;
     }
 
     public Calendar getDate() {
