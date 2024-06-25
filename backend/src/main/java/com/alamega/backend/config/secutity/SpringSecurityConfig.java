@@ -50,11 +50,6 @@ public class SpringSecurityConfig {
                 .requestMatchers("/**").permitAll()
         );
 
-        http.logout(logout -> logout
-                .deleteCookies("token")
-                .permitAll()
-        );
-
         return http.build();
     }
 }
