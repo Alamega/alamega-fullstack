@@ -5,6 +5,13 @@ declare interface User {
     role: string;
 }
 
+declare interface Post {
+    id: string;
+    author: string;
+    text: string;
+    date: string;
+}
+
 declare interface Session {
     user: User;
 }

@@ -18,7 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Tag(name = "Посты", description = "API для управления данными постов пользователей")
 @RestController
-@RequestMapping(value = "/posts", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
@@ -30,15 +30,22 @@ public class PostController {
         return postService.getPosts();
     }
 
+    @Operation(summary = "Получение всех постов по id пользователя")
+    @GetMapping("users/{userId}/posts")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Post> getByUser(@PathVariable("userId") String userId) {
+        return postService.getPosts(userId);
+    }
+
     @Operation(summary = "Добавление нового поста")
-    @PostMapping
+    @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public Post createPost(@RequestBody PostPublicationRequest post) {
         return postService.createPost(post);
     }
 
     @Operation(summary = "Получение поста по ID")
-    @GetMapping("/{id}")
+    @GetMapping("/posts/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Post getUserById(@PathVariable UUID id) {
         Optional<Post> post = postService.getPostById(id);
@@ -50,7 +57,7 @@ public class PostController {
     }
 
     @Operation(summary = "Удаление поста по ID")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/posts/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deletePost(@PathVariable UUID id) {
         postService.deletePost(id);

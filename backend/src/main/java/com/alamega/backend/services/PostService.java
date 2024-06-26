@@ -13,10 +13,15 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class PostService {
+    private final UserService userService;
     private final PostRepository postRepository;
 
     public List<Post> getPosts() {
         return postRepository.findAllByAuthorOrderByDateDesc(AuthenticationService.getCurrentUser());
+    }
+
+    public List<Post> getPosts(String userId) {
+        return userService.getUserById(UUID.fromString(userId)).map(postRepository::findAllByAuthorOrderByDateDesc).orElse(null);
     }
 
     public Optional<Post> getPostById(UUID id) {

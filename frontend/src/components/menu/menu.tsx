@@ -21,10 +21,14 @@ export default async function Menu() {
             {session &&
                 <>
                     <Link href={"/users/" + session.user.id}>Личный кабинет</Link>
-                    <LogoutLink/>
                 </>
             }
             <Link href={"/movies"}>Плеер</Link>
+            {session &&
+                <>
+                    <LogoutLink/>
+                </>
+            }
         </div>
     );
 }
