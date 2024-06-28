@@ -1,6 +1,6 @@
 import React from "react";
 
-export default async function Post({post}: { post: Post }) {
+export default function Post({post}: { post: IPost }) {
     return (
         <div>
             <p>{post.date}</p>

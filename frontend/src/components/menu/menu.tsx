@@ -7,7 +7,7 @@ import {getSession} from "@/libs/auth";
 import {LogoutLink} from "@/components/logout/logout";
 
 export default async function Menu() {
-    const session: Session | null = await getSession();
+    const session: ISession | null = await getSession();
 
     return (
         <div className="menu">

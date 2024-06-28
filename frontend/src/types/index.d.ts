@@ -1,16 +1,16 @@
-declare interface User {
+declare interface IUser {
     token: string
     id: string;
     username: string;
     role: string;
 }
 
-declare interface Post {
+declare interface IPost {
     id: string;
     text: string;
     date: string;
 }
 
-declare interface Session {
-    user: User;
+declare interface ISession {
+    user: IUser;
 }

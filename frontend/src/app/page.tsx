@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    const session: Session | null = await getSession();
+    const session: ISession | null = await getSession();
     return (
         <>
             {session && <p>Приветствую товарищ {session.user.username}!</p>}

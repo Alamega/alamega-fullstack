@@ -30,7 +30,7 @@ async function handleAuth(response: any) {
 
     switch (response.status) {
         case 200: {
-            const user: User = response.data;
+            const user: IUser = response.data;
             const expires = new Date(Date.now() + expirationTime);
             const sessionToken = await encrypt({user, expires});
             cookies().set("session", sessionToken, {expires, httpOnly: true});
@@ -65,7 +65,7 @@ export async function logout() {
     cookies().set("session", "", {expires: new Date(0)});
 }
 
-export async function getSession(): Promise<Session | null> {
+export async function getSession(): Promise<ISession | null> {
     const sessionToken = cookies().get("session")?.value;
     if (!sessionToken) return null
     return await decrypt(sessionToken);
