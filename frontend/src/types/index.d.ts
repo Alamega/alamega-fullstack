@@ -7,7 +7,6 @@ declare interface User {
 
 declare interface Post {
     id: string;
-    author: string;
     text: string;
     date: string;
 }
