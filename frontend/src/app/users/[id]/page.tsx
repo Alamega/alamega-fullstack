@@ -3,7 +3,7 @@ import {getUserInfo} from "@/libs/users";
 import {getSession} from "@/libs/auth";
 import React from "react";
 import "./page.css"
-import UserPosts from "@/components/userPosts/userPosts";
+import UserPosts from "@/app/users/userPosts";
 
 export async function generateMetadata({params}: {
     params: { id: string }
@@ -20,9 +20,12 @@ export default async function User({params}: { params: { id: string } }) {
 
     return (
         <>
-            <h1>id: {user.id}</h1>
-            <h1>username: {user.username}</h1>
-            <h1>role: {user.role}</h1>
+            <div>
+                {user.username}
+                <br/>
+                {user.role === "USER" && <span>Пользователь</span>}
+                {user.role === "ADMIN" && <span>Администратор</span>}
+            </div>
             <UserPosts userId={params.id} session={session}/>
         </>
     );

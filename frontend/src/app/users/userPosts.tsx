@@ -1,16 +1,16 @@
 "use client"
 
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Post from "@/components/post/post";
-import axios from "axios";
-import {getUserPosts} from "@/libs/users";
+import {createPost, getUserPosts} from "@/libs/users";
 
 export default function UserPosts({userId, session}: {
     userId: string,
     session: ISession | null
 }) {
     const [posts, setPosts] = useState<IPost[]>([]);
-
+    const [formData, setFormData] = useState<{ text?: string } | null>(null);
+    const [formButtonIsDisable, setFormButtonIsDisable] = useState(false);
     const fetchPosts = async () => {
         const posts = await getUserPosts(userId);
         setPosts(posts)
@@ -22,10 +22,23 @@ export default function UserPosts({userId, session}: {
 
     const handlePost = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await axios.post("/api/posts", {
-            text: new FormData(event.currentTarget).get("text")
+        setFormButtonIsDisable(true)
+        await createPost({
+            text: formData?.text
         }).then(async () => {
+            setFormData({text: ""})
             await fetchPosts()
+        }).finally(() => {
+            setFormButtonIsDisable(false)
+        });
+    }
+
+    function handlePostForm(event: ChangeEvent<HTMLTextAreaElement>) {
+        setFormData(prevState => {
+            return {
+                ...prevState,
+                [event.target.name]: event.target.value
+            }
         })
     }
 
@@ -35,12 +48,13 @@ export default function UserPosts({userId, session}: {
                 <form onSubmit={handlePost}>
                     <label>
                         Текст: <br/>
-                        <textarea className="input-green" name="text"
+                        <textarea onChange={handlePostForm} value={formData?.text} className="input-green"
+                                  name="text"
                                   rows={7}
                                   maxLength={1024}
                         />
                     </label>
-                    <button className="button-green" type="submit">
+                    <button disabled={formButtonIsDisable} className="button-green" type="submit">
                         Опубликовать
                     </button>
                 </form>

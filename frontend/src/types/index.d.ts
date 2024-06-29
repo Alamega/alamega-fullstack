@@ -6,9 +6,9 @@ declare interface IUser {
 }
 
 declare interface IPost {
-    id: string;
-    text: string;
-    date: string;
+    id?: string;
+    text?: string;
+    date?: string;
 }
 
 declare interface ISession {

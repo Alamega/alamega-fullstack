@@ -157,6 +157,13 @@ label {
     background-color: var(--button-background-color-hover);
 }
 
+.button-green:disabled, .button-green:disabled:hover {
+    background-color: gray;
+    color: white;
+    border: 1px solid white;
+    cursor: wait;
+}
+
 .error {
     color: red;
     text-align: center;
