@@ -138,6 +138,7 @@ label {
     border: 1px solid var(--border-color);
     border-radius: 6px;
     color: rgb(64, 128, 64) !important;
+    resize: none;
 }
 
 .button-green {

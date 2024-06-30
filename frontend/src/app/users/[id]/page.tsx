@@ -3,7 +3,9 @@ import {getUserInfo} from "@/libs/users";
 import {getSession} from "@/libs/auth";
 import React from "react";
 import "./page.css"
-import UserPosts from "@/app/users/userPosts";
+import PostsSection from "@/components/postsBlock/postsSection";
+import Image from "next/image";
+import UserIcon from "../../../../public/images/icon.png"
 
 export async function generateMetadata({params}: {
     params: { id: string }
@@ -20,13 +22,21 @@ export default async function User({params}: { params: { id: string } }) {
 
     return (
         <>
-            <div>
-                {user.username}
-                <br/>
-                {user.role === "USER" && <span>Пользователь</span>}
-                {user.role === "ADMIN" && <span>Администратор</span>}
+            <div className={"user-card"}>
+                <div className={"user-card-image"}>
+                    <Image src={UserIcon} alt={"Юзер"} width={140} height={140}/>
+                </div>
+                <h1 className={"user-card-name"}>
+                    {user.username}
+                </h1>
+                <span className={"user-card-role"}>
+                    {user.role === "USER" && <span style={{color: "green"}}>Пользователь</span>}
+                    {user.role === "ADMIN" && <span style={{color: "red"}}>Администратор</span>}
+                </span>
+                <span className={"user-card-info"}></span>
             </div>
-            <UserPosts userId={params.id} session={session}/>
+            <PostsSection userId={params.id} session={session}/>
         </>
     );
 }
+

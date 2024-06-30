@@ -1,0 +1,40 @@
+.user-card {
+    display: grid;
+    grid-template-columns: 160px 1fr 200px;
+    grid-template-rows: 30px 130px;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+
+    box-shadow: 0 0 4px var(--shadow-color);
+    margin: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: var(--background-color);
+}
+
+.user-card-image {
+    grid-area: 1 / 1 / 3 / 2;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.user-card-name {
+    grid-area: 1 / 2 / 2 / 3;
+    margin: 0;
+    font-size: 26px;
+    padding: 2px;
+}
+
+.user-card-role {
+    grid-area: 1 / 3 / 2 / 4;
+    border-left: solid var(--border-color) 2px;
+    padding: 5px;
+    text-align: center;
+}
+
+.user-card-info {
+    grid-area: 2 / 2 / 3 / 4;
+    border-top: solid var(--border-color) 2px;
+    padding: 5px;
+}
+

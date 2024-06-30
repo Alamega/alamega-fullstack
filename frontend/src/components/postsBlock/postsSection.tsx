@@ -3,14 +3,15 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Post from "@/components/post/post";
 import {createPost, getUserPosts} from "@/libs/users";
+import "./postsSection.css"
 
-export default function UserPosts({userId, session}: {
+export default function PostsSection({userId, session}: {
     userId: string,
     session: ISession | null
 }) {
     const [posts, setPosts] = useState<IPost[]>([]);
-    const [formData, setFormData] = useState<{ text?: string } | null>(null);
-    const [formButtonIsDisable, setFormButtonIsDisable] = useState(false);
+    const [formData, setFormData] = useState({text: ""});
+    const [formButtonIsDisabled, setFormButtonIsDisabled] = useState(false);
     const fetchPosts = async () => {
         const posts = await getUserPosts(userId);
         setPosts(posts)
@@ -22,14 +23,14 @@ export default function UserPosts({userId, session}: {
 
     const handlePost = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setFormButtonIsDisable(true)
+        setFormButtonIsDisabled(true)
         await createPost({
-            text: formData?.text
+            text: formData.text
         }).then(async () => {
             setFormData({text: ""})
             await fetchPosts()
         }).finally(() => {
-            setFormButtonIsDisable(false)
+            setFormButtonIsDisabled(false)
         });
     }
 
@@ -46,15 +47,12 @@ export default function UserPosts({userId, session}: {
         <>
             {session && session.user.id == userId && (
                 <form onSubmit={handlePost}>
-                    <label>
-                        Текст: <br/>
-                        <textarea onChange={handlePostForm} value={formData?.text} className="input-green"
-                                  name="text"
-                                  rows={7}
-                                  maxLength={1024}
-                        />
-                    </label>
-                    <button disabled={formButtonIsDisable} className="button-green" type="submit">
+                    <textarea onChange={handlePostForm} value={formData?.text} className="input-green"
+                              name="text"
+                              rows={5}
+                              maxLength={1024}
+                    />
+                    <button disabled={formButtonIsDisabled} className="button-green" type="submit">
                         Опубликовать
                     </button>
                 </form>
