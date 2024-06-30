@@ -7,7 +7,7 @@ declare interface IUser {
 
 declare interface IPost {
     id?: string;
-    text?: string;
+    text: string;
     date?: string;
 }
 
