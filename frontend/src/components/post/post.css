@@ -1,0 +1,16 @@
+.post-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 4px;
+    padding: 4px;
+    background-color: var(--background-color-transparent);
+    border: solid var(--border-color) 1px;
+}
+
+.post-date {
+    border-bottom: solid var(--border-color) 1px;
+}
+
+.post-text {
+    min-height: 21px;
+}

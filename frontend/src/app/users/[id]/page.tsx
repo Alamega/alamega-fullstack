@@ -33,7 +33,7 @@ export default async function User({params}: { params: { id: string } }) {
                     {user.role === "USER" && <span style={{color: "green"}}>Пользователь</span>}
                     {user.role === "ADMIN" && <span style={{color: "red"}}>Администратор</span>}
                 </span>
-                <span className={"user-card-info"}></span>
+                <p className={"user-card-info"}></p>
             </div>
             <PostsSection userId={params.id} session={session}/>
         </>

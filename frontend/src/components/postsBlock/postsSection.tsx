@@ -11,7 +11,9 @@ export default function PostsSection({userId, session}: {
 }) {
     const [posts, setPosts] = useState<IPost[]>([]);
     const [formData, setFormData] = useState({text: ""});
-    const [formButtonIsDisabled, setFormButtonIsDisabled] = useState(false);
+    const [formButtonText, setFormButtonText] = useState("Опубликовать");
+    const [errors, setErrors] = useState("");
+
     const fetchPosts = async () => {
         const posts = await getUserPosts(userId);
         setPosts(posts)
@@ -23,15 +25,20 @@ export default function PostsSection({userId, session}: {
 
     const handlePost = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setFormButtonIsDisabled(true)
-        await createPost({
-            text: formData.text
-        }).then(async () => {
-            setFormData({text: ""})
-            await fetchPosts()
-        }).finally(() => {
-            setFormButtonIsDisabled(false)
-        });
+        setErrors("");
+        if (formData.text.trim().length > 0) {
+            setFormButtonText("Публикуем...")
+            await createPost({
+                text: formData.text
+            }).then(async () => {
+                setFormData({text: ""})
+                await fetchPosts()
+            }).finally(() => {
+                setFormButtonText("Опубликовать")
+            });
+        } else {
+            setErrors("Сообщение пустое!")
+        }
     }
 
     function handlePostForm(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -46,22 +53,26 @@ export default function PostsSection({userId, session}: {
     return (
         <>
             {session && session.user.id == userId && (
-                <form onSubmit={handlePost}>
+                <>
+                    <form onSubmit={handlePost} className={"post-form"}>
                     <textarea onChange={handlePostForm} value={formData?.text} className="input-green"
                               name="text"
                               rows={5}
                               maxLength={1024}
                     />
-                    <button disabled={formButtonIsDisabled} className="button-green" type="submit">
-                        Опубликовать
-                    </button>
-                </form>
+                        <button className="button-green" type="submit">
+                            {formButtonText}
+                        </button>
+                    </form>
+                    {errors && <div className="error">{errors}</div>}
+                </>
             )}
-            <div id="posts">
-                {posts.map((post: IPost) => {
-                    return <Post key={post.id} post={post}/>;
-                })}
-            </div>
+                <div id="posts">
+                    {posts.map((post: IPost) => {
+                        return <Post key={post.id} post={post}/>;
+                    })}
+                </div>
         </>
-    );
+    )
+        ;
 }

@@ -16,7 +16,7 @@ export async function getUserPosts(id: string): Promise<IPost[]> {
             return response.data
         })
 }
-
+ 
 export async function createPost(post: IPost): Promise<IPost> {
     const session = await getSession();
     return axios.post(process.env.NEXT_PUBLIC_API_URL + "/posts", post, {
