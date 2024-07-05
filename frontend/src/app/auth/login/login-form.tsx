@@ -40,7 +40,7 @@ export default function LoginForm() {
 
             {error && <div className="error">{error}</div>}
 
-            {isLoading && <Loader/>}
+            {isLoading && <Loader message={"Загрузка"}/>}
         </>
     );
 }

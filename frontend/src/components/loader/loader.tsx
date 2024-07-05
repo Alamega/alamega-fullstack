@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import "./loader.css"
 
-export default function Loader() {
+export default function Loader({message}: { message: string }) {
     const [dots, setDots] = useState<number>(1);
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export default function Loader() {
 
     return (
         <div className={"loader"}>
-            <p>Загрузка{Array(dots).fill(".")}</p>
+            <p>{message}{Array(dots).fill(".")}</p>
         </div>
     );
 };

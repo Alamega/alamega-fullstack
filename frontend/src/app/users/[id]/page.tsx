@@ -1,4 +1,4 @@
-import {Metadata, ResolvingMetadata} from "next";
+import {Metadata} from "next";
 import {getUserInfo} from "@/libs/users";
 import {getSession} from "@/libs/auth";
 import React from "react";
@@ -9,7 +9,7 @@ import UserIcon from "../../../../public/images/icon.png"
 
 export async function generateMetadata({params}: {
     params: { id: string }
-}, parent: ResolvingMetadata): Promise<Metadata> {
+}): Promise<Metadata> {
     const user = await getUserInfo(params.id)
     return {
         title: user.username,

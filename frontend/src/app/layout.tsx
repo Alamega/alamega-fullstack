@@ -9,6 +9,7 @@ import Link from "next/link";
 import Navbar from "@/components/navbar/navbar";
 import Menu from "@/components/menu/menu";
 import Clock from "@/components/clock/clock";
+import ServerNotReady from "@/components/serverNotReady/serverNotReady";
 
 const ubuntuFont = Ubuntu({
     weight: ["300"],
@@ -25,6 +26,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     return (
         <html lang="ru">
         <body className={ubuntuFont.className}>
+        <ServerNotReady/>
         <header>
             <Link href="/">
                 <h1>Alamega</h1>

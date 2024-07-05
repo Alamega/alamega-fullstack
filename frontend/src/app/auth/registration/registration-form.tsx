@@ -39,7 +39,7 @@ export default function RegistrationForm() {
 
             {error && <div className="error">{error}</div>}
 
-            {isLoading && <Loader/>}
+            {isLoading && <Loader message={"Загрузка"}/>}
         </>
     )
 }
