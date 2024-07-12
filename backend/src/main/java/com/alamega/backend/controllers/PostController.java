@@ -33,7 +33,7 @@ public class PostController {
     @Operation(summary = "Получение всех постов по id пользователя")
     @GetMapping("users/{userId}/posts")
     @ResponseStatus(HttpStatus.OK)
-    public List<Post> getByUser(@PathVariable("userId") String userId) {
+    public List<Post> getByUserId(@PathVariable("userId") String userId) {
         return postService.getPosts(userId);
     }
 
@@ -47,7 +47,7 @@ public class PostController {
     @Operation(summary = "Получение поста по ID")
     @GetMapping("/posts/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Post getUserById(@PathVariable UUID id) {
+    public Post getPostById(@PathVariable UUID id) {
         Optional<Post> post = postService.getPostById(id);
         if (post.isPresent()) {
             return post.get();

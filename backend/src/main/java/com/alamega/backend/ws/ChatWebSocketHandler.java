@@ -21,24 +21,21 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(@NonNull WebSocketSession session) throws IOException {
+        webSocketSessions.add(session);
         for (String textMessage : textMessages) {
             session.sendMessage(new TextMessage(textMessage));
         }
-        webSocketSessions.add(session);
     }
 
     @Override
-    protected void handleTextMessage(@NonNull WebSocketSession session, TextMessage message) throws Exception {
-        if (!message.getPayload().equals("ping")) {
-            JSONObject jsonMessage = new JSONObject(message.getPayload());
-            jsonMessage.put("author", (session.getPrincipal() != null) ? session.getPrincipal().getName() : "Гость");
-            textMessages.offer(jsonMessage.toString());
-            if (textMessages.size() >= 10) {
-                textMessages.poll();
-            }
-            for (WebSocketSession webSocketSession : webSocketSessions) {
-                webSocketSession.sendMessage(new TextMessage(jsonMessage.toString()));
-            }
+    protected void handleTextMessage(@NonNull WebSocketSession session, TextMessage message) throws IOException {
+        JSONObject jsonMessage = new JSONObject(message.getPayload());
+        textMessages.offer(jsonMessage.toString());
+        if (textMessages.size() >= 10) {
+            textMessages.poll();
+        }
+        for (WebSocketSession webSocketSession : webSocketSessions) {
+            webSocketSession.sendMessage(new TextMessage(jsonMessage.toString()));
         }
     }
 

@@ -67,12 +67,11 @@ export default function PostsSection({userId, session}: {
                     {errors && <div className="error">{errors}</div>}
                 </>
             )}
-                <div id="posts">
-                    {posts.map((post: IPost) => {
-                        return <Post key={post.id} post={post}/>;
-                    })}
-                </div>
+            <div id="posts">
+                {posts.map((post: IPost) => {
+                    return <Post key={post.id} post={post}/>;
+                })}
+            </div>
         </>
     )
-        ;
 }

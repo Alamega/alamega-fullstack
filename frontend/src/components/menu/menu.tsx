@@ -24,6 +24,7 @@ export default async function Menu() {
                 </>
             }
             <Link href={"/movies"}>Плеер</Link>
+            <Link href={"/chat"}>Чат</Link>
             {session &&
                 <>
                     <LogoutLink/>
