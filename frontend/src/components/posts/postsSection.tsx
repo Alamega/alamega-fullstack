@@ -1,7 +1,7 @@
 "use client"
 
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import Post from "@/components/post/post";
+import Post from "@/components/posts/post/post";
 import {createPost, getUserPosts} from "@/libs/users";
 import "./postsSection.css"
 
@@ -32,10 +32,9 @@ export default function PostsSection({userId, session}: {
                 text: formData.text
             }).then(async () => {
                 setFormData({text: ""})
-                await fetchPosts()
-            }).finally(() => {
                 setFormButtonText("Опубликовать")
-            });
+                await fetchPosts()
+            })
         } else {
             setErrors("Сообщение пустое!")
         }

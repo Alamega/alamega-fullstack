@@ -1,8 +1,9 @@
 "use client"
 
 import React, {ChangeEvent, FormEvent, useState} from "react";
+import ChatMessage from "@/components/chat/message/message";
 
-export default function Chat({session}: { session: ISession | null }) {
+export default function Chat({session, serverUrl}: { session: ISession | null, serverUrl: string }) {
     interface Message {
         author: string,
         text: string
@@ -12,12 +13,16 @@ export default function Chat({session}: { session: ISession | null }) {
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [formData, setFormData] = useState({text: ""});
     const [errors, setErrors] = useState("");
+    const wsURL = serverUrl.replace("http", "ws") + "/chat";
 
     if (!socket) {
-        setSocket(new WebSocket('ws://localhost:8080/chat'))
+        setSocket(new WebSocket(wsURL))
     } else {
         socket.onmessage = (event) => {
-            setMessages(prevState => [...prevState, JSON.parse(event.data)])
+            setMessages((prevState) => {
+                const newMessages = [...prevState, JSON.parse(event.data)];
+                return newMessages.slice(-25);
+            });
         }
     }
 
@@ -29,6 +34,7 @@ export default function Chat({session}: { session: ISession | null }) {
                 author: session ? session.user.username : "Гость",
                 text: formData.text
             }))
+            setFormData({text: ""})
         } else {
             setErrors("Сообщение пустое!")
         }
@@ -55,7 +61,7 @@ export default function Chat({session}: { session: ISession | null }) {
             </form>
             {errors && <div className="error">{errors}</div>}
             {messages.slice().reverse().map((message, index) => (
-                <div key={index}>{message.author}: {message.text}</div>
+                <ChatMessage key={index} message={message}/>
             ))}
         </div>
     );

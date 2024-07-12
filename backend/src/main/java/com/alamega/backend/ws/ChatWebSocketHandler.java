@@ -31,7 +31,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(@NonNull WebSocketSession session, TextMessage message) throws IOException {
         JSONObject jsonMessage = new JSONObject(message.getPayload());
         textMessages.offer(jsonMessage.toString());
-        if (textMessages.size() >= 10) {
+        if (textMessages.size() >= 26) {
             textMessages.poll();
         }
         for (WebSocketSession webSocketSession : webSocketSessions) {

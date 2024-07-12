@@ -3,7 +3,7 @@ import {getUserInfo} from "@/libs/users";
 import {getSession} from "@/libs/auth";
 import React from "react";
 import "./page.css"
-import PostsSection from "@/components/postsBlock/postsSection";
+import PostsSection from "@/components/posts/postsSection";
 import Image from "next/image";
 import UserIcon from "../../../../public/images/icon.png"
 
