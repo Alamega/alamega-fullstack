@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (MalformedJwtException ignored) {
-            //TODO Сделать что то или ничего не делать непонятно
+
         }
     }
 }
