@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="Деплойся!">
+    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="Деплойся!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,11 +34,15 @@
     &quot;assignee&quot;: &quot;Alamega&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alamega/alamega-fullstack.git",
-    "accountId": "6ca550e9-9a08-4c7d-9ffe-4e72492bfccd"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alamega/alamega-fullstack.git&quot;,
+    &quot;accountId&quot;: &quot;6ca550e9-9a08-4c7d-9ffe-4e72492bfccd&quot;
   }
+}</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
 }]]></component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
@@ -68,7 +73,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.AlamegaSpringApplication.executor": "Run",
-    "Spring Boot.backend.executor": "Debug",
+    "Spring Boot.backend.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -80,7 +85,7 @@
     "node.js.selected.package.stylelint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "npm.frontend.executor": "Debug",
+    "npm.frontend.executor": "Run",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -96,7 +101,9 @@
   </component>
   <component name="RunManager" selected="Docker.backend/Dockerfile">
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="backend/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
@@ -142,7 +149,8 @@
       <workItem from="1727709978832" duration="5303000" />
       <workItem from="1728835701153" duration="1186000" />
       <workItem from="1728836931715" duration="181000" />
-      <workItem from="1728837124669" duration="8287000" />
+      <workItem from="1728837124669" duration="9297000" />
+      <workItem from="1728846563708" duration="1263000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -160,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728844895750</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Деплойся!!">
+      <option name="closed" value="true" />
+      <created>1728845443523</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728845443523</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,7 +199,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Сойдет" />
     <MESSAGE value="Деплойся!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Деплойся!" />
+    <MESSAGE value="Деплойся!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Деплойся!!" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
