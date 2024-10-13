@@ -20,26 +20,28 @@ export default function RegistrationForm() {
 
     return (
         <>
-            {!isLoading &&
-                <form
-                    onSubmit={handleRegistration}
-                    autoComplete={"off"}
-                >
-                    <label>Имя пользователя: <br/>
-                        <input className="input-green" name="username" type="text"/>
-                    </label>
+            {isLoading ? (
+                <Loader message={"Загрузка"}/>
+            ) : (
+                <>
+                    <form
+                        onSubmit={handleRegistration}
+                        autoComplete={"off"}
+                    >
+                        <label>Имя пользователя: <br/>
+                            <input className="input-green" name="username" type="text"/>
+                        </label>
 
-                    <label>Пароль: <br/>
-                        <input className="input-green" name="password" type="password"/>
-                    </label>
+                        <label>Пароль: <br/>
+                            <input className="input-green" name="password" type="password"/>
+                        </label>
 
-                    <button className="button-green" type="submit">Зарегистрироваться</button>
-                </form>
-            }
-
-            {error && <div className="error">{error}</div>}
-
-            {isLoading && <Loader message={"Загрузка"}/>}
+                        <button className="button-green" type="submit">Зарегистрироваться</button>
+                    </form>
+                    
+                    {error && <div className="error">{error}</div>}
+                </>
+            )}
         </>
     )
 }

@@ -2,7 +2,6 @@ package com.alamega.backend.controllers;
 
 import com.alamega.backend.model.post.Post;
 import com.alamega.backend.schemas.request.PostPublicationRequest;
-import com.alamega.backend.schemas.response.ErrorResponse;
 import com.alamega.backend.services.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -61,11 +60,5 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public void deletePost(@PathVariable UUID id) {
         postService.deletePost(id);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse errorResponse(RuntimeException exception) {
-        return new ErrorResponse(exception.getMessage());
     }
 }

@@ -4,26 +4,41 @@ import React, {useEffect, useState} from "react";
 import "./serverNotReady.css";
 import {getServerUrl} from "@/libs/server";
 import Loader from "@/components/loader/loader";
+import axios, {AxiosResponse, CancelTokenSource} from "axios";
 
 export default function ServerNotReady() {
-    const [isServerAvailable, setIsServerAvailable] = useState(false);
+    const [isServerAvailable, setIsServerAvailable] = useState<boolean>(false);
+    let cancelToken: CancelTokenSource;
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    const check = async () => {
+        if (cancelToken) {
+            cancelToken.cancel();
+        }
+        cancelToken = axios.CancelToken.source();
+        try {
+            const response: AxiosResponse<string> = await axios.get(await getServerUrl() + "/checkHealth", {cancelToken: cancelToken.token});
+            if (response.status === 200) {
+                setIsServerAvailable(true);
+            } else {
+                setIsServerAvailable(false);
+                timeoutId = setTimeout(check, 5000);
+            }
+        } catch (error) {
+            setIsServerAvailable(false);
+            timeoutId = setTimeout(check, 5000);
+        }
+    };
 
     useEffect(() => {
-        async function check() {
-            return await fetch(await getServerUrl()).then((response) => {
-                if (response.ok) {
-                    setIsServerAvailable(true);
-                } else {
-                    setIsServerAvailable(false);
-                }
-            }).catch((error) => {
-                setIsServerAvailable(false);
-            });
-        }
-
-        const intervalId = setInterval(check, 5000);
+        check();
         return () => {
-            clearInterval(intervalId);
+            if (cancelToken) {
+                cancelToken.cancel();
+            }
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
         };
     }, []);
 

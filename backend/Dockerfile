@@ -1,12 +1,12 @@
-FROM maven:3.9.6-amazoncorretto-21 as builder
+FROM maven:3.9.9-amazoncorretto-23-alpine as builder
 COPY . /app
 WORKDIR /app/utils
-RUN curl -L https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz | tar xz
-ENV PATH="/app/utils/apache-maven-3.9.6/bin:${PATH}"
+RUN curl -L https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz | tar xz
+ENV PATH="/app/utils/apache-maven-3.9.9/bin:${PATH}"
 WORKDIR /app
 RUN mvn -f /app/pom.xml clean package
 
-FROM amazoncorretto:21.0.2-alpine as runner
+FROM amazoncorretto:23-alpine as runner
 COPY --from=builder /app/target/backend-1.0.0.jar /app/backend.jar
 ENTRYPOINT ["java","-jar","/app/backend.jar"]
 

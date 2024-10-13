@@ -4,12 +4,14 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Post from "@/components/posts/post/post";
 import {createPost, getUserPosts} from "@/libs/users";
 import "./postsSection.css"
+import Loader from "@/components/loader/loader";
 
 export default function PostsSection({userId, session}: {
     userId: string,
     session: ISession | null
 }) {
     const [posts, setPosts] = useState<IPost[]>([]);
+    const [postsLoaded, setPostsLoaded] = useState<boolean>(false);
     const [formData, setFormData] = useState({text: ""});
     const [formButtonText, setFormButtonText] = useState("Опубликовать");
     const [errors, setErrors] = useState("");
@@ -20,8 +22,10 @@ export default function PostsSection({userId, session}: {
     }
 
     useEffect(() => {
-        fetchPosts().then();
-    })
+        fetchPosts().then(() => {
+            setPostsLoaded(true);
+        });
+    }, [])
 
     const handlePost = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -66,11 +70,18 @@ export default function PostsSection({userId, session}: {
                     {errors && <div className="error">{errors}</div>}
                 </>
             )}
-            <div id="posts">
-                {posts.map((post: IPost) => {
-                    return <Post key={post.id} post={post}/>;
-                })}
-            </div>
+
+            {postsLoaded ? (
+                <div id="posts">
+                    {posts.map((post: IPost) => {
+                        return <Post key={post.id} post={post}/>;
+                    })}
+                </div>
+            ) : (
+                <div>
+                    <Loader message={"Загружаю посты"}/>
+                </div>
+            )}
         </>
     )
 }

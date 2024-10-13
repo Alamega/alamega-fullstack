@@ -4,7 +4,6 @@ import com.alamega.backend.exceptions.UnauthorizedException;
 import com.alamega.backend.schemas.request.AuthenticationRequest;
 import com.alamega.backend.schemas.request.RegisterRequest;
 import com.alamega.backend.schemas.response.AuthResponse;
-import com.alamega.backend.schemas.response.ErrorResponse;
 import com.alamega.backend.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,11 +32,5 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.OK)
     public AuthResponse authenticate(@RequestBody AuthenticationRequest request) throws UnauthorizedException {
         return authenticationService.authenticate(request);
-    }
-
-    @ExceptionHandler(UnauthorizedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ErrorResponse authenticate(UnauthorizedException exception) {
-        return new ErrorResponse(exception.getMessage());
     }
 }

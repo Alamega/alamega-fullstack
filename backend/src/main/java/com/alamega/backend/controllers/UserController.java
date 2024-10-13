@@ -2,7 +2,6 @@ package com.alamega.backend.controllers;
 
 import com.alamega.backend.model.user.User;
 import com.alamega.backend.schemas.request.CreateUserRequest;
-import com.alamega.backend.schemas.response.ErrorResponse;
 import com.alamega.backend.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +25,6 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @Operation(summary = "Получение всех пользователей")
-    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAll() {
@@ -57,11 +55,5 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse errorResponse(RuntimeException exception) {
-        return new ErrorResponse(exception.getMessage());
     }
 }

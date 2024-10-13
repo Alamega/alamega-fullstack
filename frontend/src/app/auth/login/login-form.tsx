@@ -20,27 +20,30 @@ export default function LoginForm() {
 
     return (
         <>
-            {!isLoading &&
-                <form onSubmit={handleLogin}>
-                    <label>
-                        Имя пользователя: <br/>
-                        <input className="input-green" name="username" type="text" autoComplete="username"/>
-                    </label>
+            {isLoading ? (
+                <Loader message={"Загрузка"}/>
+            ) : (
+                <>
+                    <form onSubmit={handleLogin}>
+                        <label>
+                            Имя пользователя: <br/>
+                            <input className="input-green" name="username" type="text" autoComplete="username"/>
+                        </label>
 
-                    <label>
-                        Пароль: <br/>
-                        <input className="input-green" name="password" type="password" autoComplete="current-password"/>
-                    </label>
+                        <label>
+                            Пароль: <br/>
+                            <input className="input-green" name="password" type="password"
+                                   autoComplete="current-password"/>
+                        </label>
 
-                    <button className="button-green" type="submit">
-                        Войти
-                    </button>
-                </form>
-            }
+                        <button className="button-green" type="submit">
+                            Войти
+                        </button>
+                    </form>
 
-            {error && <div className="error">{error}</div>}
-
-            {isLoading && <Loader message={"Загрузка"}/>}
+                    {error && <div className="error">{error}</div>}
+                </>
+            )}
         </>
     );
 }

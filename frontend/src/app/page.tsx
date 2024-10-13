@@ -10,8 +10,11 @@ export default async function Home() {
     const session: ISession | null = await getSession();
     return (
         <>
-            {session && <p>Приветствую товарищ {session.user.username}!</p>}
-            {!session && <p>Чувствую присутствие неавторизованного пользователя.</p>}
+            {session ? (
+                <p>Приветствую товарищ {session.user.username}!</p>
+            ) : (
+                <p>Чувствую присутствие неавторизованного пользователя.</p>
+            )}
         </>
     );
 }
