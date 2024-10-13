@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="Сойдет">
+    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="Деплойся!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
     </list>
@@ -59,6 +59,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Attach to process.pid 4068.executor": "ProcessAttachDebug",
     "DefaultHtmlFileTemplate": "HTML File",
+    "Docker.backend/Dockerfile.executor": "Run",
     "Node.js.Unnamed.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -93,12 +94,30 @@
       <recent name="com.alamega.backend.test" />
     </key>
   </component>
-  <component name="RunManager" selected="Compound.fullstack">
+  <component name="RunManager" selected="Docker.backend/Dockerfile">
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile" />
+      <method v="2" />
+    </configuration>
+    <configuration name="backend/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="backend/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Compound.fullstack" />
+      <item itemvalue="Docker.backend/Dockerfile" />
       <item itemvalue="npm.frontend" />
       <item itemvalue="Spring Boot.backend" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.backend/Dockerfile" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -123,7 +142,7 @@
       <workItem from="1727709978832" duration="5303000" />
       <workItem from="1728835701153" duration="1186000" />
       <workItem from="1728836931715" duration="181000" />
-      <workItem from="1728837124669" duration="7687000" />
+      <workItem from="1728837124669" duration="8287000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -133,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728844527632</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Деплойся!">
+      <option name="closed" value="true" />
+      <created>1728844895750</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728844895750</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +182,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Сойдет" />
-    <option name="LAST_COMMIT_MESSAGE" value="Сойдет" />
+    <MESSAGE value="Деплойся!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Деплойся!" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

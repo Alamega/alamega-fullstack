@@ -1,6 +1,7 @@
 FROM maven:3.9.9-amazoncorretto-23 as builder
 COPY . /app
 WORKDIR /app/utils
+RUN apt-get update && apt-get install -y tar
 RUN curl -L https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz | tar xz
 ENV PATH="/app/utils/apache-maven-3.9.9/bin:${PATH}"
 WORKDIR /app
