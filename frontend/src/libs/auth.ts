@@ -23,7 +23,7 @@ export async function decrypt(sessionToken: string): Promise<any> {
     return payload;
 }
 
-async function handleAuth(response: any) {
+async function handleAuth(response: any): Promise<string> {
     if (!response) {
         return "Сервер авторизации недоступен."
     }

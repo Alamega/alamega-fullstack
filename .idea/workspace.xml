@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="Всякие там обновления да">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controllers/ExceptionControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controllers/ExceptionControllerAdvice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/users/[id]/page.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/users/[id]/page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/clock/clock.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/clock/clock.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/navbar/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navbar/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/posts/post/post.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/posts/post/post.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/posts/post/post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/posts/post/post.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/posts/postsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/posts/postsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/libs/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/libs/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/auth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +153,8 @@
       <workItem from="1728837124669" duration="9297000" />
       <workItem from="1728846563708" duration="1601000" />
       <workItem from="1728848440511" duration="124000" />
-      <workItem from="1729185519131" duration="6340000" />
+      <workItem from="1729185519131" duration="6707000" />
+      <workItem from="1729192574404" duration="670000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -193,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728847886615</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Всякие там обновления да">
+      <option name="closed" value="true" />
+      <created>1729192058555</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1729192058555</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
