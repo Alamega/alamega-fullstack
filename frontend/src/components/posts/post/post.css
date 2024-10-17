@@ -7,10 +7,19 @@
     border: solid var(--border-color) 1px;
 }
 
-.post-date {
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
     border-bottom: solid var(--border-color) 1px;
 }
 
-.post-text {
-    min-height: 21px;
+.post-content {
+    padding: 6px;
+    white-space: pre-wrap;
+}
+
+.post-delete-button {
+    cursor: pointer;
 }

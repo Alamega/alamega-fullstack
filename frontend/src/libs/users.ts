@@ -16,7 +16,7 @@ export async function getUserPosts(id: string): Promise<IPost[]> {
             return response.data
         })
 }
- 
+
 export async function createPost(post: IPost): Promise<IPost> {
     const session = await getSession();
     return axios.post(process.env.NEXT_PUBLIC_API_URL + "/posts", post, {
@@ -25,5 +25,15 @@ export async function createPost(post: IPost): Promise<IPost> {
         }
     }).then(response => {
         return response.data as IPost;
+    })
+}
+
+export async function deletePost(postId: string): Promise<void> {
+    const session = await getSession();
+    return axios.delete(process.env.NEXT_PUBLIC_API_URL + `/posts/${postId}`, {
+        headers: {
+            Authorization: "Bearer " + session?.user.token
+        }
+    }).then(() => {
     })
 }

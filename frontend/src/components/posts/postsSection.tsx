@@ -2,7 +2,7 @@
 
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Post from "@/components/posts/post/post";
-import {createPost, getUserPosts} from "@/libs/users";
+import {createPost, deletePost, getUserPosts} from "@/libs/users";
 import "./postsSection.css"
 import Loader from "@/components/loader/loader";
 
@@ -16,7 +16,7 @@ export default function PostsSection({userId, session}: {
     const [formButtonText, setFormButtonText] = useState("Опубликовать");
     const [errors, setErrors] = useState("");
 
-    const fetchPosts = async () => {
+    async function fetchPosts() {
         const posts = await getUserPosts(userId);
         setPosts(posts)
     }
@@ -27,7 +27,7 @@ export default function PostsSection({userId, session}: {
         });
     }, [])
 
-    const handlePost = async (event: FormEvent<HTMLFormElement>) => {
+    async function handlePost(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setErrors("");
         if (formData.text.trim().length > 0) {
@@ -53,6 +53,15 @@ export default function PostsSection({userId, session}: {
         })
     }
 
+    async function handlePostDeleted(postId: string) {
+        setPostsLoaded(false)
+        await deletePost(postId).then(() => {
+            fetchPosts().then(() => {
+                setPostsLoaded(true);
+            });
+        });
+    }
+
     return (
         <>
             {session && session.user.id == userId && (
@@ -74,7 +83,7 @@ export default function PostsSection({userId, session}: {
             {postsLoaded ? (
                 <div id="posts">
                     {posts.map((post: IPost) => {
-                        return <Post key={post.id} post={post}/>;
+                        return <Post key={post.id} post={post} deletePost={handlePostDeleted}/>;
                     })}
                 </div>
             ) : (

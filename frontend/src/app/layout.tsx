@@ -14,9 +14,9 @@ import ServerNotReady from "@/components/serverNotReady/serverNotReady";
 const ubuntuFont = Ubuntu({
     weight: ["300"],
     style: "normal",
-    subsets: ["cyrillic"],
-    display: "swap",
+    subsets: ["cyrillic"]
 });
+
 export const metadata: Metadata = {
     title: "title",
     description: "description",

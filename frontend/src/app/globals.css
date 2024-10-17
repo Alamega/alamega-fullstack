@@ -23,7 +23,7 @@
 }
 
 html {
-    background: white url("/images/bg.png") no-repeat center center/cover fixed;
+    background: white url("../../public/images/bg.png") no-repeat center center/cover fixed;
     height: 100%;
     overflow-y: scroll;
 }
@@ -43,7 +43,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    max-width: 1080px;
+    max-width: 1200px;
     box-shadow: 0 0 4px var(--shadow-color);
     color: var(--text-color);
     background-color: var(--background-color-transparent);
@@ -91,7 +91,7 @@ footer > p {
 .content {
     display: flex;
     flex-direction: column;
-    flex: 5 0 0;
+    flex: 6 0 0;
     margin: 10px;
 }
 
@@ -171,7 +171,7 @@ label {
 }
 
 
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
     .sidebar {
         display: none;
     }
