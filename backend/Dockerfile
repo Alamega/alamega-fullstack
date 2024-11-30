@@ -1,7 +1,9 @@
 FROM maven:3.9.9-amazoncorretto-23-alpine AS builder
 COPY . /app
-RUN rm -f /app/src/main/resources/application.properties
-RUN mv /app/src/main/resources/application-local.properties /app/src/main/resources/application.properties
+RUN if [ -f /app/src/main/resources/application-local.properties ];  \
+    then rm -f /app/src/main/resources/application.properties &&  \
+         mv /app/src/main/resources/application-local.properties /app/src/main/resources/application.properties; \
+    fi
 RUN mvn -f /app/pom.xml clean package -DskipTests
 
 FROM amazoncorretto:23 AS runner
