@@ -7,16 +7,20 @@ import PostsSection from "@/components/posts/postsSection";
 import Image from "next/image";
 import UserIcon from "../../../../public/images/icon.png"
 
-export async function generateMetadata({params}: {
-    params: { id: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+    props: {
+        params: Promise<{ id: string }>
+    }
+): Promise<Metadata> {
+    const params = await props.params;
     const user = await getUserInfo(params.id)
     return {
         title: user.username,
     }
 }
 
-export default async function User({params}: { params: { id: string } }) {
+export default async function User(props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const user = await getUserInfo(params.id)
     const session = await getSession();
 

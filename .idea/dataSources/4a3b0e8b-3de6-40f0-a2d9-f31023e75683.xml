@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Alamega@ep-raspy-sun-158388.eu-central-1.aws.neon.tech">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
       <Grants>1||-9223372036854775808|c|G
@@ -4273,28 +4273,28 @@ false Zulu
       <OwnerName>Alamega</OwnerName>
     </table>
     <column id="267" parent="265" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>643072</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="268" parent="265" name="date">
-      <DasType>timestamp(6)|0s</DasType>
       <Position>2</Position>
       <StateNumber>643072</StateNumber>
+      <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="269" parent="265" name="text">
-      <DasType>varchar(1024)|0s</DasType>
       <Position>3</Position>
       <StateNumber>643072</StateNumber>
+      <StoredType>varchar(1024)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="270" parent="265" name="author">
-      <DasType>uuid|0s</DasType>
       <Position>4</Position>
       <StateNumber>643072</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <foreign-key id="271" parent="265" name="fk9k4xbcojf8g0etikyd7j5p1b3">
@@ -4322,28 +4322,28 @@ false Zulu
       <UnderlyingIndexId>344069</UnderlyingIndexId>
     </key>
     <column id="274" parent="266" name="id">
-      <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>643073</StateNumber>
+      <StoredType>uuid|0s</StoredType>
       <TypeId>2950</TypeId>
     </column>
     <column id="275" parent="266" name="password">
-      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>643073</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="276" parent="266" name="role">
-      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
       <StateNumber>643073</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="277" parent="266" name="username">
-      <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
       <StateNumber>643073</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <index id="278" parent="266" name="users_pkey">

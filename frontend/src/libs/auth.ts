@@ -33,7 +33,7 @@ async function handleAuth(response: any): Promise<string> {
             const user: IUser = response.data;
             const expires = new Date(Date.now() + expirationTime);
             const sessionToken = await encrypt({user, expires});
-            cookies().set("session", sessionToken, {expires, httpOnly: true});
+            (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
             return redirect("/");
         }
         default:
@@ -62,11 +62,11 @@ export async function registration(formData: FormData): Promise<string> {
 }
 
 export async function logout() {
-    cookies().set("session", "", {expires: new Date(0)});
+    (await cookies()).set("session", "", {expires: new Date(0)});
 }
 
 export async function getSession(): Promise<ISession | null> {
-    const sessionToken = cookies().get("session")?.value;
+    const sessionToken = (await cookies()).get("session")?.value;
     if (!sessionToken) return null
     return await decrypt(sessionToken);
 }
