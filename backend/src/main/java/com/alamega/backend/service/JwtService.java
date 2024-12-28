@@ -1,4 +1,4 @@
-package com.alamega.backend.services;
+package com.alamega.backend.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;

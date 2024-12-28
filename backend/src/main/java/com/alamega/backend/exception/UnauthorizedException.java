@@ -1,4 +1,4 @@
-package com.alamega.backend.exceptions;
+package com.alamega.backend.exception;
 
 public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {

@@ -1,6 +1,6 @@
 package com.alamega.backend.config.security;
 
-import com.alamega.backend.services.JwtService;
+import com.alamega.backend.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

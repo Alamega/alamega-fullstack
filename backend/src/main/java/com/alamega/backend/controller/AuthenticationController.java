@@ -1,12 +1,13 @@
-package com.alamega.backend.controllers;
+package com.alamega.backend.controller;
 
-import com.alamega.backend.exceptions.UnauthorizedException;
-import com.alamega.backend.schemas.request.AuthenticationRequest;
-import com.alamega.backend.schemas.request.RegisterRequest;
-import com.alamega.backend.schemas.response.AuthResponse;
-import com.alamega.backend.services.AuthenticationService;
+import com.alamega.backend.dto.request.AuthenticationRequest;
+import com.alamega.backend.dto.request.RegisterRequest;
+import com.alamega.backend.dto.response.AuthResponse;
+import com.alamega.backend.exception.UnauthorizedException;
+import com.alamega.backend.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class AuthenticationController {
     @Operation(summary = "Регистрация нового пользователя")
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.OK)
-    public AuthResponse register(@RequestBody RegisterRequest request) throws UnauthorizedException {
+    public AuthResponse register(@Valid @RequestBody RegisterRequest request) throws UnauthorizedException {
         return authenticationService.register(request);
     }
 

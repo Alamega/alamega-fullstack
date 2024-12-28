@@ -1,17 +1,14 @@
-package com.alamega.backend.controllers;
+package com.alamega.backend.controller;
 
 import com.alamega.backend.model.user.User;
-import com.alamega.backend.schemas.request.CreateUserRequest;
-import com.alamega.backend.services.UserService;
+import com.alamega.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -22,7 +19,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Operation(summary = "Получение всех пользователей")
     @GetMapping
@@ -31,23 +27,11 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @Operation(summary = "Добавление нового пользователя")
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(@RequestBody CreateUserRequest user) {
-        return userService.createUser(new User(user.getUsername(), passwordEncoder.encode(user.getPassword()), "USER"));
-    }
-
     @Operation(summary = "Получение пользователя по ID")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User getUserById(@PathVariable UUID id) {
-        Optional<User> user = userService.getUserById(id);
-        if (user.isPresent()) {
-            return user.get();
-        } else {
-            throw new RuntimeException("Пользователь с таким id не найден.");
-        }
+        return userService.getUserById(id).orElseThrow(() -> new RuntimeException("Пользователь с таким id не найден."));
     }
 
     @Operation(summary = "Удаление пользователя по ID")

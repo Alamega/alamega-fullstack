@@ -1,5 +1,6 @@
-package com.alamega.backend.schemas.request;
+package com.alamega.backend.dto.response;
 
+import com.alamega.backend.model.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class AuthResponse {
+    private String token;
+    private String id;
     private String username;
-    private String password;
+    private Role role;
 }

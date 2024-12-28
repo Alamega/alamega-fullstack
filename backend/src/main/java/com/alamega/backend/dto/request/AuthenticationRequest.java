@@ -1,4 +1,4 @@
-package com.alamega.backend.schemas.response;
+package com.alamega.backend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
-    private String token;
-    private String id;
+public class AuthenticationRequest {
     private String username;
-    private String role;
+    private String password;
 }

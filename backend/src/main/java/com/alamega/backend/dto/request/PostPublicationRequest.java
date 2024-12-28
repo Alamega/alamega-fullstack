@@ -1,4 +1,4 @@
-package com.alamega.backend.schemas.request;
+package com.alamega.backend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
-    private String username;
-    private String password;
+public class PostPublicationRequest {
+    private String text;
 }

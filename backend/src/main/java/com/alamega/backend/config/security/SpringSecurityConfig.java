@@ -38,7 +38,6 @@ public class SpringSecurityConfig {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests(requests -> requests
-                //Порядок важен!!!
                 //.requestMatchers("/users/**").hasRole("ADMIN")
                 .requestMatchers("/**").permitAll()
         );

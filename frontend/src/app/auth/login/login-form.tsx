@@ -9,6 +9,7 @@ export default function LoginForm() {
     const [isLoading, setLoading] = useState<boolean>(false);
 
     async function handleLogin(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         setLoading(true);
         setError(null);
         try {

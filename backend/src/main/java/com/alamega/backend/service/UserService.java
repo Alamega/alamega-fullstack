@@ -1,4 +1,4 @@
-package com.alamega.backend.services;
+package com.alamega.backend.service;
 
 import com.alamega.backend.model.user.User;
 import com.alamega.backend.model.user.UserRepository;

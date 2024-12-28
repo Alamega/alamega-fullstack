@@ -9,6 +9,7 @@ export default function RegistrationForm() {
     const [isLoading, setLoading] = useState<boolean>(false)
 
     async function handleRegistration(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         setLoading(true);
         setError(null);
         try {
@@ -38,7 +39,7 @@ export default function RegistrationForm() {
 
                         <button className="button-green" type="submit">Зарегистрироваться</button>
                     </form>
-                    
+
                     {error && <div className="error">{error}</div>}
                 </>
             )}

@@ -1,4 +1,4 @@
-package com.alamega.backend.schemas.response;
+package com.alamega.backend.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.alamega.backend.controllers;
+package com.alamega.backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

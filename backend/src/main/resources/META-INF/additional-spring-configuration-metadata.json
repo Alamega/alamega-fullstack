@@ -4,6 +4,11 @@
       "name": "jwt.secret",
       "type": "java.lang.String",
       "description": "Никому не рассказывайте что вы видели здесь."
+    },
+    {
+      "name": "admin.username",
+      "type": "java.lang.String",
+      "description": "Логин администратора."
     }
   ]
 }

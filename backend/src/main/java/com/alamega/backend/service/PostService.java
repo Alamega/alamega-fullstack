@@ -1,8 +1,8 @@
-package com.alamega.backend.services;
+package com.alamega.backend.service;
 
+import com.alamega.backend.dto.request.PostPublicationRequest;
 import com.alamega.backend.model.post.Post;
 import com.alamega.backend.model.post.PostRepository;
-import com.alamega.backend.schemas.request.PostPublicationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +15,6 @@ import java.util.UUID;
 public class PostService {
     private final UserService userService;
     private final PostRepository postRepository;
-
-    public List<Post> getPosts() {
-        return postRepository.findAllByAuthorOrderByDateDesc(AuthenticationService.getCurrentUser());
-    }
 
     public List<Post> getPosts(String userId) {
         return userService.getUserById(UUID.fromString(userId)).map(postRepository::findAllByAuthorOrderByDateDesc).orElse(null);
@@ -35,10 +31,6 @@ public class PostService {
                         postPublicationRequest.getText()
                 )
         );
-    }
-
-    public Post updatePost(Post post) {
-        return postRepository.save(post);
     }
 
     public void deletePost(UUID id) {

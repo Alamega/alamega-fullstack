@@ -1,6 +1,6 @@
 package com.alamega.backend.config;
 
-import com.alamega.backend.services.UserService;
+import com.alamega.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
