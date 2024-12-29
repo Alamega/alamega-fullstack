@@ -2,7 +2,14 @@ declare interface IUser {
     token: string
     id: string;
     username: string;
-    role: string;
+    role: IRole;
+}
+
+declare interface IRole {
+    id: string;
+    value: string;
+    name: string;
+    authorities: string[];
 }
 
 declare interface IPost {
@@ -13,4 +20,9 @@ declare interface IPost {
 
 declare interface ISession {
     user: IUser;
+}
+
+interface IErrorResponse {
+    message?: string;
+    fieldErrors?: Record<string, string[]>;
 }

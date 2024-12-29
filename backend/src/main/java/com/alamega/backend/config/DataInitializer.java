@@ -27,8 +27,7 @@ public class DataInitializer implements CommandLineRunner {
     private void initializeAuthorities() {
         new HashSet<>(Arrays.asList(
                 new Authority(null, "ROLE_USER", "Роль \"Пользователь\""),
-                new Authority(null, "ROLE_ADMIN", "Роль \"Админ\""),
-                new Authority(null, "ПУКАЛЬЩИК", "МОГУ ПУКАТЬ")
+                new Authority(null, "ROLE_ADMIN", "Роль \"Админ\"")
         )).forEach(authority -> {
             if (authorityRepository.getByValue(authority.getValue()) == null) {
                 authorityRepository.save(authority);
@@ -42,8 +41,7 @@ public class DataInitializer implements CommandLineRunner {
                         authorityRepository.getByValue("ROLE_USER")
                 )),
                 new Role(null, "ADMIN", "Админ", Set.of(
-                        authorityRepository.getByValue("ROLE_ADMIN"),
-                        authorityRepository.getByValue("ПУКАЛЬЩИК")
+                        authorityRepository.getByValue("ROLE_ADMIN")
                 ))
         )).forEach(role -> {
             if (roleRepository.getByValue(role.getValue()) == null) {

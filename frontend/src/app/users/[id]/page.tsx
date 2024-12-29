@@ -23,7 +23,6 @@ export default async function User(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const user = await getUserInfo(params.id)
     const session = await getSession();
-
     return (
         <>
             <div className={"user-card"}>
@@ -34,8 +33,8 @@ export default async function User(props: { params: Promise<{ id: string }> }) {
                     {user.username}
                 </h1>
                 <span className={"user-card-role"}>
-                    {user.role === "USER" && <span style={{color: "green"}}>Пользователь</span>}
-                    {user.role === "ADMIN" && <span style={{color: "red"}}>Администратор</span>}
+                    {user.role.value == "ADMIN" && <span style={{color: "red"}}>Администратор</span>}
+                    {user.role.value == "USER" && <span style={{color: "green"}}>Пользователь</span>}
                 </span>
                 <p className={"user-card-info"}></p>
             </div>

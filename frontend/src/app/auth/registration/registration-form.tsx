@@ -2,47 +2,42 @@
 
 import {FormEvent, useState} from "react";
 import {registration} from "@/libs/auth";
-import Loader from "@/components/loader/loader";
+import {redirect} from "next/navigation";
 
 export default function RegistrationForm() {
-    const [error, setError] = useState<string | null>();
+    const [error, setError] = useState<IErrorResponse | null>(null);
     const [isLoading, setLoading] = useState<boolean>(false)
 
     async function handleRegistration(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setLoading(true);
         setError(null);
-        try {
-            setError(await registration(new FormData(event.currentTarget)));
-        } finally {
+        registration(new FormData(event.currentTarget)).then(result => {
+            setError(result);
             setLoading(false);
-        }
+            if (!result?.fieldErrors && !result?.message) {
+                redirect("/");
+            }
+        })
     }
 
     return (
         <>
-            {isLoading ? (
-                <Loader message={"Загрузка"}/>
-            ) : (
-                <>
-                    <form
-                        onSubmit={handleRegistration}
-                        autoComplete={"off"}
-                    >
-                        <label>Имя пользователя: <br/>
-                            <input className="input-green" name="username" type="text"/>
-                        </label>
-
-                        <label>Пароль: <br/>
-                            <input className="input-green" name="password" type="password"/>
-                        </label>
-
-                        <button className="button-green" type="submit">Зарегистрироваться</button>
-                    </form>
-
-                    {error && <div className="error">{error}</div>}
-                </>
-            )}
+            <form
+                onSubmit={handleRegistration}
+                autoComplete={"off"}
+            >
+                <label>Имя пользователя: <br/>
+                    <input className="input-green" name="username" type="text"/>
+                </label>
+                {error?.fieldErrors?.username && <div className="error">{error?.fieldErrors?.username}</div>}
+                <label>Пароль: <br/>
+                    <input className="input-green" name="password" type="password"/>
+                </label>
+                {error?.fieldErrors?.password && <div className="error">{error?.fieldErrors?.password}</div>}
+                <button className="button-green" type="submit" disabled={isLoading}>Зарегистрироваться</button>
+            </form>
+            {error?.message && <div className="error">{error?.message}</div>}
         </>
     )
 }
