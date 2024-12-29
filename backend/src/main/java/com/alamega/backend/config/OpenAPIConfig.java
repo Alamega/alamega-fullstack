@@ -10,16 +10,15 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAPIConfig {
     @Bean
     public OpenAPI getOpenAPI() {
-        Contact contact = new Contact();
-        contact.setEmail("vladshuman@gmail.com");
-        contact.setName("Alamega");
-        contact.setUrl("https://alamega.github.io");
-
-        Info info = new Info()
+        return new OpenAPI().info(new Info()
                 .title("API для сайта")
                 .version("1.0")
-                .contact(contact)
-                .description("API предназначено для осуществления работы сайта https://alamega.onrender.com.");
-        return new OpenAPI().info(info);
+                .description("Бэкэнд для сайта https://alamega.onrender.com.")
+                .contact(new Contact()
+                        .name("Alamega")
+                        .email("vladshuman@gmail.com")
+                        .url("https://alamega.github.io")
+                )
+        );
     }
 }

@@ -30,44 +30,33 @@ export async function getSession(): Promise<ISession | null> {
 
 export async function registration(formData: FormData): Promise<IErrorResponse | null> {
     try {
-        const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/register', {
+        const {data: user} = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
             username: formData.get('username'),
             password: formData.get('password'),
         });
-        const user: IUser = response.data;
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         const cook = await cookies();
         cook.set("session", sessionToken, {expires, httpOnly: true});
         return null;
     } catch (error) {
-        if (error instanceof AxiosError && error.response) {
-            return error.response.data;
-        } else {
-            return null;
-        }
+        return (error instanceof AxiosError && error.response) ? error.response.data : null;
     }
 }
 
-
 export async function login(formData: FormData): Promise<IErrorResponse | null> {
     try {
-        const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/authenticate', {
+        const {data: user} = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/authenticate`, {
             username: formData.get('username'),
             password: formData.get('password'),
         });
-        const user: IUser = response.data;
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         const cook = await cookies();
         cook.set("session", sessionToken, {expires, httpOnly: true});
         return null;
     } catch (error) {
-        if (error instanceof AxiosError && error.response) {
-            return error.response.data;
-        } else {
-            return null;
-        }
+        return (error instanceof AxiosError && error.response) ? error.response.data : null;
     }
 }
 

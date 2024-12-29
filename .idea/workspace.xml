@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="валидация для полей">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683/storage_v2/_src_/database/Alamega.6GpKLA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683/storage_v2/_src_/database/Alamega.6GpKLA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/ExceptionControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/ExceptionControllerAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/response/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/response/ErrorResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/schemas/request/CreateUserRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/login/login-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/login/login-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/registration/registration-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/registration/registration-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/users/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/users/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/loader/loader.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/loader/loader.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/OpenAPIConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/OpenAPIConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/MainRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/MainRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/libs/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/index.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +188,7 @@
       <workItem from="1732994902414" duration="1577000" />
       <workItem from="1735403266409" duration="14891000" />
       <workItem from="1735418667709" duration="341000" />
-      <workItem from="1735473358297" duration="10776000" />
+      <workItem from="1735473358297" duration="11897000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -249,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735418225242</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="валидация для полей">
+      <option name="closed" value="true" />
+      <created>1735484188486</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1735484188486</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
