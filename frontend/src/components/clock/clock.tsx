@@ -17,13 +17,15 @@ export default function Clock() {
         };
     }, []);
 
-    if (!isMounted) {
-        return null;
-    }
-
     return (
         <div id="clock">
-            {time.getHours().toString().padStart(2, "0")}:{time.getMinutes().toString().padStart(2, "0")}:{time.getSeconds().toString().padStart(2, "0")}
+            {isMounted &&
+                <>
+                    {time.getHours().toString().padStart(2, "0")}:
+                    {time.getMinutes().toString().padStart(2, "0")}:
+                    {time.getSeconds().toString().padStart(2, "0")}
+                </>
+            }
         </div>
     );
 };

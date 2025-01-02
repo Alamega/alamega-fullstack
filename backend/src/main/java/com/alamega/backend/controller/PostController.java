@@ -6,10 +6,10 @@ import com.alamega.backend.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -24,8 +24,12 @@ public class PostController {
     @Operation(summary = "Получение постов по id пользователя")
     @GetMapping("users/{userId}/posts")
     @ResponseStatus(HttpStatus.OK)
-    public List<Post> getByUserId(@PathVariable("userId") String userId) {
-        return postService.getPosts(userId);
+    public Page<Post> getByUserId(
+            @PathVariable("userId") UUID userId,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit
+    ) {
+        return postService.getPosts(userId, page, limit);
     }
 
     @Operation(summary = "Добавление нового поста")

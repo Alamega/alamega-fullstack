@@ -1,14 +1,15 @@
 package com.alamega.backend.model.post;
 
 import com.alamega.backend.model.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface PostRepository extends JpaRepository<Post, UUID> {
-    List<Post> findAllByAuthorOrderByDateDesc(User author);
+    Page<Post> findAllByAuthorOrderByDateDesc(User author, Pageable pageable);
 
     @Override
     @NonNull

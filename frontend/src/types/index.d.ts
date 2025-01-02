@@ -15,7 +15,13 @@ declare interface IRole {
 declare interface IPost {
     id?: string;
     text: string;
-    date?: string;
+    date?: any;
+}
+
+
+declare interface IPageablePostResponse {
+    content: IPost[];
+    totalElements: number;
 }
 
 declare interface ISession {

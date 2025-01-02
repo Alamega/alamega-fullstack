@@ -10,11 +10,15 @@ export async function getUserInfo(id: string): Promise<IUser> {
         })
 }
 
-export async function getUserPosts(id: string): Promise<IPost[]> {
-    return await axios.get(process.env.NEXT_PUBLIC_API_URL + `/users/${id}/posts`)
-        .then((response) => {
-            return response.data
-        })
+export async function getUserPosts(id: string, page: number, limit: number): Promise<IPageablePostResponse> {
+    return await axios.get(process.env.NEXT_PUBLIC_API_URL + `/users/${id}/posts`, {
+        params: {
+            page: page - 1,
+            limit
+        }
+    }).then((response) => {
+        return response.data
+    })
 }
 
 export async function createPost(post: IPost): Promise<IPost> {

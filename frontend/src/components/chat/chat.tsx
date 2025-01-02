@@ -55,7 +55,7 @@ export default function Chat({session, serverUrl}: { session: ISession | null, s
                 <textarea onChange={handleSendForm} value={formData?.text} className="input-green"
                           name="text"
                           rows={5}
-                          maxLength={1024}
+                          maxLength={2048}
                 />
                 <button className="button-green" type="submit">Отправить</button>
             </form>

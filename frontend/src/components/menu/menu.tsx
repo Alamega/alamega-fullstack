@@ -15,6 +15,9 @@ export default async function Menu() {
             {session ? (
                 <>
                     <Link href={"/users/" + session.user.id}>Личный кабинет</Link>
+                    {session.user.role.value == "ADMIN" &&
+                        <Link href={"/test"}>Тест</Link>
+                    }
                 </>
             ) : (
                 <>

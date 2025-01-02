@@ -1,6 +1,7 @@
 package com.alamega.backend.model.post;
 
 import com.alamega.backend.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,9 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -28,16 +28,12 @@ public class Post {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "author")
+    @JsonIgnore
     private User author;
 
-    @Column(length = 1024)
+    @Column(length = 2048)
     private String text;
 
-    @CreatedDate
-    private Date date = new Date();
-
-    public Post(User author, String text) {
-        this.author = author;
-        this.text = text;
-    }
+    @Column
+    private Instant date;
 }

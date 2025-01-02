@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="валидация для полей">
+    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="доки">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/test/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/pagination/pagination.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/pagination/pagination.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683/storage_v2/_src_/database/Alamega.6GpKLA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4a3b0e8b-3de6-40f0-a2d9-f31023e75683/storage_v2/_src_/database/Alamega.6GpKLA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/OpenAPIConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/OpenAPIConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/MainRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/MainRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/libs/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/post/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/post/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/post/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/post/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/chat/chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/chat/chat.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/clock/clock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/clock/clock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/menu/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/menu/menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/posts/postsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/posts/postsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/libs/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/index.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,47 +83,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Attach to process.pid 4068.executor&quot;: &quot;ProcessAttachDebug&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Docker.backend/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.frontend: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.frontend/Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AlamegaSpringApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.backend.executor&quot;: &quot;Debug&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/alamega/IdeaProjects/alamega-fullstack/backend/src/main/java/com/alamega/backend/model&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.frontend.executor&quot;: &quot;Debug&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\alamega\\IdeaProjects\\alamega-fullstack\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Attach to process.pid 4068.executor": "ProcessAttachDebug",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Docker.backend/Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml.frontend: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Docker.frontend/Dockerfile.executor": "Run",
+    "Node.js.Unnamed.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AlamegaSpringApplication.executor": "Run",
+    "Spring Boot.backend.executor": "Debug",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/alamega/IdeaProjects/alamega-fullstack/frontend/src/app/test",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.frontend.executor": "Debug",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "C:\\Users\\alamega\\IdeaProjects\\alamega-fullstack\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\frontend\src\app\test" />
+      <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\frontend\src\components\pagination" />
       <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\backend\src\main\java\com\alamega\backend\model" />
       <recent name="$PROJECT_DIR$/frontend" />
       <recent name="$PROJECT_DIR$/backend/src/main/resources" />
@@ -188,7 +202,10 @@
       <workItem from="1732994902414" duration="1577000" />
       <workItem from="1735403266409" duration="14891000" />
       <workItem from="1735418667709" duration="341000" />
-      <workItem from="1735473358297" duration="11897000" />
+      <workItem from="1735473358297" duration="11962000" />
+      <workItem from="1735485468713" duration="24000" />
+      <workItem from="1735803464975" duration="231000" />
+      <workItem from="1735807990303" duration="7547000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -246,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735484188486</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="доки">
+      <option name="closed" value="true" />
+      <created>1735485358493</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1735485358493</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,7 +312,8 @@
     <MESSAGE value="Я всё поломал" />
     <MESSAGE value="роли" />
     <MESSAGE value="валидация для полей" />
-    <option name="LAST_COMMIT_MESSAGE" value="валидация для полей" />
+    <MESSAGE value="доки" />
+    <option name="LAST_COMMIT_MESSAGE" value="доки" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

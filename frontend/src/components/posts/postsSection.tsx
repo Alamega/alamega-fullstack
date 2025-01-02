@@ -4,28 +4,31 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import Post from "@/components/posts/post/post";
 import {createPost, deletePost, getUserPosts} from "@/libs/users";
 import "./postsSection.css"
-import Loader from "@/components/loader/loader";
+import Pagination from "@/components/pagination/pagination";
 
 export default function PostsSection({userId, session}: {
     userId: string,
     session: ISession | null
 }) {
     const [posts, setPosts] = useState<IPost[]>([]);
-    const [postsLoaded, setPostsLoaded] = useState<boolean>(false);
     const [formData, setFormData] = useState({text: ""});
     const [formButtonText, setFormButtonText] = useState("Опубликовать");
     const [errors, setErrors] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(20);
+    const [totalPosts, setTotalPosts] = useState(0);
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-    async function fetchPosts() {
-        const posts = await getUserPosts(userId);
-        setPosts(posts)
+    async function fetchPosts(page: number, limit: number) {
+        getUserPosts(userId, page, limit).then(response => {
+            setPosts(response.content);
+            setTotalPosts(response.totalElements);
+        });
     }
 
     useEffect(() => {
-        fetchPosts().then(() => {
-            setPostsLoaded(true);
-        });
-    }, [])
+        fetchPosts(currentPage, postsPerPage).then();
+    }, [currentPage])
 
     async function handlePost(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -37,7 +40,7 @@ export default function PostsSection({userId, session}: {
             }).then(async () => {
                 setFormData({text: ""})
                 setFormButtonText("Опубликовать")
-                await fetchPosts()
+                await fetchPosts(currentPage, postsPerPage)
             })
         } else {
             setErrors("Сообщение пустое!")
@@ -54,13 +57,14 @@ export default function PostsSection({userId, session}: {
     }
 
     async function handlePostDeleted(postId: string) {
-        setPostsLoaded(false)
         await deletePost(postId).then(() => {
-            fetchPosts().then(() => {
-                setPostsLoaded(true);
-            });
+            fetchPosts(currentPage, postsPerPage).then();
         });
     }
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <>
@@ -70,7 +74,7 @@ export default function PostsSection({userId, session}: {
                     <textarea onChange={handlePostForm} value={formData?.text} className="input-green"
                               name="text"
                               rows={5}
-                              maxLength={1024}
+                              maxLength={2048}
                     />
                         <button className="button-green" type="submit">
                             {formButtonText}
@@ -80,17 +84,17 @@ export default function PostsSection({userId, session}: {
                 </>
             )}
 
-            {postsLoaded ? (
-                <div id="posts">
-                    {posts.map((post: IPost) => {
-                        return <Post key={post.id} post={post} deletePost={handlePostDeleted}/>;
-                    })}
-                </div>
-            ) : (
-                <div>
-                    <Loader message={"Загружаю посты"}/>
-                </div>
-            )}
+            <div id="posts">
+                {posts.map((post: IPost) => {
+                    return <Post key={post.id} post={post} deletePost={handlePostDeleted}/>;
+                })}
+            </div>
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </>
     )
 }
