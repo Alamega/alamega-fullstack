@@ -42,8 +42,9 @@ public class AuthenticationService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(adminUsername.equals(request.getUsername())
-                        ? roleRepository.getByValue("ADMIN")
-                        : roleRepository.getByValue("USER"))
+                        ? roleRepository.findByValue("ADMIN").orElseThrow(() -> new RuntimeException("Роль ADMIN не найдена"))
+                        : roleRepository.findByValue("USER").orElseThrow(() -> new RuntimeException("Роль USER не найдена"))
+                )
                 .build();
         userService.createUser(user);
         return createAuthResponse(user);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -29,22 +30,25 @@ public class DataInitializer implements CommandLineRunner {
                 new Authority(null, "ROLE_USER", "Роль \"Пользователь\""),
                 new Authority(null, "ROLE_ADMIN", "Роль \"Админ\"")
         )).forEach(authority -> {
-            if (authorityRepository.getByValue(authority.getValue()) == null) {
+            if (authorityRepository.findByValue(authority.getValue()).isEmpty()) {
                 authorityRepository.save(authority);
             }
         });
     }
 
     private void initializeRoles() {
-        new HashSet<>(Arrays.asList(
+        Set<Role> roles = new HashSet<>(Arrays.asList(
                 new Role(null, "USER", "Пользователь", Set.of(
-                        authorityRepository.getByValue("ROLE_USER")
+                        authorityRepository.findByValue("ROLE_USER").orElseThrow(() -> new RuntimeException("Authority ROLE_USER не существует!"))
                 )),
                 new Role(null, "ADMIN", "Админ", Set.of(
-                        authorityRepository.getByValue("ROLE_ADMIN")
+                        authorityRepository.findByValue("ROLE_ADMIN").orElseThrow(() -> new RuntimeException("Authority ROLE_ADMIN не существует!"))
                 ))
-        )).forEach(role -> {
-            if (roleRepository.getByValue(role.getValue()) == null) {
+        ));
+
+        roles.forEach(role -> {
+            Optional<Role> existingRole = roleRepository.findByValue(role.getValue());
+            if (existingRole.isEmpty()) {
                 roleRepository.save(role);
             }
         });
