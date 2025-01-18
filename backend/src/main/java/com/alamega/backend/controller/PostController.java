@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class PostController {
     @Operation(summary = "Получение постов по id пользователя")
     @GetMapping("users/{userId}/posts")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Post> getByUserId(
+    public Page<Post> getPosts(
             @PathVariable("userId") UUID userId,
-            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit
+            @RequestParam Integer page,
+            @RequestParam Integer size
     ) {
-        return postService.getPosts(userId, page, limit);
+        return postService.getPosts(userId, PageRequest.of(page, size));
     }
 
     @Operation(summary = "Добавление нового поста")

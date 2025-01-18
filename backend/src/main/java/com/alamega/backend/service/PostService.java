@@ -5,7 +5,7 @@ import com.alamega.backend.model.post.Post;
 import com.alamega.backend.model.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -18,9 +18,9 @@ public class PostService {
     private final UserService userService;
     private final PostRepository postRepository;
 
-    public Page<Post> getPosts(UUID userId, int page, int limit) {
+    public Page<Post> getPosts(UUID userId, Pageable pageable) {
         return userService.getUserById(userId)
-                .map(user -> postRepository.findAllByAuthorOrderByDateDesc(user, PageRequest.of(page, limit)))
+                .map(user -> postRepository.findAllByAuthorOrderByDateDesc(user, pageable))
                 .orElse(null);
     }
 

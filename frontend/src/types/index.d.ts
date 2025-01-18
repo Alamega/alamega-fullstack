@@ -18,10 +18,14 @@ declare interface IPost {
     date?: any;
 }
 
-
 declare interface IPageablePostResponse {
     content: IPost[];
-    totalElements: number;
+    page: {
+        size: number;
+        number: number;
+        totalElements: number;
+        totalPages: number;
+    };
 }
 
 declare interface ISession {

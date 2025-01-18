@@ -8,11 +8,11 @@ export async function getUserInfo(id: string): Promise<IUser> {
     });
 }
 
-export async function getUserPosts(id: string, page: number, limit: number): Promise<IPageablePostResponse> {
+export async function getUserPosts(id: string, page: number, size: number): Promise<IPageablePostResponse> {
     return fetchDataFromBackend(`/users/${id}/posts`, {
         params: {
-            page: page - 1,
-            limit
+            page,
+            size
         }
     }).then(response => {
         return response.data

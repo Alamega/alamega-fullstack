@@ -1,33 +1,29 @@
 "use client"
 
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import Post from "@/components/posts/post/post";
 import {createPost, deletePost, getUserPosts} from "@/libs/users";
 import "./postsSection.css"
 import Pagination from "@/components/pagination/pagination";
+import Post from "@/components/posts/post/post";
 
 export default function PostsSection({userId, session}: {
     userId: string,
     session: ISession | null
 }) {
-    const [posts, setPosts] = useState<IPost[]>([]);
+    const [pageablePosts, setPageablePosts] = useState<IPageablePostResponse>();
+    const [currentPage, setCurrentPage] = useState(0);
     const [formData, setFormData] = useState({text: ""});
     const [formButtonText, setFormButtonText] = useState("Опубликовать");
     const [errors, setErrors] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(20);
-    const [totalPosts, setTotalPosts] = useState(0);
-    const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-    async function fetchPosts(page: number, limit: number) {
-        getUserPosts(userId, page, limit).then(response => {
-            setPosts(response.content);
-            setTotalPosts(response.totalElements);
+    async function fetchPosts() {
+        getUserPosts(userId, currentPage, 20).then(response => {
+            setPageablePosts(response);
         });
     }
 
     useEffect(() => {
-        fetchPosts(currentPage, postsPerPage).then();
+        fetchPosts().then();
     }, [currentPage])
 
     async function handlePost(event: FormEvent<HTMLFormElement>) {
@@ -40,7 +36,7 @@ export default function PostsSection({userId, session}: {
             }).then(async () => {
                 setFormData({text: ""})
                 setFormButtonText("Опубликовать")
-                await fetchPosts(currentPage, postsPerPage)
+                await fetchPosts()
             })
         } else {
             setErrors("Сообщение пустое!")
@@ -58,13 +54,13 @@ export default function PostsSection({userId, session}: {
 
     async function handlePostDeleted(postId: string) {
         await deletePost(postId).then(() => {
-            fetchPosts(currentPage, postsPerPage).then();
+            fetchPosts().then();
         });
     }
 
-    const handlePageChange = (pageNumber: number) => {
-        setCurrentPage(pageNumber);
-    };
+    async function handlePageChange(page: number) {
+        setCurrentPage(page);
+    }
 
     return (
         <>
@@ -85,16 +81,14 @@ export default function PostsSection({userId, session}: {
             )}
 
             <div id="posts">
-                {posts.map((post: IPost) => {
+                {pageablePosts?.content.map((post: IPost) => {
                     return <Post key={post.id} post={post} deletePost={handlePostDeleted}/>;
                 })}
             </div>
 
             <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-            />
+                pageable={pageablePosts}
+                onPageChange={handlePageChange}/>
         </>
     )
 }

@@ -6,7 +6,7 @@ import {getSession} from "@/libs/auth";
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getServerUrl() {
-    return BACKEND_URL;
+    return BACKEND_URL || "";
 }
 
 export async function fetchDataFromBackend<D = any>(url: string, config?: axios.AxiosRequestConfig<D>) {

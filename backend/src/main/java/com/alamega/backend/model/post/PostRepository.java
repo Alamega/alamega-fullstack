@@ -16,5 +16,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     <S extends Post> S save(@NonNull S entity);
 
     @Override
-    void deleteById(@NonNull UUID id);
+    void deleteById(@NonNull UUID postId);
 }

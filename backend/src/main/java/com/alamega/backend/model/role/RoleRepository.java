@@ -10,15 +10,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RoleRepository extends JpaRepository<Role, UUID> {
-    @Cacheable(value = "role")
+    @Cacheable(value = "roles")
     Optional<Role> findByValue(String value);
 
-    @CachePut(cacheNames = "role", key = "#entity.id")
+    @CachePut(cacheNames = "roles", key = "#entity.id")
     @Override
     @NonNull
     <S extends Role> S save(@NonNull S entity);
 
-    @CacheEvict(cacheNames = "role", allEntries = true)
+    @CacheEvict(cacheNames = "roles", allEntries = true)
     @Override
     void deleteById(@NonNull UUID uuid);
 }
