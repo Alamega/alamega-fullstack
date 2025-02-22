@@ -14,7 +14,7 @@ export async function fetchDataFromBackend<D = any>(url: string, config?: axios.
     return await axios.get(BACKEND_URL + url, {
         ...config,
         headers: {
-            Authorization: `Bearer ${session?.user.token}`,
+            ...(session?.user.token ? {Authorization: `Bearer ${session.user.token}`} : {}),
             ...config?.headers,
         }
     });

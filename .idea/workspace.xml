@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="java 23 tests">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c56af784-31ff-44e5-9682-f06dfe405442.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c56af784-31ff-44e5-9682-f06dfe405442.xml" afterDir="false" />
+    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="java 23 tests skip in prod">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/SpringSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/SpringSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/libs/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/server.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +87,7 @@
     "JUnit.AlamegaSpringApplicationTests.executor": "Run",
     "Maven.backend [clean].executor": "Run",
     "Maven.backend [install].executor": "Run",
+    "Maven.backend [test].executor": "Run",
     "Node.js.Unnamed.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -212,7 +215,7 @@
       <workItem from="1740246995010" duration="241000" />
       <workItem from="1740247250167" duration="5962000" />
       <workItem from="1740253241111" duration="255000" />
-      <workItem from="1740253606817" duration="1001000" />
+      <workItem from="1740253606817" duration="3896000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -310,7 +313,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740254391915</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="java 23 tests skip in prod">
+      <option name="closed" value="true" />
+      <created>1740254632071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1740254632071</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,7 +367,8 @@
     <MESSAGE value="java 23" />
     <MESSAGE value="java 23 docker" />
     <MESSAGE value="java 23 tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="java 23 tests" />
+    <MESSAGE value="java 23 tests skip in prod" />
+    <option name="LAST_COMMIT_MESSAGE" value="java 23 tests skip in prod" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

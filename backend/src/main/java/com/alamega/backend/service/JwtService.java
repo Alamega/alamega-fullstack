@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +22,10 @@ public class JwtService {
     private final SecretKey SECRET_KEY;
     private final JwtParser jwtParser;
 
-    public JwtService(@Value("${jwt.secret}") String secretFromEnv) {
-        this.SECRET_KEY = new SecretKeySpec(secretFromEnv.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+    public JwtService(@Value("${jwt.secret}") String secretFromEnv) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hashedKey = digest.digest(secretFromEnv.getBytes(StandardCharsets.UTF_8));
+        this.SECRET_KEY = new SecretKeySpec(hashedKey, "HmacSHA256");
         this.jwtParser = Jwts.parser().verifyWith(SECRET_KEY).build();
     }
 
