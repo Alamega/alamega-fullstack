@@ -18,7 +18,7 @@ public class GlobalConfiguration {
     private final UserService userService;
 
     @Bean
-    public static PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

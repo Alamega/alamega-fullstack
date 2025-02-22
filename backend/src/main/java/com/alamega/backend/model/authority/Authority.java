@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.UUID;
 
 @Entity
-@Table(name = "authority")
+@Table(name = "authorities")
 @Data
 @Builder
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class Authority implements GrantedAuthority {
 
     @Column
     private String name;
-    
+
     @Override
     public String getAuthority() {
         return value;
