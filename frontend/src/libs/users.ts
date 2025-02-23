@@ -5,6 +5,8 @@ import {deleteDataFromBackend, fetchDataFromBackend, postDataToBackend} from "@/
 export async function getUserInfo(id: string): Promise<IUser> {
     return fetchDataFromBackend(`/users/${id}`).then(response => {
         return response.data
+    }).catch(error => {
+        console.log(error)
     });
 }
 

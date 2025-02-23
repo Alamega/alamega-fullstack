@@ -4,12 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="java 23 tests skip in prod">
+    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="fix jwt">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c56af784-31ff-44e5-9682-f06dfe405442.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c56af784-31ff-44e5-9682-f06dfe405442.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c56af784-31ff-44e5-9682-f06dfe405442/storage_v2/_src_/database/Alamega.6GpKLA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c56af784-31ff-44e5-9682-f06dfe405442/storage_v2/_src_/database/Alamega.6GpKLA/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/backend.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/SpringSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/SpringSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/libs/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/AlamegaSpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/AlamegaSpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/schedule/AlamegaCommandLineRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/GlobalConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/config/GlobalConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/OpenAPIConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/config/OpenAPIConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/config/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/config/security/filter/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/config/security/SpringSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/config/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/ExceptionControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/ExceptionControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/MainRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/MainRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/SwaggerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/request/AuthenticationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/dto/request/AuthenticationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/request/PostPublicationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/dto/request/PostPublicationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/request/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/dto/request/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/response/AuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/dto/response/AuthResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/dto/response/ErrorResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/dto/response/ErrorResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/exception/UnauthorizedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/exception/UnauthorizedException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/authority/Authority.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/authority/Authority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/authority/AuthorityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/authority/AuthorityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/post/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/post/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/post/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/post/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/role/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/role/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/role/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/role/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/model/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/ws/ChatWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/ws/ChatWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/alamega/backend/AlamegaSpringApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/alamega/backend/AlamegaSpringApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/libs/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/users.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +174,7 @@
       <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\backend\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="alamega.backend.service" />
       <recent name="com.alamega.backend.dto.response" />
       <recent name="com.alamega.backend.model.authority" />
       <recent name="com.alamega.backend.model.role" />
@@ -147,6 +182,14 @@
     </key>
   </component>
   <component name="RunManager" selected="Compound.fullstack">
+    <configuration name="backend" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" value="local" />
+      <module name="backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="alamega.backend.AlamegaSpringApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -215,7 +258,8 @@
       <workItem from="1740246995010" duration="241000" />
       <workItem from="1740247250167" duration="5962000" />
       <workItem from="1740253241111" duration="255000" />
-      <workItem from="1740253606817" duration="3896000" />
+      <workItem from="1740253606817" duration="4055000" />
+      <workItem from="1740304815525" duration="13310000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -321,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740254632071</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fix jwt">
+      <option name="closed" value="true" />
+      <created>1740257539066</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1740257539066</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,22 +420,16 @@
     <MESSAGE value="java 23 docker" />
     <MESSAGE value="java 23 tests" />
     <MESSAGE value="java 23 tests skip in prod" />
-    <option name="LAST_COMMIT_MESSAGE" value="java 23 tests skip in prod" />
+    <MESSAGE value="fix jwt" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix jwt" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/alamega/backend/controller/ExceptionControllerAdvice.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="SessionCreationPolicy.STATELESS" />
         <watch expression="@Builder&#10;@Getter&#10;@Setter&#10;@NoArgsConstructor&#10;@AllArgsConstructor" />
+        <watch expression="((SpelEvaluationException)exception).expressionString" custom="org.springframework.expression.spel.SpelEvaluationException" />
+        <watch expression="((SpelEvaluationException)exception).expressionString" custom="org.springframework.expression.spel.SpelEvaluationException" />
       </configuration>
     </watches-manager>
   </component>
