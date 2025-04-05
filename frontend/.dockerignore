@@ -1,1 +1,52 @@
-node_modules
+# Node.js dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment files
+.env*
+
+# Build outputs
+dist/
+build/
+out/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Version control
+.git/
+.gitignore
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Documentation
+*.md
+README*
+
+# Docker files
+Dockerfile*
+docker-compose*
+
+# Public and media files
+public/videos/
+
+# Next.js specific
+.next/
+
+# TypeScript build artifacts
+*.tsbuildinfo
+
+# Miscellaneous
+*.pem
+*.key
+*.crt
+*.local.yml
+config.local.*

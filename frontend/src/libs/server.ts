@@ -1,17 +1,20 @@
-'use server'
+"use server";
 
-import axios from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import {getSession} from "@/libs/auth";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
-
 export async function getServerUrl() {
-    return BACKEND_URL || "";
+    const serverUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (serverUrl) {
+        return serverUrl;
+    } else {
+        throw new Error("Переменная NEXT_PUBLIC_API_URL не установлена.");
+    }
 }
 
-export async function fetchDataFromBackend<D = any>(url: string, config?: axios.AxiosRequestConfig<D>) {
+export async function fetchDataFromBackend<D = any>(url: string, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
-    return await axios.get(BACKEND_URL + url, {
+    return await axios.get(await getServerUrl() + url, {
         ...config,
         headers: {
             ...(session?.user.token ? {Authorization: `Bearer ${session.user.token}`} : {}),
@@ -20,9 +23,9 @@ export async function fetchDataFromBackend<D = any>(url: string, config?: axios.
     });
 }
 
-export async function postDataToBackend<D = any>(url: string, data?: D, config?: axios.AxiosRequestConfig<D>) {
+export async function postDataToBackend<D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
-    return axios.post(BACKEND_URL + url, data, {
+    return axios.post(await getServerUrl() + url, data, {
         ...config,
         headers: {
             Authorization: `Bearer ${session?.user.token}`,
@@ -31,9 +34,9 @@ export async function postDataToBackend<D = any>(url: string, data?: D, config?:
     });
 }
 
-export async function deleteDataFromBackend<D = any>(url: string, data?: D, config?: axios.AxiosRequestConfig<D>) {
+export async function deleteDataFromBackend<D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
-    return axios.delete(BACKEND_URL + url, {
+    return axios.delete(await getServerUrl() + url, {
         ...config,
         headers: {
             Authorization: `Bearer ${session?.user.token}`,

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {createPost, deletePost, getUserPosts} from "@/libs/users";
-import "./postsSection.css"
+import "./postsSection.css";
 import Pagination from "@/components/pagination/pagination";
 import Post from "@/components/posts/post/post";
 
@@ -24,22 +24,22 @@ export default function PostsSection({userId, session}: {
 
     useEffect(() => {
         fetchPosts().then();
-    }, [currentPage])
+    }, [currentPage]);
 
     async function handlePost(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setErrors("");
         if (formData.text.trim().length > 0) {
-            setFormButtonText("Публикуем...")
+            setFormButtonText("Публикуем...");
             await createPost({
                 text: formData.text
             }).then(async () => {
-                setFormData({text: ""})
-                setFormButtonText("Опубликовать")
-                await fetchPosts()
-            })
+                setFormData({text: ""});
+                setFormButtonText("Опубликовать");
+                await fetchPosts();
+            });
         } else {
-            setErrors("Сообщение пустое!")
+            setErrors("Сообщение пустое!");
         }
     }
 
@@ -48,8 +48,8 @@ export default function PostsSection({userId, session}: {
             return {
                 ...prevState,
                 [event.target.name]: event.target.value
-            }
-        })
+            };
+        });
     }
 
     async function handlePostDeleted(postId: string) {
@@ -90,5 +90,5 @@ export default function PostsSection({userId, session}: {
                 pageable={pageablePosts}
                 onPageChange={handlePageChange}/>
         </>
-    )
+    );
 }

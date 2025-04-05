@@ -2,10 +2,10 @@ import {Metadata} from "next";
 import {getUserInfo} from "@/libs/users";
 import {getSession} from "@/libs/auth";
 import React from "react";
-import "./page.css"
+import "./page.css";
 import PostsSection from "@/components/posts/postsSection";
 import Image from "next/image";
-import UserIcon from "../../../../public/images/icon.png"
+import UserIcon from "../../../../public/images/icon.png";
 
 export async function generateMetadata(
     props: {
@@ -13,15 +13,15 @@ export async function generateMetadata(
     }
 ): Promise<Metadata> {
     const params = await props.params;
-    const user = await getUserInfo(params.id)
+    const user = await getUserInfo(params.id);
     return {
         title: user.username,
-    }
+    };
 }
 
 export default async function User(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
-    const user = await getUserInfo(params.id)
+    const user = await getUserInfo(params.id);
     const session = await getSession();
     return (
         <>

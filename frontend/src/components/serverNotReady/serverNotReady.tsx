@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import "./serverNotReady.css";
 import {getServerUrl} from "@/libs/server";
 import Loader from "@/components/loader/loader";
-import axios, {AxiosResponse, CancelTokenSource} from "axios";
+import axios, {CancelTokenSource} from "axios";
 
 export default function ServerNotReady() {
     const [isServerAvailable, setIsServerAvailable] = useState<boolean>(false);
@@ -16,18 +16,19 @@ export default function ServerNotReady() {
             cancelToken.cancel();
         }
         cancelToken = axios.CancelToken.source();
-        try {
-            const response: AxiosResponse<string> = await axios.get(await getServerUrl() + "/health", {cancelToken: cancelToken.token});
-            if (response.status === 200) {
-                setIsServerAvailable(true);
-            } else {
-                setIsServerAvailable(false);
-                timeoutId = setTimeout(check, 5000);
-            }
-        } catch (error) {
+        axios.get(await getServerUrl() + "/health", {cancelToken: cancelToken.token})
+            .then(response => {
+                if (response.status === 200) {
+                    setIsServerAvailable(true);
+                } else {
+                    setIsServerAvailable(false);
+                    timeoutId = setTimeout(check, 5000);
+                }
+            }).catch(error => {
+            console.log(error);
             setIsServerAvailable(false);
             timeoutId = setTimeout(check, 5000);
-        }
+        });
     };
 
     useEffect(() => {

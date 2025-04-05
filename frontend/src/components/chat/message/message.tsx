@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import React from "react";
-import "./message.css"
+import "./message.css";
 
 export default function ChatMessage({message}: { message: { author: string, text: string } }) {
     return (

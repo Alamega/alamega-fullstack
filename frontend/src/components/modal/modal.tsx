@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import "./modal.css";
 import {BaseSyntheticEvent, ReactNode, useRef} from "react";

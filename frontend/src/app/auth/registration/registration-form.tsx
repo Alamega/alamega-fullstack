@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {FormEvent, useState} from "react";
 import {registration} from "@/libs/auth";
@@ -6,7 +6,7 @@ import {redirect} from "next/navigation";
 
 export default function RegistrationForm() {
     const [error, setError] = useState<IErrorResponse | null>(null);
-    const [isLoading, setLoading] = useState<boolean>(false)
+    const [isLoading, setLoading] = useState<boolean>(false);
 
     async function handleRegistration(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -18,7 +18,7 @@ export default function RegistrationForm() {
             if (!result?.fieldErrors && !result?.message) {
                 redirect("/");
             }
-        })
+        });
     }
 
     return (
@@ -39,5 +39,5 @@ export default function RegistrationForm() {
             </form>
             {error?.message && <div className="error">{error?.message}</div>}
         </>
-    )
+    );
 }

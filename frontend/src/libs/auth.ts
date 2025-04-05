@@ -1,10 +1,9 @@
-'use server'
+"use server";
 
 import {JWTPayload, jwtVerify, SignJWT} from "jose";
 import {cookies} from "next/headers";
-import axios from "axios";
+import {postDataToBackend} from "@/libs/server";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const key = new TextEncoder().encode("secret");
 const expirationTime = 24 * 60 * 60 * 1000;
 
@@ -25,34 +24,40 @@ export async function decrypt(sessionToken: string): Promise<any> {
 
 export async function getSession(): Promise<ISession | null> {
     const sessionToken = (await cookies()).get("session")?.value;
-    if (!sessionToken) return null
+    if (!sessionToken) return null;
     return await decrypt(sessionToken);
 }
 
 export async function registration(formData: FormData): Promise<IErrorResponse | null> {
-    const {data: user} = await axios.post(apiUrl + "/auth/register", {
-        username: formData.get('username'),
-        password: formData.get('password'),
-    });
-    const expires = new Date(Date.now() + expirationTime);
-    const sessionToken = await encrypt({user, expires});
-    const cook = await cookies();
-    cook.set("session", sessionToken, {expires, httpOnly: true});
-    return null;
+    try {
+        const response = await postDataToBackend("/auth/register", {
+            username: formData.get("username"),
+            password: formData.get("password"),
+        });
+        const {data: user} = response;
+        const expires = new Date(Date.now() + expirationTime);
+        const sessionToken = await encrypt({user, expires});
+        (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
+        return null;
+    } catch (error: any) {
+        return error.response.data as IErrorResponse;
+    }
 }
 
 export async function login(formData: FormData): Promise<IErrorResponse | null> {
-    console.log(formData)
-    console.log(apiUrl)
-    const {data: user} = await axios.post(apiUrl + "/auth/authenticate", {
-        username: formData.get('username'),
-        password: formData.get('password'),
-    });
-    const expires = new Date(Date.now() + expirationTime);
-    const sessionToken = await encrypt({user, expires});
-    const cook = await cookies();
-    cook.set("session", sessionToken, {expires, httpOnly: true});
-    return null;
+    try {
+        const response = await postDataToBackend("/auth/authenticate", {
+            username: formData.get("username"),
+            password: formData.get("password"),
+        });
+        const {data: user} = response;
+        const expires = new Date(Date.now() + expirationTime);
+        const sessionToken = await encrypt({user, expires});
+        (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
+        return null;
+    } catch (error: any) {
+        return error.response.data as IErrorResponse;
+    }
 }
 
 export async function logout() {

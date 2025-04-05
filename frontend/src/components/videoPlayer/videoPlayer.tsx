@@ -19,7 +19,7 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
 
     useEffect(() => {
         if (volume == 0) {
-            const localVolume = localStorage.getItem('volume');
+            const localVolume = localStorage.getItem("volume");
             setVolume(Number.parseFloat(localVolume ? localVolume : "0.5"));
         }
         if (video.current) {
@@ -30,7 +30,7 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
     useEffect(() => {
         let currSec = Math.floor(currentTime % 60);
         let durSec = Math.floor((video.current?.duration || 0) % 60);
-        setDurationBarText(Math.floor(currentTime / 60) + ":" + ((currSec < 10) ? "0" + currSec : currSec) + "/" + Math.floor((video.current?.duration || 0) / 60) + ":" + ((durSec < 10) ? "0" + durSec : durSec))
+        setDurationBarText(Math.floor(currentTime / 60) + ":" + ((currSec < 10) ? "0" + currSec : currSec) + "/" + Math.floor((video.current?.duration || 0) / 60) + ":" + ((durSec < 10) ? "0" + durSec : durSec));
     }, [currentTime]);
 
     async function handlePlayPause() {
@@ -50,16 +50,16 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
                 try {
                     await wrapper.current.requestFullscreen();
                     setIsFullScreen(true);
-                } catch (err) {
-                    console.error(err);
+                } catch (error) {
+                    console.error(error);
                 }
             }
         } else {
             try {
                 await document.exitFullscreen();
                 setIsFullScreen(false);
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                console.error(error);
             }
         }
     }
@@ -67,7 +67,7 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
     async function handleVolumeChange(event: { target: { value: string } }) {
         const newVolume = parseFloat(event.target.value);
         setVolume(newVolume);
-        localStorage.setItem('volume', newVolume.toString());
+        localStorage.setItem("volume", newVolume.toString());
     }
 
     async function handleTimeUpdate() {

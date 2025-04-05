@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import Image from "next/image";
-import "./errors.css"
+import "./errors.css";
 
 export default function Error({error}: { error: Error & { digest?: string }; reset: () => void; }) {
     return <>
@@ -19,5 +19,5 @@ export default function Error({error}: { error: Error & { digest?: string }; res
             <p>Настоятельно рекомендуем <a href={"/"}>вернуться на главную</a>.</p>
             <p>А мы тут всё уберем и никто ничего не узнает.</p>
         </div>
-    </>
+    </>;
 }

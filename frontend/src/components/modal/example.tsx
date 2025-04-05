@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Modal from "@/components/modal/modal";
 import {useState} from "react";
@@ -8,8 +8,8 @@ export default function UseModalExample() {
     const [modalFormResult, setModalFormResult] = useState<FormData | undefined>();
 
     function handleFormData(formData: FormData) {
-        setModalFormResult(formData)
-        setIsOpen(false)
+        setModalFormResult(formData);
+        setIsOpen(false);
     }
 
     return (

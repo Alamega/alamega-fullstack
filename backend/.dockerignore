@@ -1,1 +1,47 @@
-target
+# Ignore target directory (Java build output)
+target/
+
+# Ignore IDE and editor-specific files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Ignore version control files
+.git/
+.gitignore
+
+# Ignore temporary and log files
+*.log
+*.tmp
+tmp/
+temp/
+
+# Ignore environment and secret files
+.env*
+*.pem
+*.key
+*.crt
+
+# Ignore documentation and auxiliary files
+docs/
+*.md
+README*
+
+# Ignore Docker-related files
+Dockerfile*
+docker-compose*
+
+# Ignore Maven wrapper files
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignore test files
+test/
+
+# Ignore other build outputs
+dist/
+build/
+out/

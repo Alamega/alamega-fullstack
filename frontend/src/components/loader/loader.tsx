@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import {useEffect, useState} from "react";
-import "./loader.css"
+import "./loader.css";
 
 export default function Loader({message}: { message: string }) {
     const [dots, setDots] = useState<number>(1);
@@ -10,7 +10,7 @@ export default function Loader({message}: { message: string }) {
         const dotsIntervalId = setInterval(() => {
             setDots((prevDots) => (prevDots === 3 ? 1 : prevDots + 1));
         }, 1000);
-        return () => clearInterval(dotsIntervalId)
+        return () => clearInterval(dotsIntervalId);
     }, []);
 
     return (
