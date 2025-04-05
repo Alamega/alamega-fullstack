@@ -1,13 +1,45 @@
 services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_password}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres_db}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres_user} -d ${POSTGRES_DB:-postgres_db}" ]
+      timeout: 10s
+      interval: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - default
+
   backend:
     build: ./backend
     ports:
       - "8080:8080"
+    environment:
+      JDBC_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-postgres_db}?user=${POSTGRES_USER:-postgres_user}&password=${POSTGRES_PASSWORD:-postgres_password}
+      JWT_SECRET: ${JWT_SECRET:-SECRET}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-ALAMEGA}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - default
+
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-    env_file:
-      - frontend/.env
-    depends_on:
-      - backend
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8080
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

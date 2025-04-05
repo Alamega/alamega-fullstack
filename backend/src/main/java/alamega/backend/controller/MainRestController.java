@@ -1,5 +1,6 @@
 package alamega.backend.controller;
 
+import alamega.backend.dto.response.HealthStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(produces = APPLICATION_JSON_VALUE)
 public class MainRestController {
     @Operation(summary = "Проверка жив ли сервер")
-    @GetMapping("/checkHealth")
+    @GetMapping("/health")
     @ResponseStatus(HttpStatus.OK)
-    public String checkHealth() {
-        return "OK";
+    public HealthStatus checkHealth() {
+        return HealthStatus.builder()
+                .status("UP")
+                .message("Жив цел огурец!")
+                .timestamp(System.currentTimeMillis())
+                .build();
     }
 }

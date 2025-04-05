@@ -17,7 +17,7 @@ export default function ServerNotReady() {
         }
         cancelToken = axios.CancelToken.source();
         try {
-            const response: AxiosResponse<string> = await axios.get(await getServerUrl() + "/checkHealth", {cancelToken: cancelToken.token});
+            const response: AxiosResponse<string> = await axios.get(await getServerUrl() + "/health", {cancelToken: cancelToken.token});
             if (response.status === 200) {
                 setIsServerAvailable(true);
             } else {

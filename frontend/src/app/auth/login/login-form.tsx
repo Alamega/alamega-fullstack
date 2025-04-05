@@ -2,7 +2,6 @@
 
 import {FormEvent, useState} from "react";
 import {login} from "@/libs/auth";
-import {redirect} from "next/navigation";
 
 export default function LoginForm() {
     const [error, setError] = useState<IErrorResponse | null>(null);
@@ -10,14 +9,17 @@ export default function LoginForm() {
 
     async function handleLogin(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        console.log(event.currentTarget)
         setLoading(true);
         setError(null);
         login(new FormData(event.currentTarget)).then(result => {
             setError(result);
             setLoading(false);
-            if (!result?.fieldErrors && !result?.message) {
-                redirect("/");
-            }
+            // if (!result?.fieldErrors && !result?.message) {
+            //     redirect("/");
+            // }
+        }).catch(error => {
+            console.log(error)
         })
     }
 
