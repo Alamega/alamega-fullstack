@@ -14,7 +14,7 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<User> getUsers() {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -22,19 +22,15 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<User> getUserById(UUID id) {
+    public Optional<User> findById(UUID id) {
         return userRepository.findById(id);
     }
 
-    public User createUser(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user);
-    }
-
-    public void deleteUser(UUID id) {
+    public void deleteById(UUID id) {
         userRepository.deleteById(id);
     }
 }

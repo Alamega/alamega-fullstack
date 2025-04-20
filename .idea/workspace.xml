@@ -4,38 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="fix jwt">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="47c0330a-ed8d-4d8a-9325-0615c21296bd" name="Changes" comment="возня с докером и линтом">
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/application-local.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/18715eba-09ed-43dc-bc64-9854c28a5858.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/18715eba-09ed-43dc-bc64-9854c28a5858.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/18715eba-09ed-43dc-bc64-9854c28a5858/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/18715eba-09ed-43dc-bc64-9854c28a5858/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.dockerignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/model/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/alamega/backend/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/alamega/backend/AlamegaSpringApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/alamega/backend/AlamegaSpringApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/eslint.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/next.config.mjs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/login/login-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/login/login-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/registration/registration-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/registration/registration-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/error.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/error.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/not-found.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/users/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/users/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/chat/chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/chat/chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/chat/message/message.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/chat/message/message.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/clock/clock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/clock/clock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/loader/loader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/loader/loader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/logout/logout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/logout/logout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/menu/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/menu/menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modal/example.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modal/example.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modal/modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modal/modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/navbar/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navbar/navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/posts/post/post.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/posts/post/post.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/posts/postsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/posts/postsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/serverNotReady/serverNotReady.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/serverNotReady/serverNotReady.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/videoPlayer/videoPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/videoPlayer/videoPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/libs/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/libs/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/libs/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/libs/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,16 +67,26 @@
     &quot;assignee&quot;: &quot;Alamega&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Alamega/alamega-fullstack.git",
-    "accountId": "2332cc8e-b0c5-4cc9-8064-e21f5d9576e9"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alamega/alamega-fullstack.git&quot;,
+    &quot;accountId&quot;: &quot;2332cc8e-b0c5-4cc9-8064-e21f5d9576e9&quot;
   }
-}]]></component>
+}</component>
+  <component name="JvmLoggingSettingsStorage">
+    <option name="loggerId" value="Lombok Slf4j" />
+  </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -114,6 +122,8 @@
     "Docker.frontend/Dockerfile.executor": "Run",
     "JUnit.AlamegaSpringApplicationTests (1).executor": "Run",
     "JUnit.AlamegaSpringApplicationTests.executor": "Run",
+    "JUnit.UserRepositoryCacheTest.executor": "Run",
+    "JUnit.UserRepositoryTest.executor": "Run",
     "Maven.backend [clean].executor": "Run",
     "Maven.backend [install].executor": "Run",
     "Maven.backend [test].executor": "Run",
@@ -133,7 +143,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/vlads/IdeaProjects/alamega-fullstack/backend/src/main/resources",
+    "last_opened_file_path": "C:/Users/vlads/IdeaProjects/alamega-fullstack/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
     "node.js.detected.package.tslint": "true",
@@ -162,18 +172,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\backend" />
       <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\backend\src\main\resources" />
       <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\frontend\src\app\test" />
       <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\frontend\src\components\pagination" />
       <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\backend\src\main\java\com\alamega\backend\model" />
-      <recent name="$PROJECT_DIR$/frontend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack" />
+      <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\frontend" />
+      <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\backend" />
       <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\backend\src" />
       <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\backend\src\main\resources\db" />
-      <recent name="C:\Users\vlads\IdeaProjects\alamega-fullstack\backend\src\main\resources" />
-      <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\frontend" />
-      <recent name="C:\Users\alamega\IdeaProjects\alamega-fullstack\backend\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="alamega.backend.service" />
@@ -276,7 +286,9 @@
       <workItem from="1743794851102" duration="3758000" />
       <workItem from="1743842467262" duration="5371000" />
       <workItem from="1743848091181" duration="3364000" />
-      <workItem from="1743866722036" duration="4900000" />
+      <workItem from="1743866722036" duration="5122000" />
+      <workItem from="1743872554533" duration="301000" />
+      <workItem from="1745122193677" duration="11316000" />
     </task>
     <task id="LOCAL-00001" summary="Сойдет">
       <option name="closed" value="true" />
@@ -390,7 +402,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740257539066</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="возня с докером и линтом">
+      <option name="closed" value="true" />
+      <created>1743872042346</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1743872042346</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +459,8 @@
     <MESSAGE value="java 23 tests" />
     <MESSAGE value="java 23 tests skip in prod" />
     <MESSAGE value="fix jwt" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix jwt" />
+    <MESSAGE value="возня с докером и линтом" />
+    <option name="LAST_COMMIT_MESSAGE" value="возня с докером и линтом" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -448,6 +469,7 @@
         <watch expression="@Builder&#10;@Getter&#10;@Setter&#10;@NoArgsConstructor&#10;@AllArgsConstructor" />
         <watch expression="((SpelEvaluationException)exception).expressionString" custom="org.springframework.expression.spel.SpelEvaluationException" />
         <watch expression="((SpelEvaluationException)exception).expressionString" custom="org.springframework.expression.spel.SpelEvaluationException" />
+        <watch expression="//@ActiveProfiles(&quot;local&quot;)" />
       </configuration>
     </watches-manager>
   </component>

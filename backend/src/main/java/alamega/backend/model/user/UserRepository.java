@@ -1,26 +1,43 @@
 package alamega.backend.model.user;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
-    //@Cacheable(value = "users_by_username", key = "#username", unless = "#result==null")
+    @Override
+    @NonNull
+    @Cacheable(value = "users")
+    List<User> findAll();
+
+    @Override
+    @NonNull
+    @Cacheable(value = "user_by_id", key = "#uuid")
+    Optional<User> findById(@NonNull UUID uuid);
+
+    @Cacheable(value = "users_by_username", key = "#username")
     Optional<User> findByUsername(String username);
 
-    //@Cacheable(value = "users_by_id", key = "#id", unless = "#result==null")
     @Override
     @NonNull
-    Optional<User> findById(@NonNull UUID id);
-
-    //@CachePut(cacheNames = {"users_by_id", "users_by_username"}, key = "#entity.id")
-    @Override
-    @NonNull
+    @Caching(put = {
+            @CachePut(value = {"users", "user_by_id"}, key = "#entity.id"),
+            @CachePut(value = {"users_by_username"}, key = "#entity.username")
+    })
     <S extends User> S save(@NonNull S entity);
 
-    //@CacheEvict(cacheNames = {"users_by_id", "users_by_username"}, key = "#uuid")
     @Override
-    void deleteById(@NonNull UUID uuid);
+    @NonNull
+    @Caching(evict = {
+            @CacheEvict(value = {"users", "user_by_id"}, key = "#entity.id"),
+            @CacheEvict(value = {"users_by_username"}, key = "#entity.username")
+    })
+    void delete(@NonNull User entity);
 }

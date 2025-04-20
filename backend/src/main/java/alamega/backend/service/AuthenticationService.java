@@ -46,7 +46,7 @@ public class AuthenticationService {
                         : roleRepository.findByValue("USER").orElseThrow(() -> new RuntimeException("Роль USER не найдена"))
                 )
                 .build();
-        return createAuthResponse(userService.createUser(user));
+        return createAuthResponse(userService.save(user));
     }
 
     public AuthResponse authenticate(AuthenticationRequest request) throws UnauthorizedException {

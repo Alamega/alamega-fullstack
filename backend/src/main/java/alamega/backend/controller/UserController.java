@@ -24,20 +24,20 @@ public class UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAll() {
-        return userService.getUsers();
+        return userService.findAll();
     }
 
     @Operation(summary = "Получение пользователя по ID")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User getUserById(@PathVariable UUID id) {
-        return userService.getUserById(id).orElseThrow(() -> new RuntimeException("Пользователь с таким id не найден."));
+        return userService.findById(id).orElseThrow(() -> new RuntimeException("Пользователь с таким id не найден."));
     }
 
     @Operation(summary = "Удаление пользователя по ID")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable UUID id) {
-        userService.deleteUser(id);
+        userService.deleteById(id);
     }
 }
