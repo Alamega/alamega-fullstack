@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Override
     @NonNull
-    @Cacheable(value = "user_by_id", key = "#uuid")
+    @Cacheable(value = "users_by_id", key = "#uuid")
     Optional<User> findById(@NonNull UUID uuid);
 
     @Cacheable(value = "users_by_username", key = "#username")
@@ -28,7 +28,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Override
     @NonNull
     @Caching(put = {
-            @CachePut(value = {"users", "user_by_id"}, key = "#entity.id"),
+            @CachePut(value = {"users", "users_by_id"}, key = "#entity.id"),
             @CachePut(value = {"users_by_username"}, key = "#entity.username")
     })
     <S extends User> S save(@NonNull S entity);
@@ -36,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Override
     @NonNull
     @Caching(evict = {
-            @CacheEvict(value = {"users", "user_by_id"}, key = "#entity.id"),
+            @CacheEvict(value = {"users", "users_by_id"}, key = "#entity.id"),
             @CacheEvict(value = {"users_by_username"}, key = "#entity.username")
     })
     void delete(@NonNull User entity);
