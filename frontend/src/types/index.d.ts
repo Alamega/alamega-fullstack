@@ -15,7 +15,7 @@ declare interface IRole {
 declare interface IPost {
     id?: string;
     text: string;
-    date?: any;
+    date?: Date;
 }
 
 declare interface IPageablePostResponse {

@@ -2,8 +2,13 @@ import React from "react";
 import "./post.css";
 import Image from "next/image";
 
-export default function Post({post, deletePost}: { post: IPost, deletePost: (postId: string) => void; }) {
-    const date: Date = new Date(Date.parse(post.date ? post.date : Date.now().toString()));
+export default function Post({post, deletePost, isPageOwner, currentUserIsAdmin}: {
+    post: IPost,
+    deletePost: (postId: string) => void,
+    isPageOwner: boolean,
+    currentUserIsAdmin: boolean
+}) {
+    const date: Date = post.date ? new Date(post.date) : new Date();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
@@ -20,11 +25,12 @@ export default function Post({post, deletePost}: { post: IPost, deletePost: (pos
         <div className={"post-wrapper"}>
             <div className={"post-header"}>
                 <span>{dateString}</span>
-                <Image src={"/images/delete.png"}
-                       alt={"Удалить"}
-                       onClick={handlePostDelete}
-                       width={20} height={20}
-                       className="post-delete-button"/>
+                {(isPageOwner || currentUserIsAdmin) && <Image src={"/images/delete.png"}
+                                                               alt={"Удалить"}
+                                                               onClick={handlePostDelete}
+                                                               width={20} height={20}
+                                                               className="post-delete-button"/>
+                }
             </div>
             <p className={"post-content"}>{post.text}</p>
         </div>

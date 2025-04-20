@@ -15,16 +15,14 @@ export default function PostsSection({userId, session}: {
     const [formData, setFormData] = useState({text: ""});
     const [formButtonText, setFormButtonText] = useState("Опубликовать");
     const [errors, setErrors] = useState("");
-
-    async function fetchPosts() {
-        getUserPosts(userId, currentPage, 20).then(response => {
-            setPageablePosts(response);
-        });
-    }
+    const isPageOwner: boolean = session?.user.id === userId;
+    const currentUserIsAdmin: boolean = session?.user.role.value === "ADMIN";
 
     useEffect(() => {
-        fetchPosts().then();
-    }, [currentPage]);
+        getUserPosts(userId, currentPage, 20).then(response => {
+            setPageablePosts(response);
+        }).then();
+    }, [userId, currentPage]);
 
     async function handlePost(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -36,7 +34,9 @@ export default function PostsSection({userId, session}: {
             }).then(async () => {
                 setFormData({text: ""});
                 setFormButtonText("Опубликовать");
-                await fetchPosts();
+                getUserPosts(userId, currentPage, 20).then(response => {
+                    setPageablePosts(response);
+                });
             });
         } else {
             setErrors("Сообщение пустое!");
@@ -54,7 +54,9 @@ export default function PostsSection({userId, session}: {
 
     async function handlePostDeleted(postId: string) {
         await deletePost(postId).then(() => {
-            fetchPosts().then();
+            getUserPosts(userId, currentPage, 20).then(response => {
+                setPageablePosts(response);
+            });
         });
     }
 
@@ -64,7 +66,7 @@ export default function PostsSection({userId, session}: {
 
     return (
         <>
-            {session && session.user.id == userId && (
+            {isPageOwner && (
                 <>
                     <form onSubmit={handlePost} className={"post-form"}>
                     <textarea onChange={handlePostForm} value={formData?.text} className="input-green"
@@ -82,7 +84,8 @@ export default function PostsSection({userId, session}: {
 
             <div id="posts">
                 {pageablePosts?.content.map((post: IPost) => {
-                    return <Post key={post.id} post={post} deletePost={handlePostDeleted}/>;
+                    return <Post key={post.id} post={post} deletePost={handlePostDeleted} isPageOwner={isPageOwner}
+                                 currentUserIsAdmin={currentUserIsAdmin}/>;
                 })}
             </div>
 

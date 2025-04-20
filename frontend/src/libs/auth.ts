@@ -3,6 +3,7 @@
 import {JWTPayload, jwtVerify, SignJWT} from "jose";
 import {cookies} from "next/headers";
 import {postDataToBackend} from "@/libs/server";
+import {AxiosError} from "axios";
 
 const key = new TextEncoder().encode("secret");
 const expirationTime = 24 * 60 * 60 * 1000;
@@ -15,7 +16,7 @@ export async function encrypt(payload: JWTPayload) {
         .sign(key);
 }
 
-export async function decrypt(sessionToken: string): Promise<any> {
+export async function decrypt(sessionToken: string): Promise<JWTPayload> {
     const {payload} = await jwtVerify(sessionToken, key, {
         algorithms: ["HS256"],
     });
@@ -25,7 +26,9 @@ export async function decrypt(sessionToken: string): Promise<any> {
 export async function getSession(): Promise<ISession | null> {
     const sessionToken = (await cookies()).get("session")?.value;
     if (!sessionToken) return null;
-    return await decrypt(sessionToken);
+    return {
+        user: (await decrypt(sessionToken)).user as IUser,
+    } as ISession;
 }
 
 export async function registration(formData: FormData): Promise<IErrorResponse | null> {
@@ -39,8 +42,8 @@ export async function registration(formData: FormData): Promise<IErrorResponse |
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
         return null;
-    } catch (error: any) {
-        return error.response.data as IErrorResponse;
+    } catch (error) {
+        return (error as AxiosError).response?.data as IErrorResponse;
     }
 }
 
@@ -55,8 +58,8 @@ export async function login(formData: FormData): Promise<IErrorResponse | null> 
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
         return null;
-    } catch (error: any) {
-        return error.response.data as IErrorResponse;
+    } catch (error) {
+        return (error as AxiosError).response?.data as IErrorResponse;
     }
 }
 

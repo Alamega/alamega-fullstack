@@ -39,6 +39,11 @@ public class PostService {
     }
 
     public void deletePost(UUID id) {
-        postRepository.deleteById(id);
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Пост не найден."));
+        var currentUser = AuthenticationService.getCurrentUser();
+        if (!post.getAuthor().getId().equals(currentUser.getId()) && !currentUser.getRole().getValue().equals("ADMIN")) {
+            throw new RuntimeException("Это не ваш пост и вы мне тут не админ!");
+        }
+        postRepository.delete(post);
     }
 }

@@ -12,7 +12,7 @@ export async function getServerUrl() {
     }
 }
 
-export async function fetchDataFromBackend<D = any>(url: string, config?: AxiosRequestConfig<D>) {
+export async function fetchDataFromBackend<D>(url: string, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
     return await axios.get(await getServerUrl() + url, {
         ...config,
@@ -23,7 +23,7 @@ export async function fetchDataFromBackend<D = any>(url: string, config?: AxiosR
     });
 }
 
-export async function postDataToBackend<D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
+export async function postDataToBackend<D>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
     return axios.post(await getServerUrl() + url, data, {
         ...config,
@@ -34,7 +34,7 @@ export async function postDataToBackend<D = any>(url: string, data?: D, config?:
     });
 }
 
-export async function deleteDataFromBackend<D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
+export async function deleteDataFromBackend<D>(url: string, data?: D, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
     return axios.delete(await getServerUrl() + url, {
         ...config,

@@ -28,8 +28,8 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
     }, [volume]);
 
     useEffect(() => {
-        let currSec = Math.floor(currentTime % 60);
-        let durSec = Math.floor((video.current?.duration || 0) % 60);
+        const currSec = Math.floor(currentTime % 60);
+        const durSec = Math.floor((video.current?.duration || 0) % 60);
         setDurationBarText(Math.floor(currentTime / 60) + ":" + ((currSec < 10) ? "0" + currSec : currSec) + "/" + Math.floor((video.current?.duration || 0) / 60) + ":" + ((durSec < 10) ? "0" + durSec : durSec));
     }, [currentTime]);
 
