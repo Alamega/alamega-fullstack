@@ -27,6 +27,7 @@ export default function ServerNotReady() {
                 timeoutId = setTimeout(check, 5000);
             }
         } catch (error) {
+            console.error(error)
             setIsServerAvailable(false);
             timeoutId = setTimeout(check, 5000);
         }
