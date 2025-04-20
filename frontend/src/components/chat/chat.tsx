@@ -2,27 +2,31 @@
 
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import ChatMessage from "@/components/chat/message/message";
+import Loader from "@/components/loader/loader";
 
-export default function Chat({session, serverUrl}: { session: ISession | null, serverUrl: string }) {
-    interface Message {
-        author: string,
-        text: string
-    }
-
+export default function Chat({session, backendURL}: { session: ISession | null, backendURL: string }) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [formData, setFormData] = useState({text: ""});
     const [errors, setErrors] = useState("");
-    const wsURL = serverUrl.replace("http", "ws") + "/chat";
+    const [isConnected, setIsConnected] = useState(false);
+    const wsURL = backendURL.replace("http", "ws") + "/chat";
 
     if (!socket) {
         setSocket(new WebSocket(wsURL));
     } else {
+        socket.onopen = () => {
+            setIsConnected(true);
+        };
         socket.onmessage = (event) => {
             setMessages((prevState) => {
-                const newMessages = [...prevState, JSON.parse(event.data)];
-                return newMessages.slice(-25);
+                return [...prevState, JSON.parse(event.data)].slice(-25);
             });
+        };
+        socket.onclose = () => {
+            setIsConnected(false);
+            setErrors("")
+            setSocket(new WebSocket(wsURL));
         };
     }
 
@@ -56,13 +60,20 @@ export default function Chat({session, serverUrl}: { session: ISession | null, s
                           name="text"
                           rows={5}
                           maxLength={2048}
+                          disabled={!isConnected}
                 />
-                <button className="button-green" type="submit">Отправить</button>
+                <button className="button-green" type="submit" disabled={!isConnected}>Отправить</button>
             </form>
             {errors && <div className="error">{errors}</div>}
-            {messages.slice().reverse().map((message, index) => (
+
+            {isConnected && messages.slice().reverse().map((message, index) => (
                 <ChatMessage key={index} message={message}/>
             ))}
+            {!isConnected &&
+                <div style={{height: "50px"}}>
+                    <Loader message={"Пытаемся подключиться к чатику"}/>
+                </div>
+            }
         </div>
     );
 };

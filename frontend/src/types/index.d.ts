@@ -32,7 +32,12 @@ declare interface ISession {
     user: IUser;
 }
 
-interface IErrorResponse {
+declare interface Message {
+    author: string,
+    text: string
+}
+
+declare interface IErrorResponse {
     message?: string;
     fieldErrors?: Record<string, string[]>;
 }

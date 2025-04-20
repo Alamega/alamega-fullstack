@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import "./serverNotReady.css";
-import {getServerUrl} from "@/libs/server";
+import {getBackendURL} from "@/libs/server";
 import Loader from "@/components/loader/loader";
 import axios, {CancelTokenSource} from "axios";
 
@@ -17,7 +17,7 @@ export default function ServerNotReady() {
         }
         cancelToken = axios.CancelToken.source();
         try {
-            const response = await axios.get(await getServerUrl() + "/health", {
+            const response = await axios.get(await getBackendURL() + "/health", {
                 cancelToken: cancelToken.token,
             });
             if (response.status === 200) {

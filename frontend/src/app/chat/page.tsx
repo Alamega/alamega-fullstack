@@ -2,18 +2,18 @@ import {Metadata} from "next";
 import Chat from "@/components/chat/chat";
 import React from "react";
 import {getSession} from "@/libs/auth";
-import {getServerUrl} from "@/libs/server";
+import {getBackendURL} from "@/libs/server";
 
 export const metadata: Metadata = {
     title: "Чат"
 };
 
 export default async function ChatPage() {
-    const session: ISession | null = await getSession();
-    const serverURL = await getServerUrl();
+    const session = await getSession();
+    const backendURL = await getBackendURL();
     return (
         <>
-            <Chat session={session} serverUrl={serverURL}/>
+            <Chat session={session} backendURL={backendURL}/>
         </>
     );
 }

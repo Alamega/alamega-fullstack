@@ -38,7 +38,7 @@ public class ExceptionControllerAdvice {
     //Ошибка при валидации
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse validationException(MethodArgumentNotValidException ex) {
+    public ErrorResponse handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, List<String>> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(fieldError -> errors.computeIfAbsent(fieldError.getField(), k -> new ArrayList<>()).add(fieldError.getDefaultMessage()));
         return ErrorResponse.builder().fieldErrors(errors).build();
@@ -47,7 +47,7 @@ public class ExceptionControllerAdvice {
     //Метод не поддерживается
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public ErrorResponse handleMethodNotSupported(HttpRequestMethodNotSupportedException ex) {
+    public ErrorResponse handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
         return ErrorResponse.builder()
                 .message("Метод не поддерживается для данного запроса.")
                 .build();
@@ -56,7 +56,7 @@ public class ExceptionControllerAdvice {
     //URL не найден
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNoHandlerFound(NoHandlerFoundException ex) {
+    public ErrorResponse handleNoHandlerFoundException(NoHandlerFoundException ex) {
         return ErrorResponse.builder()
                 .message("Запрашиваемый ресурс не найден.")
                 .build();
@@ -65,7 +65,7 @@ public class ExceptionControllerAdvice {
     //Остальные ошибки
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse simopeErrorResponse(Exception exception) {
+    public ErrorResponse handleOthers(Exception exception) {
         return ErrorResponse.builder().message(exception.getMessage()).build();
     }
 }
