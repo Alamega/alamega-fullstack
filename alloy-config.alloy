@@ -1,0 +1,3 @@
+discovery.docker "backend" {
+    host = "unix://var/run/docker.sock"
+}
