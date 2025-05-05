@@ -13,6 +13,17 @@ export async function getBackendURL() {
     }
 }
 
+export async function checkBackendHealth() {
+    try {
+        const response = await axios.get(await getBackendURL() + "/health");
+        return response.status === 200;
+    } catch (error) {
+        console.error("Ошибка проверки состояния сервера:", error);
+        return false;
+    }
+}
+
+
 export async function fetchDataFromBackend<D>(endpoint: string, config?: AxiosRequestConfig<D>) {
     const session = await getSession();
     return await axios.get(backendURL.concat(endpoint), {

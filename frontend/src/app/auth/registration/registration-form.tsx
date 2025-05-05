@@ -28,11 +28,11 @@ export default function RegistrationForm() {
                 autoComplete={"off"}
             >
                 <label>Имя пользователя: <br/>
-                    <input className="input-green" name="username" type="text"/>
+                    <input className="input-green" name="username" type="text" autoComplete="username"/>
                 </label>
                 {error?.fieldErrors?.username && <div className="error">{error?.fieldErrors?.username}</div>}
                 <label>Пароль: <br/>
-                    <input className="input-green" name="password" type="password"/>
+                    <input className="input-green" name="password" type="password" autoComplete="new-password"/>
                 </label>
                 {error?.fieldErrors?.password && <div className="error">{error?.fieldErrors?.password}</div>}
                 <button className="button-green" type="submit" disabled={isLoading}>Зарегистрироваться</button>
