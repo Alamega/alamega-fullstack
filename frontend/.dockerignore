@@ -35,9 +35,6 @@ README*
 Dockerfile*
 docker-compose*
 
-# Public and media files
-public/videos/
-
 # Next.js specific
 .next/
 

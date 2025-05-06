@@ -15,6 +15,7 @@ export default async function NotFound() {
                     alt="Ошибка 404"
                     width={1000}
                     height={400}
+                    unoptimized={true}
                 />
             </div>
             <p>Ошибка 404, с ума сойти... Похоже такой странички не существует. </p>

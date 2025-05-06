@@ -12,6 +12,7 @@ export default function Error({error}: { error: Error & { digest?: string }; res
                     alt="Ошибка"
                     width={1000}
                     height={400}
+                    unoptimized={true}
                 />
             </div>
             <p>Ошибка... Какая-то чудовищная ошибка. Наши источники сообщают что ошибка называет себя {error.name} и
