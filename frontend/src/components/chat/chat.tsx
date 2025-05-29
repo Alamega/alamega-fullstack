@@ -5,7 +5,7 @@ import ChatMessage from "@/components/chat/message/message";
 import Loader from "@/components/loader/loader";
 
 export default function Chat({session, backendURL}: { session: ISession | null, backendURL: string }) {
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<IMessage[]>([]);
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [formData, setFormData] = useState({text: ""});
     const [errors, setErrors] = useState("");

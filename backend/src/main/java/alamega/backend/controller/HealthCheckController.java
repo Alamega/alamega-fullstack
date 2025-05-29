@@ -14,7 +14,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Tag(name = "Общие", description = "API для базовых операций")
 @RestController
 @RequestMapping(produces = APPLICATION_JSON_VALUE)
-public class MainRestController {
+public class HealthCheckController {
     @Operation(summary = "Проверка жив ли сервер")
     @GetMapping("/health")
     @ResponseStatus(HttpStatus.OK)
