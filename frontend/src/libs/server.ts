@@ -3,19 +3,11 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {getSession} from "@/libs/auth";
 
-const backendURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-
-export async function getBackendURL() {
-    if (backendURL) {
-        return backendURL;
-    } else {
-        throw new Error("Переменная NEXT_PUBLIC_API_URL не установлена.");
-    }
-}
+const backendURL = process.env.INTERNAL_BACKEND_URL || "http://localhost:8080";
 
 export async function checkBackendHealth() {
     try {
-        const response = await axios.get(await getBackendURL() + "/health");
+        const response = await axios.get(backendURL.concat("/health"));
         return response.status === 200;
     } catch (error) {
         console.error("Ошибка проверки состояния сервера:", error);

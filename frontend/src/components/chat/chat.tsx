@@ -4,12 +4,14 @@ import React, {ChangeEvent, FormEvent, useState} from "react";
 import ChatMessage from "@/components/chat/message/message";
 import Loader from "@/components/loader/loader";
 
-export default function Chat({session, backendURL}: { session: ISession | null, backendURL: string }) {
+export default function Chat({session}: { session: ISession | null }) {
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [formData, setFormData] = useState({text: ""});
     const [errors, setErrors] = useState("");
     const [isConnected, setIsConnected] = useState(false);
+
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
     const wsURL = backendURL.replace("http", "ws") + "/chat";
 
     if (!socket) {
