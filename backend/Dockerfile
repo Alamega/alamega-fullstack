@@ -1,5 +1,7 @@
 FROM maven:3.9.9-amazoncorretto-23-alpine AS builder
 WORKDIR /app
+COPY pom.xml ./
+RUN mvn dependency:go-offline
 COPY . .
 RUN mvn clean package -DskipTests
 
