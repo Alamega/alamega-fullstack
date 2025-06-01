@@ -56,11 +56,16 @@ CREATE TABLE posts
     CONSTRAINT fk_posts_author FOREIGN KEY (author) REFERENCES users (id) ON DELETE CASCADE
 );
 
--- Вставка разрешений
-INSERT INTO authorities (value, name)
-VALUES ('ROLE_USER', 'Роль "Пользователь"'),
-       ('ROLE_ADMIN', 'Роль "Админ"')
-ON CONFLICT (value) DO NOTHING;
+-- Таблица для хранения сообщений чата
+CREATE TABLE chat_messages
+(
+    id     UUID NOT NULL               DEFAULT uuid_generate_v4(),
+    author UUID NOT NULL,
+    text   VARCHAR(2048),
+    date   TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_chat_messages PRIMARY KEY (id),
+    CONSTRAINT fk_chat_messages_author FOREIGN KEY (author) REFERENCES users (id) ON DELETE CASCADE
+);
 
 -- Вставка ролей
 INSERT INTO roles (value, name)
@@ -68,10 +73,24 @@ VALUES ('USER', 'Пользователь'),
        ('ADMIN', 'Админ')
 ON CONFLICT (value) DO NOTHING;
 
--- Привязка разрешений к ролям
+-- Вставка привелегий
+INSERT INTO authorities (value, name)
+VALUES ('ROLE_USER', 'Роль "Пользователь"'),
+       ('ROLE_ADMIN', 'Роль "Админ"')
+ON CONFLICT (value) DO NOTHING;
+
+-- Привязка привилегий к роли USER
+INSERT INTO role_authorities (role_id, authority_id)
+SELECT r.id, a.id
+FROM roles r
+         JOIN authorities a ON a.value = 'ROLE_USER'
+WHERE r.value = 'USER'
+ON CONFLICT DO NOTHING;
+
+-- Привязка привилегий к роли ADMIN
 INSERT INTO role_authorities (role_id, authority_id)
 SELECT r.id, a.id
 FROM roles r
          JOIN authorities a ON a.value IN ('ROLE_USER', 'ROLE_ADMIN')
-WHERE r.value IN ('USER', 'ADMIN')
+WHERE r.value = 'ADMIN'
 ON CONFLICT DO NOTHING;
