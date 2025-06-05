@@ -3,7 +3,10 @@
 import Image from "next/image";
 import "./errors.css";
 
-export default function Error({error}: { error: Error & { digest?: string }; reset: () => void; }) {
+export default function Error({error, reset}: {
+    error: Error & { digest?: string };
+    reset: () => void;
+}) {
     return <>
         <div className="error-wrapper">
             <div className="image-wrapper">

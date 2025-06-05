@@ -18,7 +18,7 @@ public class PostService {
     private final UserService userService;
     private final PostRepository postRepository;
 
-    public Page<Post> getPosts(UUID userId, Pageable pageable) {
+    public Page<Post> getAllByPage(UUID userId, Pageable pageable) {
         return userService.findById(userId)
                 .map(user -> postRepository.findAllByAuthorOrderByDateDesc(user, pageable))
                 .orElse(null);

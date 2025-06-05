@@ -3,9 +3,11 @@ package alamega.backend.service;
 import alamega.backend.model.user.User;
 import alamega.backend.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,8 +17,8 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Page<User> getAllByPage(Pageable pageable) {
+        return new PageImpl<>(userRepository.findAll(), pageable, userRepository.count());
     }
 
     public Optional<User> findByUsername(String username) {

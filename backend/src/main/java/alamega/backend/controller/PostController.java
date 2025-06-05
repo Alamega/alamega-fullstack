@@ -22,7 +22,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class PostController {
     private final PostService postService;
 
-    @Operation(summary = "Получение постов по id пользователя")
+    @Operation(summary = "Получение постов по id пользователя (страница)")
     @GetMapping("users/{userId}/posts")
     @ResponseStatus(HttpStatus.OK)
     public Page<Post> getPosts(
@@ -30,7 +30,7 @@ public class PostController {
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
-        return postService.getPosts(userId, PageRequest.of(page, size));
+        return postService.getAllByPage(userId, PageRequest.of(page, size));
     }
 
     @Operation(summary = "Добавление нового поста")

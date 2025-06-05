@@ -18,16 +18,6 @@ declare interface IPost {
     date?: Date;
 }
 
-declare interface IPageablePostResponse {
-    content: IPost[];
-    page: {
-        size: number;
-        number: number;
-        totalElements: number;
-        totalPages: number;
-    };
-}
-
 declare interface ISession {
     user: IUser;
 }
@@ -40,4 +30,14 @@ declare interface IMessage {
 declare interface IErrorResponse {
     message?: string;
     fieldErrors?: Record<string, string[]>;
+}
+
+declare interface IPageable<T> {
+    content: T[];
+    page: {
+        size: number;
+        number: number;
+        totalElements: number;
+        totalPages: number;
+    };
 }

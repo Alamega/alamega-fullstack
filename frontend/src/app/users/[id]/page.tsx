@@ -19,7 +19,7 @@ export async function generateMetadata(
     };
 }
 
-export default async function User(props: { params: Promise<{ id: string }> }) {
+export default async function UserPage(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const user = await getUserInfo(params.id);
     const session = await getSession();
