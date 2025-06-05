@@ -11,7 +11,10 @@ export default function Chat({session}: { session: ISession | null }) {
     const [errors, setErrors] = useState("");
     const [isConnected, setIsConnected] = useState(false);
 
-    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
+    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+    if (!backendURL) {
+        throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined.");
+    }
     const wsURL = backendURL.replace("http", "ws") + "/chat";
 
     if (!socket) {

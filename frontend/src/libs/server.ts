@@ -3,7 +3,11 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {getSession} from "@/libs/auth";
 
-const backendURL = process.env.INTERNAL_BACKEND_URL || "http://localhost:8080";
+const rawBackendURL = process.env.INTERNAL_BACKEND_URL;
+if (!rawBackendURL) {
+    throw new Error("Environment variable INTERNAL_BACKEND_URL is not defined.");
+}
+const backendURL: string = rawBackendURL;
 
 export async function checkBackendHealth() {
     try {
