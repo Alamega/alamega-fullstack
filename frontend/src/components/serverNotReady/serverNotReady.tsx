@@ -1,30 +1,30 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import "./serverNotReady.css";
 import Loader from "@/components/loader/loader";
-import {checkBackendHealth} from "@/libs/server"; // Импортируйте вашу серверную функцию
+import {checkBackendHealth} from "@/libs/server";
 
 export default function ServerNotReady() {
     const [isServerAvailable, setIsServerAvailable] = useState<boolean>(false);
-    let timeoutId: NodeJS.Timeout | null = null;
+    const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
-    const check = async () => {
-        const available = await checkBackendHealth(); // Вызов серверной функции
+    const check = useCallback(async () => {
+        const available = await checkBackendHealth();
         setIsServerAvailable(available);
         if (!available) {
-            timeoutId = setTimeout(check, 5000);
+            timeoutId.current = setTimeout(check, 5000);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        check();
+        check().then();
         return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
+            if (timeoutId.current) {
+                clearTimeout(timeoutId.current);
             }
         };
-    }, []);
+    }, [check]);
 
     if (isServerAvailable) {
         return null;

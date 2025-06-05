@@ -3,7 +3,7 @@
 import Image from "next/image";
 import "./errors.css";
 
-export default function Error({error, reset}: {
+export default function Error({error}: {
     error: Error & { digest?: string };
     reset: () => void;
 }) {
