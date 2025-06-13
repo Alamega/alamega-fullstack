@@ -36,4 +36,8 @@ public class UserService {
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
     }
+
+    public long count() {
+        return userRepository.count();
+    }
 }

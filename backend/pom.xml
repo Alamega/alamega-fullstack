@@ -9,19 +9,16 @@
     <name>backend</name>
     <description>Это бэкич</description>
 
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
+    <url>https://alamega-api.onrender.com</url>
+
     <developers>
-        <developer/>
+        <developer>
+            <name>Влад</name>
+            <email>vladshuman@gmail.com</email>
+            <organization>Alamega</organization>
+            <organizationUrl>https://alamega.github.io</organizationUrl>
+        </developer>
     </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
 
     <properties>
         <java.version>23</java.version>
@@ -104,13 +101,20 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <artifactId>testcontainers</artifactId>
+            <version>1.19.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
-            <version>1.19.8</version>
+            <version>1.19.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>1.19.0</version>
             <scope>test</scope>
         </dependency>
 
