@@ -1,32 +1,20 @@
-FROM ghcr.io/graalvm/native-image-community:24.0.1 AS native-builder
-WORKDIR /project
-RUN microdnf install -y maven && \
-    microdnf install -y curl ca-certificates && \
-    update-ca-trust
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
-COPY src ./src
-
-ARG JDBC_URL
-ARG JWT_SECRET
-ARG ADMIN_USERNAME
-ENV JDBC_URL=${JDBC_URL}
-ENV JWT_SECRET=${JWT_SECRET}
-ENV ADMIN_USERNAME=${ADMIN_USERNAME}
-
-RUN mvn clean -Pnative -DskipTests -e -X native:compile
-
-FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y libstdc++6 && rm -rf /var/lib/apt/lists/*
+FROM ghcr.io/graalvm/native-image-community:24.0.1 AS builder
 WORKDIR /app
-COPY --from=native-builder /project/target/backend .
-EXPOSE 8080
 
-ARG JDBC_URL
-ARG JWT_SECRET
-ARG ADMIN_USERNAME
-ENV JDBC_URL=${JDBC_URL}
-ENV JWT_SECRET=${JWT_SECRET}
-ENV ADMIN_USERNAME=${ADMIN_USERNAME}
+RUN microdnf install -y maven ca-certificates && rm -rf /var/cache/yum
+
+COPY pom.xml .
+RUN mvn -B dependency:go-offline
+
+COPY src ./src
+RUN mvn -B -Pnative -DskipTests native:compile
+
+FROM debian:bookworm-slim AS runtime
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y libstdc++6 && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /app/target/backend .
+EXPOSE 8080
 
 CMD ["./backend"]

@@ -1,4 +1,4 @@
-package alamega.backend.config;
+package alamega.backend.configuration;
 
 import alamega.backend.ws.ChatWebSocketHandler;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 @EnableWebSocket
 @RequiredArgsConstructor
-public class WebSocketConfig implements WebSocketConfigurer {
+public class WebSocketConfiguration implements WebSocketConfigurer {
     final ChatWebSocketHandler chatWebSocketHandler;
 
     @Override

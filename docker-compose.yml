@@ -17,12 +17,7 @@ services:
       - app-network
 
   backend:
-    build:
-      context: ./backend
-      args:
-        JDBC_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-postgres_db}?user=${POSTGRES_USER:-postgres_user}&password=${POSTGRES_PASSWORD:-postgres_password}
-        JWT_SECRET: ${JWT_SECRET:-SECRET}
-        ADMIN_USERNAME: ${ADMIN_USERNAME:-ALAMEGA}
+    build: ./backend
     environment:
       JDBC_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-postgres_db}?user=${POSTGRES_USER:-postgres_user}&password=${POSTGRES_PASSWORD:-postgres_password}
       JWT_SECRET: ${JWT_SECRET:-SECRET}
@@ -31,7 +26,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "wget -q --spider http://localhost:8080/health || exit 1" ]
+      test: [ "CMD-SHELL", "bash -c '</dev/tcp/localhost/8080'" ]
       interval: 3s
       timeout: 3s
       retries: 10

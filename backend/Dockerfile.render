@@ -1,9 +1,20 @@
-FROM maven:3.9.9-amazoncorretto-24-alpine AS builder
+FROM ghcr.io/graalvm/native-image-community:24.0.1 AS builder
 WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
 
-FROM amazoncorretto:24-alpine AS runner
+RUN microdnf install -y maven ca-certificates && rm -rf /var/cache/yum
+
+COPY pom.xml .
+RUN mvn -B dependency:go-offline
+
+COPY src ./src
+RUN mvn -B -Pnative -DskipTests native:compile
+
+FROM debian:bookworm-slim AS runtime
 WORKDIR /app
-COPY --from=builder /app/target/backend-1.0.0.jar ./backend.jar
-ENTRYPOINT ["java", "-jar", "./backend.jar"]
+
+RUN apt-get update && apt-get install -y libstdc++6 && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /app/target/backend .
+EXPOSE 8080
+
+CMD ["./backend"]

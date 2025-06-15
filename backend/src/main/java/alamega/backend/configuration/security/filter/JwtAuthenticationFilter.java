@@ -1,4 +1,4 @@
-package alamega.backend.config.security.filter;
+package alamega.backend.configuration.security.filter;
 
 import alamega.backend.service.JwtService;
 import io.jsonwebtoken.JwtException;

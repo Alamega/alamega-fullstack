@@ -1,4 +1,4 @@
-package alamega.backend.config;
+package alamega.backend.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -17,6 +17,6 @@ import org.springframework.context.annotation.Configuration;
         io.jsonwebtoken.impl.io.StandardCompressionAlgorithms.class
 })
 @RequiredArgsConstructor
-public class GlobalConfiguration {
+public class ReflectionConfiguration {
 }
 
