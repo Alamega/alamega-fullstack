@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RegisterReflectionForBinding({
+        java.util.UUID[].class,
         io.jsonwebtoken.impl.DefaultJwtParser.class,
         io.jsonwebtoken.impl.DefaultClaimsBuilder.class,
         io.jsonwebtoken.impl.security.StandardSecureDigestAlgorithms.class,
@@ -17,5 +18,5 @@ import org.springframework.context.annotation.Configuration;
 })
 @RequiredArgsConstructor
 public class GlobalConfiguration {
-
 }
+

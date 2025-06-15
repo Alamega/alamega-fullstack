@@ -1,15 +1,3 @@
-#FROM maven:3.9.9-amazoncorretto-24-alpine AS builder
-#WORKDIR /app
-#COPY pom.xml ./
-#RUN mvn dependency:go-offline
-#COPY . .
-#RUN mvn clean package -DskipTests
-#
-#FROM amazoncorretto:24-alpine AS runner
-#WORKDIR /app
-#COPY --from=builder /app/target/backend-1.0.0.jar ./backend.jar
-#ENTRYPOINT ["java", "-jar", "./backend.jar"]
-
 FROM ghcr.io/graalvm/native-image-community:24.0.1 AS native-builder
 WORKDIR /project
 RUN microdnf install -y maven && \
