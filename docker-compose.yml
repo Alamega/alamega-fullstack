@@ -17,7 +17,12 @@ services:
       - app-network
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      args:
+        JDBC_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-postgres_db}?user=${POSTGRES_USER:-postgres_user}&password=${POSTGRES_PASSWORD:-postgres_password}
+        JWT_SECRET: ${JWT_SECRET:-SECRET}
+        ADMIN_USERNAME: ${ADMIN_USERNAME:-ALAMEGA}
     environment:
       JDBC_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-postgres_db}?user=${POSTGRES_USER:-postgres_user}&password=${POSTGRES_PASSWORD:-postgres_password}
       JWT_SECRET: ${JWT_SECRET:-SECRET}
