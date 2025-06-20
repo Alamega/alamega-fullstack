@@ -7,9 +7,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-postgres_db}
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres_user} -d ${POSTGRES_DB:-postgres_db}" ]
-      timeout: 5s
-      interval: 5s
-      retries: 5
+      interval: 3s
+      timeout: 3s
+      retries: 10
       start_period: 5s
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -47,6 +47,12 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:3000 || exit 1" ]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
     volumes:
       - npm_cache:/app/node_modules
     networks:
@@ -61,6 +67,12 @@ services:
     depends_on:
       - backend
       - frontend
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost" ]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
     networks:
       - app-network
 

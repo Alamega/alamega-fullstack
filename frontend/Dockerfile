@@ -13,12 +13,13 @@ COPY . .
 RUN npm run build
 
 FROM node:22-alpine AS runner
+WORKDIR /app
 
 ARG INTERNAL_BACKEND_URL
 ENV INTERNAL_BACKEND_URL=${INTERNAL_BACKEND_URL}
 
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
-WORKDIR /app
+
 COPY --from=builder /app .
 CMD ["npm", "start"]

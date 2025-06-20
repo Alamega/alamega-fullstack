@@ -5,6 +5,7 @@ import {createPost, deletePost, getUserPosts} from "@/libs/users";
 import "./postsSection.css";
 import Post from "@/components/posts/post/post";
 import PaginatedList from "@/components/pagination/paginatedList";
+import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
 
 export default function PostsSection({userId, session}: {
     userId: string;
@@ -13,8 +14,9 @@ export default function PostsSection({userId, session}: {
     const [pageablePosts, setPageablePosts] = useState<IPageable<IPost>>();
     const [currentPage, setCurrentPage] = useState(0);
     const [formData, setFormData] = useState({text: ""});
-    const [formButtonText, setFormButtonText] = useState("Опубликовать");
     const [errors, setErrors] = useState("");
+    const [pushMessageLoading, setPushMessageLoading] = useState(false);
+
 
     const isPageOwner = session?.user.id === userId;
     const currentUserIsAdmin = session?.user.role.value === "ADMIN";
@@ -29,10 +31,10 @@ export default function PostsSection({userId, session}: {
         event.preventDefault();
         setErrors("");
         if (formData.text.trim().length > 0) {
-            setFormButtonText("Публикуем...");
+            setPushMessageLoading(true);
             await createPost({text: formData.text}).then(async () => {
                 setFormData({text: ""});
-                setFormButtonText("Опубликовать");
+                setPushMessageLoading(false);
                 setCurrentPage(0);
                 getUserPosts(userId, currentPage, pageSize).then(setPageablePosts);
             });
@@ -68,9 +70,7 @@ export default function PostsSection({userId, session}: {
                         rows={5}
                         maxLength={2048}
                     />
-                    <button className="button-green" type="submit">
-                        {formButtonText}
-                    </button>
+                    <ButtonWithLoader loading={pushMessageLoading}>Опубликовать</ButtonWithLoader>
                 </form>
             )}
 

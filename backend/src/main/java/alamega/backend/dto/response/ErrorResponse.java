@@ -13,9 +13,8 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
-    @JsonInclude
     private String message;
-    @JsonInclude
     private Map<String, List<String>> fieldErrors;
 }

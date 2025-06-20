@@ -142,6 +142,9 @@ label {
 }
 
 .button-green {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 6px;
     background-color: var(--background-color);
     margin: 8px 0;
@@ -156,13 +159,6 @@ label {
 .button-green:hover {
     color: white;
     background-color: var(--button-background-color-hover);
-}
-
-.button-green:disabled, .button-green:disabled:hover {
-    background-color: gray;
-    color: white;
-    border: 1px solid white;
-    cursor: wait;
 }
 
 .error {

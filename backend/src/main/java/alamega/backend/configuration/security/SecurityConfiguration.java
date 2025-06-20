@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
-                        .allowedHeaders("Content-Type", "Date", "Total-Count", "loginInfo");
+                        .allowedHeaders("*");
             }
         };
     }

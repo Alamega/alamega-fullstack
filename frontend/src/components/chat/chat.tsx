@@ -3,6 +3,7 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import ChatMessage from "@/components/chat/message/message";
 import Loader from "@/components/loader/loader";
+import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
 
 export default function Chat({session}: { session: ISession | null }) {
     const [messages, setMessages] = useState<IMessage[]>([]);
@@ -67,7 +68,7 @@ export default function Chat({session}: { session: ISession | null }) {
                           maxLength={2048}
                           disabled={!isConnected}
                 />
-                <button className="button-green" type="submit" disabled={!isConnected}>Отправить</button>
+                <ButtonWithLoader loading={!isConnected}>Отправить</ButtonWithLoader>
             </form>
             {errors && <div className="error">{errors}</div>}
 

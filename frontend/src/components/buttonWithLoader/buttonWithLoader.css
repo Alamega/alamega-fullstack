@@ -1,0 +1,23 @@
+.spinner {
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(64, 128, 64, 0.36);
+    border-top: 2px solid var(--border-color);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    display: inline-block;
+}
+
+.button-green:hover .spinner {
+    border: 2px solid #cacaca;
+    border-top: 2px solid white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
