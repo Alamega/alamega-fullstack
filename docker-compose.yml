@@ -76,6 +76,16 @@ services:
     networks:
       - app-network
 
+  stable-diffusion:
+    build:
+      context: ./diffusion
+    environment:
+      USE_CUDA: false
+    volumes:
+      - ./model:/app/models/Stable-diffusion
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
