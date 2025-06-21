@@ -79,8 +79,8 @@ services:
   stable-diffusion:
     build:
       context: ./diffusion
-    environment:
-      USE_CUDA: false
+    ports:
+      - "7860:7860"
     volumes:
       - ./diffusion/model:/app/models/Stable-diffusion
     networks:
