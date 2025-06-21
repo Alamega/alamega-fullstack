@@ -82,7 +82,7 @@ services:
     environment:
       USE_CUDA: false
     volumes:
-      - ./model:/app/models/Stable-diffusion
+      - ./diffusion/model:/app/models/Stable-diffusion
     networks:
       - app-network
 
