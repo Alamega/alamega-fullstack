@@ -76,13 +76,14 @@ services:
     networks:
       - app-network
 
-  stable-diffusion:
+  stable-diffusion-cpu:
     build:
       context: ./diffusion
     ports:
       - "7860:7860"
     volumes:
       - ./diffusion/model:/app/models/Stable-diffusion
+      - ./diffusion/output:/app/outputs
     networks:
       - app-network
 

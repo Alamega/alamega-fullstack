@@ -1,2 +1,3 @@
 ### Stable Diffusion ###
 *.safetensors
+output/**
