@@ -1,7 +1,7 @@
 FROM ghcr.io/graalvm/native-image-community:24.0.1 AS builder
 WORKDIR /app
 
-RUN microdnf install -y maven ca-certificates && rm -rf /var/cache/yum
+RUN microdnf install -y maven ca-certificates && microdnf clean all
 
 COPY pom.xml .
 RUN mvn -B dependency:go-offline
