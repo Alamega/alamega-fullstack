@@ -76,6 +76,45 @@ services:
     networks:
       - app-network
 
+  alloy:
+    image: grafana/alloy:${GRAFANA_ALLOY_VERSION:-v1.8.2}
+    volumes:
+      - ./monitoring/config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    networks:
+      - app-network
+
+  loki:
+    image: grafana/loki:${GRAFANA_LOKI_VERSION:-3.5.0}
+    volumes:
+      - ./monitoring/loki-config.yaml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v3.3.0}
+    command:
+      - --web.enable-remote-write-receiver
+      - --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:${GRAFANA_VERSION:-11.6.1}
+    environment:
+      GF_SECURITY_ADMIN_USER: ${ADMIN_USERNAME:-ALAMEGA}
+      GF_SECURITY_ADMIN_PASSWORD: "1111"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+    volumes:
+      - ./monitoring/grafana-ds.yaml:/etc/grafana/provisioning/datasources/ds.yaml
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
