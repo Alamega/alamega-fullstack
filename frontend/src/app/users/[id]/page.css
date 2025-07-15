@@ -3,11 +3,11 @@
     grid-template-columns: 160px 1fr 200px;
     grid-template-rows: 30px 130px;
 
-    box-shadow: 0 0 4px var(--shadow-color);
+    box-shadow: 0 0 4px black;
     margin: 4px;
     padding: 4px;
     border-radius: 8px;
-    background-color: var(--background-color);
+    background-color: rgb(255, 255, 255);
 }
 
 .user-card-image {
@@ -31,7 +31,7 @@
 
 .user-card-role {
     grid-area: 1 / 3 / 2 / 4;
-    border-left: solid var(--border-color) 2px;
+    border-left: solid rgb(64, 128, 64) 2px;
     padding: 5px;
     display: flex;
     align-items: center;
@@ -40,7 +40,7 @@
 
 .user-card-info {
     grid-area: 2 / 2 / 3 / 4;
-    border-top: solid var(--border-color) 2px;
+    border-top: solid rgb(64, 128, 64) 2px;
     padding: 5px;
 }
 
@@ -57,14 +57,14 @@
 
     .user-card-name {
         grid-area: 2 / 1 / 3 / 2;
-        border: solid var(--border-color) 2px;
+        border: solid rgb(64, 128, 64) 2px;
         border-left: none;
         border-bottom: none;
     }
 
     .user-card-role {
         grid-area: 2 / 2 / 3 / 3;
-        border-top: solid var(--border-color) 2px;
+        border-top: solid rgb(64, 128, 64) 2px;
         border-left: none;
     }
 

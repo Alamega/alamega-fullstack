@@ -1,5 +1,6 @@
 -- Расширения
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE
+EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ТАБЛИЦЫ
 
@@ -36,19 +37,39 @@ CREATE TABLE role_authorities
 -- Таблица для хранения пользователей
 CREATE TABLE users
 (
-    id       UUID         NOT NULL DEFAULT uuid_generate_v4(),
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role_id  UUID,
+    id           UUID         NOT NULL DEFAULT uuid_generate_v4(),
+    username     VARCHAR(255) NOT NULL,
+    email        VARCHAR(255),
+    phone_number VARCHAR(32),
+    password     VARCHAR(255) NOT NULL,
+    role_id      UUID,
     CONSTRAINT pk_users PRIMARY KEY (id),
     CONSTRAINT uc_users_username UNIQUE (username),
+    CONSTRAINT uc_users_email UNIQUE (email),
     CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+-- Таблица с дополнительной информацией о пользователе
+CREATE TABLE user_info
+(
+    id         UUID NOT NULL DEFAULT uuid_generate_v4(),
+    user_id    UUID NOT NULL,
+    gender     VARCHAR(32),
+    last_name  VARCHAR(255),
+    first_name VARCHAR(255),
+    patronymic VARCHAR(255),
+    birth_date DATE,
+    avatar_url VARCHAR(512),
+    status     VARCHAR(255),
+    CONSTRAINT pk_user_info PRIMARY KEY (id),
+    CONSTRAINT fk_user_info_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    CONSTRAINT uc_user_info_user UNIQUE (user_id)
 );
 
 -- Таблица для хранения постов
 CREATE TABLE posts
 (
-    id     UUID NOT NULL               DEFAULT uuid_generate_v4(),
+    id     UUID NOT NULL DEFAULT uuid_generate_v4(),
     author UUID NOT NULL,
     text   VARCHAR(2048),
     date   TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -59,7 +80,7 @@ CREATE TABLE posts
 -- Таблица для хранения сообщений чата
 CREATE TABLE chat_messages
 (
-    id     UUID NOT NULL               DEFAULT uuid_generate_v4(),
+    id     UUID NOT NULL DEFAULT uuid_generate_v4(),
     author UUID NOT NULL,
     text   VARCHAR(2048),
     date   TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -70,27 +91,23 @@ CREATE TABLE chat_messages
 -- Вставка ролей
 INSERT INTO roles (value, name)
 VALUES ('USER', 'Пользователь'),
-       ('ADMIN', 'Админ')
-ON CONFLICT (value) DO NOTHING;
+       ('ADMIN', 'Админ') ON CONFLICT (value) DO NOTHING;
 
 -- Вставка привелегий
 INSERT INTO authorities (value, name)
 VALUES ('ROLE_USER', 'Роль "Пользователь"'),
-       ('ROLE_ADMIN', 'Роль "Админ"')
-ON CONFLICT (value) DO NOTHING;
+       ('ROLE_ADMIN', 'Роль "Админ"') ON CONFLICT (value) DO NOTHING;
 
 -- Привязка привилегий к роли USER
 INSERT INTO role_authorities (role_id, authority_id)
 SELECT r.id, a.id
 FROM roles r
          JOIN authorities a ON a.value = 'ROLE_USER'
-WHERE r.value = 'USER'
-ON CONFLICT DO NOTHING;
+WHERE r.value = 'USER' ON CONFLICT DO NOTHING;
 
 -- Привязка привилегий к роли ADMIN
 INSERT INTO role_authorities (role_id, authority_id)
 SELECT r.id, a.id
 FROM roles r
          JOIN authorities a ON a.value IN ('ROLE_USER', 'ROLE_ADMIN')
-WHERE r.value = 'ADMIN'
-ON CONFLICT DO NOTHING;
+WHERE r.value = 'ADMIN' ON CONFLICT DO NOTHING;

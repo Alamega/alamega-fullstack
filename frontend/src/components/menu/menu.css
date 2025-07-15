@@ -9,10 +9,10 @@
     padding: 10px;
     border-radius: 8px;
     text-align: center;
-    color: var(--button-color);
+    color: rgb(64, 128, 64);
 }
 
 .menu > a:hover {
-    color: var(--button-color-hover);
-    background-color: var(--button-background-color-hover);
+    color: rgb(255, 255, 255);
+    background-color: rgb(64, 128, 64);
 }

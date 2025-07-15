@@ -5,12 +5,12 @@
     display: none;
     flex-direction: column;
     margin: auto 0 0 0;
-    background-color: var(--background-color);
+    background-color: rgb(255, 255, 255);
     border-radius: 8px;
 }
 
 .navbar:hover {
-    box-shadow: 0 0 4px var(--shadow-color);
+    box-shadow: 0 0 4px black;
 }
 
 .navbar_icon {
@@ -27,7 +27,7 @@
     border-radius: 8px;
     margin: 8px;
     padding: 4px;
-    box-shadow: 0 0 4px var(--shadow-color) inset;
+    box-shadow: 0 0 4px black inset;
 }
 
 .navbar_menu > a {

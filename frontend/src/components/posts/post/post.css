@@ -3,8 +3,8 @@
     flex-direction: column;
     margin: 8px 4px;
     padding: 4px;
-    background-color: var(--background-color-transparent);
-    border: solid var(--border-color) 1px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: solid rgb(64, 128, 64) 1px;
 }
 
 .post-header {
@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 6px;
-    border-bottom: solid var(--border-color) 1px;
+    border-bottom: solid rgb(64, 128, 64) 1px;
 }
 
 .post-content {
