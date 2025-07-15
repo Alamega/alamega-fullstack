@@ -1,38 +1,28 @@
 "use client";
 
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./serverNotReady.css";
 import Loader from "@/components/loader/loader";
 import {checkBackendHealth} from "@/libs/server";
 
 export default function ServerNotReady() {
-    const [isServerAvailable, setIsServerAvailable] = useState<boolean>(false);
-    const timeoutId = useRef<NodeJS.Timeout | null>(null);
-
-    const check = useCallback(async () => {
-        const available = await checkBackendHealth();
-        setIsServerAvailable(available);
-        if (!available) {
-            timeoutId.current = setTimeout(check, 5000);
-        }
-    }, []);
+    const [isServerAvailable, setIsServerAvailable] = useState(false);
 
     useEffect(() => {
-        check().then();
-        return () => {
-            if (timeoutId.current) {
-                clearTimeout(timeoutId.current);
-            }
+        const check = async () => {
+            const available = await checkBackendHealth();
+            setIsServerAvailable(available);
         };
-    }, [check]);
+        check().then();
+        const interval = setInterval(check, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
-    if (isServerAvailable) {
-        return null;
-    } else {
-        return (
+    return (
+        !isServerAvailable && (
             <div className="server-not-ready">
-                <Loader message={"Проверка доступности сервера"}/>
+                <Loader message="Проверка доступности сервера"/>
             </div>
-        );
-    }
+        )
+    );
 }

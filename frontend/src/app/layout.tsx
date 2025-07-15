@@ -18,8 +18,8 @@ const ubuntuFont = Ubuntu({
 });
 
 export const metadata: Metadata = {
-    title: "title",
-    description: "description",
+    title: "Страничка",
+    description: "Это страничка и она в интернете ну что тут ещё скажешь...",
 };
 
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
