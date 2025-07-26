@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,8 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     public Page<User> getAllByPage(Pageable pageable) {
@@ -37,7 +38,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public long count() {
-        return userRepository.count();
+    @Override
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
+                "Пользователь с именем ".concat(username).concat(" не найден.")
+        ));
     }
 }

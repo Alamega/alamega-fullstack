@@ -64,7 +64,7 @@ public class AuthenticationService {
 
     private AuthResponse createAuthResponse(User user) {
         return AuthResponse.builder()
-                .token(jwtService.generateToken(user))
+                .token(jwtService.generateToken(userService.loadUserByUsername(user.getUsername())))
                 .id(user.getId().toString())
                 .username(user.getUsername())
                 .role(user.getRole())

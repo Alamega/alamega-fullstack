@@ -1,10 +1,10 @@
 package alamega.backend.service;
 
+import alamega.backend.model.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -31,14 +31,14 @@ public class JwtService {
         this.jwtParser = Jwts.parser().verifyWith(SECRET_KEY).build();
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(userDetails, new HashMap<>());
+    public String generateToken(User user) {
+        return generateToken(user, new HashMap<>());
     }
 
-    public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
+    public String generateToken(User user, Map<String, Object> extraClaims) {
         return Jwts
                 .builder()
-                .subject(userDetails.getUsername())
+                .subject(user.getUsername())
                 .claims(extraClaims)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(Date.from(Instant.now().plus(Duration.ofDays(2))))
@@ -58,8 +58,8 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Boolean isTokenValid(String token, UserDetails userDetails) {
-        return (extractUsername(token).equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public Boolean isTokenValid(String token, User user) {
+        return (extractUsername(token).equals(user.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
