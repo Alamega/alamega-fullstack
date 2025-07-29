@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import "./errors.css";
+import Link from "next/link";
 
 export default function Error({error}: {
     error: Error & { digest?: string };
@@ -20,7 +21,7 @@ export default function Error({error}: {
             </div>
             <p>Ошибка... Какая-то чудовищная ошибка. Наши источники сообщают что ошибка называет себя {error.name} и
                 говорит странные вещи по типу этой: &quot;{error.message}&quot;.</p>
-            <p>Настоятельно рекомендуем <a href={"/"}>вернуться на главную</a>.</p>
+            <p>Настоятельно рекомендуем <Link href={"/"}>вернуться на главную</Link>.</p>
             <p>А мы тут всё уберем и никто ничего не узнает.</p>
         </div>
     </>;

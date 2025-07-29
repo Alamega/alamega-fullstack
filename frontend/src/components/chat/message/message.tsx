@@ -2,11 +2,16 @@
 
 import React from "react";
 import "./message.css";
+import Link from "next/link";
 
-export default function ChatMessage({message}: { message: { author: string, text: string } }) {
+export default function ChatMessage({message}: { message: IMessage }) {
     return (
         <div className={"chat-message"}>
-            <div className={"chat-author"}>{message.author}:</div>
+            {message.author ? (
+                <Link className={"chat-author"} href={"/users/" + message.author.id}>{message.author.username}: </Link>
+            ) : (
+                <div className={"chat-author"}>Гость:</div>
+            )}
             <div className={"chat-text"}>{message.text}</div>
         </div>
     );

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.json.JSONObject;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -36,4 +37,8 @@ public class ChatMessage {
 
     @Column
     private Instant date;
+
+    public String toJson() {
+        return new JSONObject(this).toString();
+    }
 }

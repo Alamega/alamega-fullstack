@@ -1,5 +1,8 @@
 package alamega.backend.ws;
 
+import alamega.backend.model.chatMessage.ChatMessage;
+import alamega.backend.service.ChatMessageService;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -10,32 +13,31 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 @Component
+@RequiredArgsConstructor
 public class ChatWebSocketHandler extends TextWebSocketHandler {
     private final List<WebSocketSession> webSocketSessions = new ArrayList<>();
-    private final Queue<String> textMessages = new LinkedList<>();
+    private final ChatMessageService chatMessageService;
 
     @Override
     public void afterConnectionEstablished(@NonNull WebSocketSession session) throws IOException {
         webSocketSessions.add(session);
-        for (String textMessage : textMessages) {
-            session.sendMessage(new TextMessage(textMessage));
+        for (ChatMessage textMessage : chatMessageService.loadRecent()) {
+            session.sendMessage(new TextMessage(textMessage.toJson()));
         }
     }
 
     @Override
     protected void handleTextMessage(@NonNull WebSocketSession session, @NonNull TextMessage message) throws IOException {
-        JSONObject jsonMessage = new JSONObject(message.getPayload());
-        textMessages.offer(jsonMessage.toString());
-        if (textMessages.size() >= 26) {
-            textMessages.poll();
-        }
+        JSONObject receivedJsonMessage = new JSONObject(message.getPayload());
+        ChatMessage newMessage = chatMessageService.save(
+                session.getAttributes().get("userId") != null ? session.getAttributes().get("userId").toString() : null,
+                receivedJsonMessage.getString("text")
+        );
         for (WebSocketSession webSocketSession : webSocketSessions) {
-            webSocketSession.sendMessage(new TextMessage(jsonMessage.toString()));
+            webSocketSession.sendMessage(new TextMessage(newMessage.toJson()));
         }
     }
 

@@ -19,7 +19,7 @@ export default function Chat({session}: { session: ISession | null }) {
     const wsURL = backendURL.replace("http", "ws") + "/chat";
 
     if (!socket) {
-        setSocket(new WebSocket(wsURL));
+        setSocket(new WebSocket(wsURL, session?.user.token));
     } else {
         socket.onopen = () => {
             setIsConnected(true);
@@ -41,7 +41,6 @@ export default function Chat({session}: { session: ISession | null }) {
         setErrors("");
         if (formData.text.trim().length > 0) {
             socket?.send(JSON.stringify({
-                author: session ? session.user.username : "Гость",
                 text: formData.text
             }));
             setFormData({text: ""});

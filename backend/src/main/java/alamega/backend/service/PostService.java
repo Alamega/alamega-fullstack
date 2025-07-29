@@ -15,6 +15,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class PostService {
+    private final AuthenticationService authenticationService;
     private final UserService userService;
     private final PostRepository postRepository;
 
@@ -32,7 +33,7 @@ public class PostService {
         return postRepository.save(
                 Post.builder()
                         .date(Instant.now())
-                        .author(AuthenticationService.getCurrentUser())
+                        .author(authenticationService.getCurrentUser())
                         .text(postPublicationRequest.getText())
                         .build()
         );
@@ -40,7 +41,7 @@ public class PostService {
 
     public void deletePost(UUID id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Пост не найден."));
-        var currentUser = AuthenticationService.getCurrentUser();
+        var currentUser = authenticationService.getCurrentUser();
         if (!post.getAuthor().getId().equals(currentUser.getId()) && !currentUser.getRole().getValue().equals("ADMIN")) {
             throw new RuntimeException("Это не ваш пост и вы мне тут не админ!");
         }

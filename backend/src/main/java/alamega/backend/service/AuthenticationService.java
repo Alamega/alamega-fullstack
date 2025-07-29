@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,11 +28,14 @@ public class AuthenticationService {
     @Value("${admin.username}")
     private String adminUsername;
 
-    public static User getCurrentUser() {
-        if (SecurityContextHolder.getContext().getAuthentication() == null || SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+    public User getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null
+                || !auth.isAuthenticated()
+                || !(auth.getPrincipal() instanceof User)) {
             throw new UnauthorizedException("Необходима аутентификация!");
         }
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return (User) auth.getPrincipal();
     }
 
     public AuthResponse register(RegisterRequest request) throws UnauthorizedException {

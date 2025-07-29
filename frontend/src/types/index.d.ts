@@ -23,7 +23,7 @@ declare interface ISession {
 }
 
 declare interface IMessage {
-    author: string,
+    author: IUser,
     text: string
 }
 
