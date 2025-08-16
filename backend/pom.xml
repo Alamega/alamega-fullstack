@@ -164,6 +164,7 @@
                             <buildArgs>
                                 <arg>-J-Xmx6g</arg>
                                 <arg>--no-fallback</arg>
+                                <arg>-H:+DeadlockWatchdogExitOnTimeout</arg>
                             </buildArgs>
                         </configuration>
                     </plugin>
