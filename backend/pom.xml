@@ -162,7 +162,7 @@
                             <imageName>backend</imageName>
                             <mainClass>alamega.backend.AlamegaSpringApplication</mainClass>
                             <buildArgs>
-                                <arg>-J-Xmx4g</arg>
+                                <arg>-J-Xmx6g</arg>
                                 <arg>--no-fallback</arg>
                             </buildArgs>
                         </configuration>
