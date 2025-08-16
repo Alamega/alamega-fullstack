@@ -5,7 +5,7 @@ RUN microdnf install -y maven ca-certificates && microdnf clean all
 
 COPY pom.xml .
 COPY src ./src
-RUN mvn -B -DskipTests native:compile
+RUN mvn -B -Pnative -DskipTests native:compile
 
 FROM debian:bookworm-slim AS runtime
 WORKDIR /app

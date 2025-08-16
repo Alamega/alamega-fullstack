@@ -153,11 +153,22 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <properties>
-                <native.image.args>
-                    -J-Xmx4g
-                </native.image.args>
-            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <configuration>
+                            <imageName>backend</imageName>
+                            <mainClass>alamega.backend.AlamegaSpringApplication</mainClass>
+                            <buildArgs>
+                                <arg>-J-Xmx4g</arg>
+                                <arg>--no-fallback</arg>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -200,6 +211,7 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
                     <imageName>backend</imageName>
+                    <mainClass>alamega.backend.AlamegaSpringApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
