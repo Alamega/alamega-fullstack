@@ -24,8 +24,8 @@ public class UserController {
 
     @Operation(summary = "Получение всех пользователей (страница)")
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public Page<User> getUsersPage(
             @RequestParam Integer page,
             @RequestParam Integer size
@@ -43,6 +43,7 @@ public class UserController {
     @Operation(summary = "Удаление пользователя по ID")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable UUID id) {
         userService.deleteById(id);
     }

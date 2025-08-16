@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Configuration;
         io.jsonwebtoken.security.SignatureAlgorithm.class,
         io.jsonwebtoken.impl.security.StandardEncryptionAlgorithms.class,
         io.jsonwebtoken.impl.security.StandardKeyAlgorithms.class,
-        io.jsonwebtoken.impl.io.StandardCompressionAlgorithms.class
+        io.jsonwebtoken.impl.io.StandardCompressionAlgorithms.class,
+        org.docx4j.jaxb.Context.class,
+        org.docx4j.jaxb.NamespacePrefixMapperUtils.class
 })
 @RequiredArgsConstructor
 public class ReflectionConfiguration {
