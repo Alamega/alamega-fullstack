@@ -147,6 +147,20 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>render</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <native.image.args>
+                    -J-Xmx4g
+                </native.image.args>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
