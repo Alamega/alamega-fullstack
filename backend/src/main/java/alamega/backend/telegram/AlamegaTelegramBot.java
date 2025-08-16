@@ -29,17 +29,21 @@ public class AlamegaTelegramBot extends TelegramLongPollingBot {
     }
 
     @PostConstruct
-    public void startBot() throws TelegramApiException {
-        TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-        botsApi.registerBot(this);
-        log.info("Telegram bot started: {}", botUsername);
+    public void startBot() {
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(this);
+            log.info("Телеграмовский ботик по кличке {} запустился!", botUsername);
+        } catch (TelegramApiException e) {
+            log.warn("Телеграмовский ботик не запустился: {}", e.getMessage());
+        }
     }
 
     public void sendMessageToAdmin(String messageText) {
         try {
             sendMessage(adminChatID, messageText);
         } catch (TelegramApiException e) {
-            log.error("Failed to send message to admin", e);
+            log.warn("Не получилось отправить сообщение админу: {}", e.getMessage());
         }
     }
 

@@ -147,30 +147,6 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <native.image.args>
-                    -H:-DeadlockWatchdogExitOnTimeout
-                </native.image.args>
-            </properties>
-        </profile>
-        <profile>
-            <id>render</id>
-            <properties>
-                <native.image.args>
-                    -J-Dnet.bytebuddy.experimental=true
-                    -J-Xmx5g
-                    -H:-DeadlockWatchdogExitOnTimeout
-                </native.image.args>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
             <plugin>
@@ -210,9 +186,6 @@
                 <artifactId>native-maven-plugin</artifactId>
                 <configuration>
                     <imageName>backend</imageName>
-                    <buildArgs>
-                        <arg>${native.image.args}</arg>
-                    </buildArgs>
                 </configuration>
             </plugin>
             <plugin>
