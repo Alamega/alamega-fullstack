@@ -162,7 +162,7 @@
                             <imageName>backend</imageName>
                             <mainClass>alamega.backend.AlamegaSpringApplication</mainClass>
                             <buildArgs>
-                                <arg>-H:NumberOfThreads=4</arg>
+                                <arg>-H:NumberOfThreads=1</arg>
                                 <arg>-J-Xmx5g</arg>
                                 <arg>--no-fallback</arg>
                                 <arg>-H:+DeadlockWatchdogExitOnTimeout</arg>
