@@ -15,7 +15,6 @@ export default function RegistrationForm() {
         setLoading(true);
         setError(null);
         registration(new FormData(event.currentTarget)).then(result => {
-            console.log(result)
             setError(result);
             setLoading(false);
             if (!result?.fieldErrors && !result?.message) {

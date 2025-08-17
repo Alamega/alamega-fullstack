@@ -3,41 +3,25 @@
 import {deleteDataFromBackend, getDataFromBackend, postDataToBackend} from "@/libs/server";
 
 export async function getUserInfo(id: string): Promise<IUser> {
-    return getDataFromBackend<IUser>(`/users/${id}`).then(user => {
-        return user;
-    });
+    return await getDataFromBackend<IUser>(`/users/${id}`);
 }
 
 export async function getUsers(page: number, size: number): Promise<IPageable<IUser>> {
-    return getDataFromBackend<IPageable<IUser>>(`/users`, {
-        params: {
-            page,
-            size
-        }
-    }).then(usersPage => {
-        return usersPage;
+    return await getDataFromBackend<IPageable<IUser>>(`/users`, {
+        params: {page, size}
     });
 }
 
 export async function getUserPosts(id: string, page: number, size: number): Promise<IPageable<IPost>> {
-    return getDataFromBackend<IPageable<IPost>>(`/users/${id}/posts`, {
-        params: {
-            page,
-            size
-        }
-    }).then(postsPage => {
-        return postsPage;
+    return await getDataFromBackend<IPageable<IPost>>(`/users/${id}/posts`, {
+        params: {page, size}
     });
 }
 
 export async function createPost(post: IPost): Promise<IPost> {
-    return postDataToBackend<IPost, IPost>("/posts", post).then(post => {
-        return post;
-    });
+    return await postDataToBackend<IPost, IPost>("/posts", post);
 }
 
 export async function deletePost(postId: string): Promise<void> {
-    return deleteDataFromBackend<void>(`/posts/${postId}`).then(response => {
-        return response;
-    });
+    return await deleteDataFromBackend<void>(`/posts/${postId}`);
 }

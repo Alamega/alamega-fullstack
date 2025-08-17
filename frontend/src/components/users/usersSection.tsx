@@ -7,24 +7,19 @@ import User from "@/components/users/user/user";
 
 export default function UsersSection() {
     const [pageableUsers, setPageableUsers] = useState<IPageable<IUser>>();
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 10;
 
     useEffect(() => {
-        getUsers(currentPage, pageSize)
-            .then(setPageableUsers)
-            .catch((err) => {
-                setError(new Error(err.response?.data?.message || err.message || "Ошибка загрузки данных"));
-            });
+        getUsers(currentPage, pageSize).then(setPageableUsers).catch(_ => {
+            setError("А вам сюда нельзя!")
+        })
     }, [currentPage]);
-
-    if (error) {
-        throw error;
-    }
 
     return (
         <>
+            {error}
             <PaginatedList
                 pageable={pageableUsers}
                 onPageChangeAction={setCurrentPage}

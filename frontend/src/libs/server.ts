@@ -1,6 +1,6 @@
 "use server";
 
-import axios, {AxiosRequestConfig} from "axios";
+import axios, {AxiosError, AxiosRequestConfig} from "axios";
 import {getSession} from "@/libs/auth";
 
 const rawBackendURL = process.env.INTERNAL_BACKEND_URL;
@@ -18,12 +18,28 @@ api.interceptors.request.use(async config => {
     return config;
 });
 
+api.interceptors.response.use(
+    (r) => r,
+    (err) => {
+        const e = err as AxiosError<IErrorResponse>;
+        const status = e.response?.status ?? 500;
+        const data = e.response?.data;
+        const normalized: IErrorResponse = {
+            status,
+            message: data?.message,
+            fieldErrors: data?.fieldErrors,
+        };
+        return Promise.reject(normalized);
+    }
+);
+
 export async function checkBackendHealth() {
     try {
         const response = await api.get("/health");
         return response.status === 200;
     } catch (error) {
-        console.info("Бэкич недоступен:", error);
+        const e = error as IErrorResponse;
+        console.info("Бэкич недоступен:", e?.status, e?.message);
         return false;
     }
 }
@@ -32,8 +48,8 @@ export const getDataFromBackend = async <T>(
     endpoint: string,
     config?: AxiosRequestConfig
 ): Promise<T> => {
-    const r = await api.get<T>(endpoint, config);
-    return r.data as T;
+    const response = await api.get<T>(endpoint, config);
+    return response.data;
 };
 
 export const postDataToBackend = async <T, D>(

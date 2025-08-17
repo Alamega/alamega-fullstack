@@ -3,7 +3,6 @@
 import {JWTPayload, jwtVerify, SignJWT} from "jose";
 import {cookies} from "next/headers";
 import {postDataToBackend} from "@/libs/server";
-import {AxiosError} from "axios";
 
 const key = new TextEncoder().encode("secret");
 const expirationTime = 24 * 60 * 60 * 1000;
@@ -32,33 +31,32 @@ export async function getSession(): Promise<ISession | null> {
 }
 
 export async function registration(formData: FormData): Promise<IErrorResponse | null> {
-    try {
-        const user = await postDataToBackend<IUser, ICredentials>("/auth/register", {
-            username: formData.get("username"),
-            password: formData.get("password"),
-        });
+    return postDataToBackend<IUser, ICredentials>("/auth/register", {
+        username: formData.get("username"),
+        password: formData.get("password"),
+    }).then(async user => {
+        console.log(user)
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
         return null;
-    } catch (error) {
-        return (error as AxiosError).response?.data as IErrorResponse;
-    }
+    }).catch(error => {
+        return error as IErrorResponse;
+    });
 }
 
 export async function login(formData: FormData): Promise<IErrorResponse | null> {
-    try {
-        const user = await postDataToBackend<IUser, ICredentials>("/auth/authenticate", {
-            username: formData.get("username"),
-            password: formData.get("password"),
-        });
+    return postDataToBackend<IUser, ICredentials>("/auth/authenticate", {
+        username: formData.get("username"),
+        password: formData.get("password"),
+    }).then(async user => {
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
         return null;
-    } catch (error) {
-        return (error as AxiosError).response?.data as IErrorResponse;
-    }
+    }).catch(error => {
+        return error as IErrorResponse;
+    });
 }
 
 export async function logout() {

@@ -8,7 +8,6 @@ export default function Error({error}: {
     error: Error & { digest?: string },
     reset: () => void;
 }) {
-    console.log(error.message)
     return <>
         <div className="error-wrapper">
             <div className="image-wrapper">
