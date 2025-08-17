@@ -1,3 +1,8 @@
+interface ICredentials {
+    username: FormDataEntryValue | null;
+    password: FormDataEntryValue | null;
+}
+
 declare interface IUser {
     token: string
     id: string;

@@ -33,7 +33,7 @@ export async function getSession(): Promise<ISession | null> {
 
 export async function registration(formData: FormData): Promise<IErrorResponse | null> {
     try {
-        const user = await postDataToBackend<IUser, any>("/auth/register", {
+        const user = await postDataToBackend<IUser, ICredentials>("/auth/register", {
             username: formData.get("username"),
             password: formData.get("password"),
         });
@@ -48,7 +48,7 @@ export async function registration(formData: FormData): Promise<IErrorResponse |
 
 export async function login(formData: FormData): Promise<IErrorResponse | null> {
     try {
-        const user = await postDataToBackend<IUser, any>("/auth/authenticate", {
+        const user = await postDataToBackend<IUser, ICredentials>("/auth/authenticate", {
             username: formData.get("username"),
             password: formData.get("password"),
         });
