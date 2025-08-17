@@ -12,8 +12,8 @@ export default function UsersSection() {
     const pageSize = 10;
 
     useEffect(() => {
-        getUsers(currentPage, pageSize).then(setPageableUsers).catch(_ => {
-            setError("А вам сюда нельзя!")
+        getUsers(currentPage, pageSize).then(setPageableUsers).catch(() => {
+            setError("А вам сюда нельзя! ")
         })
     }, [currentPage]);
 
