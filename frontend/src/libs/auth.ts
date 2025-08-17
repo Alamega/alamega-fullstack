@@ -33,11 +33,10 @@ export async function getSession(): Promise<ISession | null> {
 
 export async function registration(formData: FormData): Promise<IErrorResponse | null> {
     try {
-        const response = await postDataToBackend("/auth/register", {
+        const user = await postDataToBackend<IUser, any>("/auth/register", {
             username: formData.get("username"),
             password: formData.get("password"),
         });
-        const {data: user} = response;
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});
@@ -49,11 +48,10 @@ export async function registration(formData: FormData): Promise<IErrorResponse |
 
 export async function login(formData: FormData): Promise<IErrorResponse | null> {
     try {
-        const response = await postDataToBackend("/auth/authenticate", {
+        const user = await postDataToBackend<IUser, any>("/auth/authenticate", {
             username: formData.get("username"),
             password: formData.get("password"),
         });
-        const {data: user} = response;
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});

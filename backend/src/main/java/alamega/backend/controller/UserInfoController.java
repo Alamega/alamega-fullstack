@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Tag(name = "Пользователи", description = "API для управления данными пользователей")
@@ -22,7 +20,7 @@ public class UserInfoController {
     @Operation(summary = "Получение дополнительной информации о пользователе")
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserInfo getUserInfo(@PathVariable UUID userId) {
+    public UserInfo getUserInfo(@PathVariable String userId) {
         return userInfoService.getByUserId(userId);
     }
 

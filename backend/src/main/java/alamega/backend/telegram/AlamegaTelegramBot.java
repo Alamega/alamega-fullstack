@@ -24,6 +24,9 @@ public class AlamegaTelegramBot extends TelegramLongPollingBot {
     @Value("${telegram.admin.chat.id}")
     private String adminChatID;
 
+    @Value("${spring.profiles.active:default}")
+    private String activeProfile;
+
     public AlamegaTelegramBot(@Value("${telegram.bot.token}") String botToken) {
         super(botToken);
     }
@@ -31,6 +34,10 @@ public class AlamegaTelegramBot extends TelegramLongPollingBot {
     @PostConstruct
     public void startBot() {
         try {
+            if ("local".equals(activeProfile)) {
+                log.info("Бот не запускается в локальном профиле.");
+                return;
+            }
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(this);
             log.info("Телеграмовский ботик по кличке {} запустился!", botUsername);

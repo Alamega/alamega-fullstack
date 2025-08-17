@@ -1,5 +1,6 @@
 package alamega.backend.controller;
 
+import alamega.backend.exception.ResourceNotFoundException;
 import alamega.backend.model.user.User;
 import alamega.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -36,15 +35,15 @@ public class UserController {
     @Operation(summary = "Получение пользователя по ID")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public User getUserById(@PathVariable UUID id) {
-        return userService.findById(id).orElseThrow(() -> new RuntimeException("Пользователь с таким id не найден."));
+    public User getUserById(@PathVariable String id) {
+        return userService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Пользователь с таким id не найден."));
     }
 
     @Operation(summary = "Удаление пользователя по ID")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteUser(@PathVariable UUID id) {
+    public void deleteUser(@PathVariable String id) {
         userService.deleteById(id);
     }
 }

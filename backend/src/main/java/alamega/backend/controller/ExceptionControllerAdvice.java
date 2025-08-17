@@ -1,16 +1,15 @@
 package alamega.backend.controller;
 
 import alamega.backend.dto.response.ErrorResponse;
+import alamega.backend.exception.ResourceNotFoundException;
 import alamega.backend.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +28,7 @@ public class ExceptionControllerAdvice {
     //Пользователю не хватает привелегий
     @ExceptionHandler(AuthorizationDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handleAccessDeniedException(AccessDeniedException exception) {
+    public ErrorResponse handleAccessDeniedException() {
         return ErrorResponse.builder()
                 .message("Прав недостаточно, доступ запрещен.")
                 .build();
@@ -40,25 +39,30 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, List<String>> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(fieldError -> errors.computeIfAbsent(fieldError.getField(), k -> new ArrayList<>()).add(fieldError.getDefaultMessage()));
-        return ErrorResponse.builder().fieldErrors(errors).build();
+        ex.getBindingResult().getFieldErrors().forEach(fieldError -> errors.computeIfAbsent(
+                fieldError.getField(),
+                _ -> new ArrayList<>()).add(fieldError.getDefaultMessage())
+        );
+        return ErrorResponse.builder()
+                .fieldErrors(errors)
+                .build();
     }
 
     //Метод не поддерживается
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public ErrorResponse handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+    public ErrorResponse handleMethodNotSupportedException() {
         return ErrorResponse.builder()
                 .message("Метод не поддерживается для данного запроса.")
                 .build();
     }
 
-    //URL не найден
-    @ExceptionHandler(NoHandlerFoundException.class)
+    //Ресурс не найден
+    @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNoHandlerFoundException(NoHandlerFoundException ex) {
+    public ErrorResponse handleNotFound(ResourceNotFoundException ex) {
         return ErrorResponse.builder()
-                .message("Запрашиваемый ресурс не найден.")
+                .message(ex.getMessage())
                 .build();
     }
 
@@ -66,6 +70,8 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleOthers(Exception exception) {
-        return ErrorResponse.builder().message(exception.getMessage()).build();
+        return ErrorResponse.builder()
+                .message(exception.getMessage())
+                .build();
     }
 }

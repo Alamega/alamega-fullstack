@@ -12,8 +12,9 @@ import java.util.UUID;
 public class UserInfoService {
     private final UserInfoRepository userInfoRepository;
 
-    public UserInfo getByUserId(UUID userId) {
-        return userInfoRepository.findByUserId(userId).orElse(userInfoRepository.save(
+    public UserInfo getByUserId(String userId) {
+        UUID uuid = UUID.fromString(userId);
+        return userInfoRepository.findByUserId(uuid).orElse(userInfoRepository.save(
                 UserInfo.builder()
                         .build())
         );

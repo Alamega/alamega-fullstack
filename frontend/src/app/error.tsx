@@ -5,9 +5,10 @@ import "./errors.css";
 import Link from "next/link";
 
 export default function Error({error}: {
-    error: Error & { digest?: string };
+    error: Error & { digest?: string },
     reset: () => void;
 }) {
+    console.log(error.message)
     return <>
         <div className="error-wrapper">
             <div className="image-wrapper">
@@ -19,8 +20,8 @@ export default function Error({error}: {
                     unoptimized={true}
                 />
             </div>
-            <p>Ошибка... Какая-то чудовищная ошибка. Наши источники сообщают что ошибка называет себя {error.name} и
-                говорит странные вещи по типу этой: &quot;{error.message}&quot;.</p>
+            <p>Ошибка... Какая-то чудовищная ошибка.</p>
+            {error.message}
             <p>Настоятельно рекомендуем <Link href={"/"}>вернуться на главную</Link>.</p>
             <p>А мы тут всё уберем и никто ничего не узнает.</p>
         </div>

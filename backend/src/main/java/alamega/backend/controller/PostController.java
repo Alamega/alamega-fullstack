@@ -11,8 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Tag(name = "Посты", description = "API для управления данными постов пользователей")
@@ -26,7 +24,7 @@ public class PostController {
     @GetMapping("users/{userId}/posts")
     @ResponseStatus(HttpStatus.OK)
     public Page<Post> getPosts(
-            @PathVariable("userId") UUID userId,
+            @PathVariable("userId") String userId,
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
@@ -43,14 +41,14 @@ public class PostController {
     @Operation(summary = "Получение поста по ID")
     @GetMapping("/posts/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Post getPostById(@PathVariable UUID id) {
+    public Post getPostById(@PathVariable String id) {
         return postService.getPostById(id).orElseThrow(() -> new RuntimeException("Пост с ID " + id + " не найден."));
     }
 
     @Operation(summary = "Удаление поста по ID")
     @DeleteMapping("/posts/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deletePost(@PathVariable UUID id) {
+    public void deletePost(@PathVariable String id) {
         postService.deletePost(id);
     }
 }

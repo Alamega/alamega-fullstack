@@ -26,19 +26,26 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public Optional<User> findById(UUID id) {
+    public Optional<User> findById(String id) {
         if (id == null) {
             return Optional.empty();
         }
-        return userRepository.findById(id);
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
+        }
+        return userRepository.findById(uuid);
     }
 
     public User save(User user) {
         return userRepository.save(user);
     }
 
-    public void deleteById(UUID id) {
-        userRepository.deleteById(id);
+    public void deleteById(String id) {
+        UUID uuid = UUID.fromString(id);
+        userRepository.deleteById(uuid);
     }
 
     @Override

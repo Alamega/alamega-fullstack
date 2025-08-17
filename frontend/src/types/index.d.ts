@@ -28,6 +28,7 @@ declare interface IMessage {
 }
 
 declare interface IErrorResponse {
+    status: number;
     message?: string;
     fieldErrors?: Record<string, string[]>;
 }

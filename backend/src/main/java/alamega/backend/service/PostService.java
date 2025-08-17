@@ -19,14 +19,15 @@ public class PostService {
     private final UserService userService;
     private final PostRepository postRepository;
 
-    public Page<Post> getAllByPage(UUID userId, Pageable pageable) {
+    public Page<Post> getAllByPage(String userId, Pageable pageable) {
         return userService.findById(userId)
                 .map(user -> postRepository.findAllByAuthorOrderByDateDesc(user, pageable))
                 .orElse(null);
     }
 
-    public Optional<Post> getPostById(UUID id) {
-        return postRepository.findById(id);
+    public Optional<Post> getPostById(String id) {
+        UUID uuid = UUID.fromString(id);
+        return postRepository.findById(uuid);
     }
 
     public Post createPost(PostPublicationRequest postPublicationRequest) {
@@ -39,8 +40,9 @@ public class PostService {
         );
     }
 
-    public void deletePost(UUID id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Пост не найден."));
+    public void deletePost(String id) {
+        UUID uuid = UUID.fromString(id);
+        Post post = postRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Пост не найден."));
         var currentUser = authenticationService.getCurrentUser();
         if (!post.getAuthor().getId().equals(currentUser.getId()) && !currentUser.getRole().getValue().equals("ADMIN")) {
             throw new RuntimeException("Это не ваш пост и вы мне тут не админ!");
