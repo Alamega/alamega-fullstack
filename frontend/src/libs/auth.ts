@@ -35,7 +35,6 @@ export async function registration(formData: FormData): Promise<IErrorResponse |
         username: formData.get("username"),
         password: formData.get("password"),
     }).then(async user => {
-        console.log(user)
         const expires = new Date(Date.now() + expirationTime);
         const sessionToken = await encrypt({user, expires});
         (await cookies()).set("session", sessionToken, {expires, httpOnly: true});

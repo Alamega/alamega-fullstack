@@ -1,6 +1,7 @@
 package alamega.backend.model.role;
 
 import alamega.backend.model.authority.Authority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
+    @JsonIgnore
     private UUID id;
 
     @Column(unique = true, nullable = false)

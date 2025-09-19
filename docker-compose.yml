@@ -34,8 +34,6 @@ services:
       timeout: 3s
       retries: 10
       start_period: 5s
-    volumes:
-      - maven_cache:/root/.m2
     networks:
       - app-network
 
@@ -124,5 +122,4 @@ networks:
 
 volumes:
   postgres_data:
-  maven_cache:
   npm_cache:

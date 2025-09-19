@@ -1,7 +1,7 @@
 "use server";
 
 import axios, {AxiosError, AxiosRequestConfig} from "axios";
-import {getSession} from "@/libs/auth";
+import {getSession, logout} from "@/libs/auth";
 
 const rawBackendURL = process.env.INTERNAL_BACKEND_URL;
 if (!rawBackendURL) {
@@ -39,7 +39,11 @@ export async function checkBackendHealth() {
         return response.status === 200;
     } catch (error) {
         const e = error as IErrorResponse;
-        console.info("Бэкич недоступен:", e?.status, e?.message);
+        if (e?.status === 401) {
+            await logout();
+        } else {
+            //console.info("Бэкич недоступен:", e?.status, e?.message);
+        }
         return false;
     }
 }

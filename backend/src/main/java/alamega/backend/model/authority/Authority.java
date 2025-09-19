@@ -1,5 +1,6 @@
 package alamega.backend.model.authority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class Authority implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
+    @JsonIgnore
     private UUID id;
 
     @Column(unique = true, nullable = false)
