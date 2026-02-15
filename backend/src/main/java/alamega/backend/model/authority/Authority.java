@@ -23,7 +23,7 @@ public class Authority implements GrantedAuthority {
     @JsonIgnore
     private UUID id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "val", unique = true, nullable = false)
     private String value;
 
     @Column

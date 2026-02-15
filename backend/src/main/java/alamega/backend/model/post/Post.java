@@ -27,7 +27,7 @@ public class Post {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "author")
+    @JoinColumn(name = "author", nullable = false)
     @JsonIgnore
     private User author;
 

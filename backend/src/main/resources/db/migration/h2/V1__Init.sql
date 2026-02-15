@@ -1,27 +1,23 @@
--- Расширения
-CREATE
-EXTENSION IF NOT EXISTS "uuid-ossp";
-
 -- ТАБЛИЦЫ
 
 -- Таблица для хранения разрешений
 CREATE TABLE authorities
 (
-    id    UUID         NOT NULL DEFAULT uuid_generate_v4(),
-    value VARCHAR(255) NOT NULL,
-    name  VARCHAR(255),
+    id   UUID         NOT NULL DEFAULT random_uuid(),
+    val  VARCHAR(255) NOT NULL, -- Переименовали в val
+    name VARCHAR(255),
     CONSTRAINT pk_authorities PRIMARY KEY (id),
-    CONSTRAINT uc_authority_value UNIQUE (value)
+    CONSTRAINT uc_authority_value UNIQUE (val)
 );
 
 -- Таблица для хранения ролей
 CREATE TABLE roles
 (
-    id    UUID         NOT NULL DEFAULT uuid_generate_v4(),
-    value VARCHAR(255) NOT NULL,
-    name  VARCHAR(255),
+    id   UUID         NOT NULL DEFAULT random_uuid(),
+    val  VARCHAR(255) NOT NULL, -- Переименовали в val
+    name VARCHAR(255),
     CONSTRAINT pk_roles PRIMARY KEY (id),
-    CONSTRAINT uc_role_value UNIQUE (value)
+    CONSTRAINT uc_role_value UNIQUE (val)
 );
 
 -- Таблица для связывания ролей и разрешений
@@ -37,7 +33,7 @@ CREATE TABLE role_authorities
 -- Таблица для хранения пользователей
 CREATE TABLE users
 (
-    id           UUID         NOT NULL DEFAULT uuid_generate_v4(),
+    id           UUID         NOT NULL DEFAULT random_uuid(),
     username     VARCHAR(255) NOT NULL,
     email        VARCHAR(255),
     phone_number VARCHAR(32),
@@ -52,7 +48,7 @@ CREATE TABLE users
 -- Таблица с дополнительной информацией о пользователе
 CREATE TABLE user_info
 (
-    id         UUID NOT NULL DEFAULT uuid_generate_v4(),
+    id         UUID NOT NULL DEFAULT random_uuid(),
     user_id    UUID NOT NULL,
     gender     VARCHAR(32),
     last_name  VARCHAR(255),
@@ -69,10 +65,10 @@ CREATE TABLE user_info
 -- Таблица для хранения постов
 CREATE TABLE posts
 (
-    id     UUID NOT NULL DEFAULT uuid_generate_v4(),
-    author UUID NOT NULL,
+    id     UUID NOT NULL DEFAULT random_uuid(),
+    author UUID,
     text   VARCHAR(2048),
-    date   TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    date   TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_posts PRIMARY KEY (id),
     CONSTRAINT fk_posts_author FOREIGN KEY (author) REFERENCES users (id) ON DELETE CASCADE
 );
@@ -80,34 +76,36 @@ CREATE TABLE posts
 -- Таблица для хранения сообщений чата
 CREATE TABLE chat_messages
 (
-    id     UUID NOT NULL DEFAULT uuid_generate_v4(),
-    author UUID NOT NULL,
+    id     UUID NOT NULL DEFAULT random_uuid(),
+    author UUID,
     text   VARCHAR(2048),
-    date   TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    date   TIMESTAMP     DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_chat_messages PRIMARY KEY (id),
     CONSTRAINT fk_chat_messages_author FOREIGN KEY (author) REFERENCES users (id) ON DELETE CASCADE
 );
 
--- Вставка ролей
-INSERT INTO roles (value, name)
-VALUES ('USER', 'Пользователь'),
-       ('ADMIN', 'Админ') ON CONFLICT (value) DO NOTHING;
+-- ДАННЫЕ
 
--- Вставка привелегий
-INSERT INTO authorities (value, name)
+-- Вставка ролей
+INSERT INTO roles (val, name)
+VALUES ('USER', 'Пользователь'),
+       ('ADMIN', 'Админ');
+
+-- Вставка привилегий
+INSERT INTO authorities (val, name)
 VALUES ('ROLE_USER', 'Роль "Пользователь"'),
-       ('ROLE_ADMIN', 'Роль "Админ"') ON CONFLICT (value) DO NOTHING;
+       ('ROLE_ADMIN', 'Роль "Админ"');
 
 -- Привязка привилегий к роли USER
 INSERT INTO role_authorities (role_id, authority_id)
 SELECT r.id, a.id
 FROM roles r
-         JOIN authorities a ON a.value = 'ROLE_USER'
-WHERE r.value = 'USER' ON CONFLICT DO NOTHING;
+         JOIN authorities a ON a.val = 'ROLE_USER'
+WHERE r.val = 'USER';
 
 -- Привязка привилегий к роли ADMIN
 INSERT INTO role_authorities (role_id, authority_id)
 SELECT r.id, a.id
 FROM roles r
-         JOIN authorities a ON a.value IN ('ROLE_USER', 'ROLE_ADMIN')
-WHERE r.value = 'ADMIN' ON CONFLICT DO NOTHING;
+         JOIN authorities a ON a.val IN ('ROLE_USER', 'ROLE_ADMIN')
+WHERE r.val = 'ADMIN';

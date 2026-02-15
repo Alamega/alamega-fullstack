@@ -14,10 +14,7 @@ public class UserInfoService {
 
     public UserInfo getByUserId(String userId) {
         UUID uuid = UUID.fromString(userId);
-        return userInfoRepository.findByUserId(uuid).orElse(userInfoRepository.save(
-                UserInfo.builder()
-                        .build())
-        );
+        return userInfoRepository.findByUserId(uuid).orElse(userInfoRepository.save(UserInfo.builder().build()));
     }
 
     public UserInfo save(UserInfo userInfo) {

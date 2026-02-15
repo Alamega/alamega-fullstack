@@ -24,7 +24,7 @@ public class PostController {
     @GetMapping("users/{userId}/posts")
     @ResponseStatus(HttpStatus.OK)
     public Page<Post> getPosts(
-            @PathVariable("userId") String userId,
+            @PathVariable String userId,
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {

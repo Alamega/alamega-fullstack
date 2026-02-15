@@ -12,7 +12,7 @@ services:
       retries: 10
       start_period: 5s
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     networks:
       - app-network
 
@@ -21,7 +21,7 @@ services:
     environment:
       JDBC_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-postgres_db}?user=${POSTGRES_USER:-postgres_user}&password=${POSTGRES_PASSWORD:-postgres_password}
       JWT_SECRET: ${JWT_SECRET:-SECRET}
-      ADMIN_USERNAME: ${ADMIN_USERNAME:-Alamega}
+      ADMIN_USERNAMES: ${ADMIN_USERNAMES:-Alamega}
       TG_BOT_NAME: ${TG_BOT_NAME}
       TG_BOT_TOKEN: ${TG_BOT_TOKEN}
       TG_ADMIN_CHAT_ID: ${TG_ADMIN_CHAT_ID}

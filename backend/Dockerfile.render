@@ -1,11 +1,19 @@
-FROM maven:3.9.11-amazoncorretto-24-alpine AS builder
+FROM ghcr.io/graalvm/native-image-community:25 AS builder
 WORKDIR /app
+
+RUN microdnf install -y maven ca-certificates && microdnf clean all
+
 COPY pom.xml .
 COPY src ./src
-RUN mvn -B -DskipTests -Dnet.bytebuddy.experimental=true package
 
-FROM amazoncorretto:24-alpine AS runner
+RUN mvn -B -Pnative,deploy-render -DskipTests native:compile
+
+FROM debian:bookworm-slim AS runtime
 WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+
+RUN apt-get update && apt-get install -y libstdc++6 && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /app/target/backend .
 EXPOSE 8080
-CMD ["java", "-XX:+UseContainerSupport", "-jar", "app.jar"]
+
+CMD ["./backend", "--spring.profiles.active=deploy-render"]

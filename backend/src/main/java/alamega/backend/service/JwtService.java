@@ -1,68 +1,67 @@
 package alamega.backend.service;
 
 import alamega.backend.model.user.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private final SecretKey SECRET_KEY;
-    private final JwtParser jwtParser;
+
+    private final Algorithm algorithm;
+    private final JWTVerifier verifier;
 
     public JwtService(@Value("${jwt.secret}") String secretFromEnv) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashedKey = digest.digest(secretFromEnv.getBytes(StandardCharsets.UTF_8));
-        this.SECRET_KEY = new SecretKeySpec(hashedKey, "HmacSHA256");
-        this.jwtParser = Jwts.parser().verifyWith(SECRET_KEY).build();
+
+        this.algorithm = Algorithm.HMAC256(hashedKey);
+        this.verifier = JWT.require(algorithm).build();
     }
 
     public String generateToken(User user) {
-        return generateToken(user, new HashMap<>());
+        return generateToken(user, Map.of());
     }
 
     public String generateToken(User user, Map<String, Object> extraClaims) {
-        return Jwts
-                .builder()
-                .subject(user.getUsername())
-                .claims(extraClaims)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(Date.from(Instant.now().plus(Duration.ofDays(2))))
-                .signWith(SECRET_KEY)
-                .compact();
-    }
-
-    private Claims extractAllClaims(String token) {
-        return jwtParser.parseSignedClaims(token).getPayload();
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        return claimsResolver.apply(extractAllClaims(token));
+        return JWT.create()
+                .withSubject(user.getUsername())
+                .withPayload(extraClaims)
+                .withIssuedAt(Instant.now())
+                .withExpiresAt(Instant.now().plus(2, ChronoUnit.DAYS))
+                .sign(algorithm);
     }
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        return decodeToken(token).getSubject();
     }
 
-    public Boolean isTokenValid(String token, User user) {
-        return (extractUsername(token).equals(user.getUsername()) && !isTokenExpired(token));
+    public boolean isTokenValid(String token, User user) {
+        try {
+            DecodedJWT decodedJWT = verifier.verify(token);
+            String username = decodedJWT.getSubject();
+            return (username.equals(user.getUsername()) && !isTokenExpired(decodedJWT));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    private boolean isTokenExpired(String token) {
-        return jwtParser.parseSignedClaims(token).getPayload().getExpiration().before(new Date());
+    private DecodedJWT decodeToken(String token) {
+        return JWT.decode(token);
+    }
+
+    private boolean isTokenExpired(DecodedJWT jwt) {
+        return jwt.getExpiresAt().before(new Date());
     }
 }

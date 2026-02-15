@@ -2,7 +2,9 @@ package alamega.backend.service;
 
 import alamega.backend.model.user.User;
 import alamega.backend.model.user.UserRepository;
+import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,10 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
     public Optional<User> findById(String id) {
@@ -49,7 +55,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Nonnull
+    public User loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
                 "Пользователь с именем ".concat(username).concat(" не найден.")
         ));
