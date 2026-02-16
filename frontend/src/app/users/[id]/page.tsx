@@ -35,8 +35,7 @@ export default async function UserPage(props: { params: Promise<{ id: string }> 
                     </div>
                     <h1 className={"user-card-name"}>{user.username}</h1>
                     <span className={"user-card-role"}>
-                        {user.role.value == "ADMIN" && <span style={{color: "red"}}>Администратор</span>}
-                        {user.role.value == "USER" && <span style={{color: "green"}}>Пользователь</span>}
+                        <span style={{color: user.role.value == "ADMIN" ? "red" : "green"}}>{user.role.name}</span>
                     </span>
                     <p className={"user-card-info"}></p>
                 </div>

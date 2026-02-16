@@ -1,12 +1,18 @@
 import {Metadata} from "next";
 import React from "react";
 import UseModalExample from "@/components/modal/example";
+import {getSession} from "@/libs/auth";
+import {redirect} from "next/navigation";
 
 export const metadata: Metadata = {
     title: "Тест"
 };
 
-export default async function ChatPage() {
+export default async function TestPage() {
+    const session: ISession | null = await getSession();
+    if (!(session?.user.role.value == "ADMIN")) {
+        redirect("/auth/login");
+    }
     return (
         <>
             <UseModalExample/>

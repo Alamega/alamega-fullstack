@@ -1,6 +1,6 @@
 "use client";
 
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useMemo, useState} from "react";
 import ChatMessage from "@/components/chat/message/message";
 import Loader from "@/components/loader/loader";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
@@ -12,39 +12,48 @@ export default function Chat({session}: { session: ISession | null }) {
     const [errors, setErrors] = useState("");
     const [isConnected, setIsConnected] = useState(false);
 
-    const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
-    if (!backendURL) {
-        throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined.");
-    }
-    const wsURL = backendURL.replace("http", "ws") + "/chat";
+    const wsURL = useMemo(() => {
+        const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+        if (!backendURL) return null;
+        return backendURL.replace("http", "ws") + "/chat";
+    }, []);
 
-    if (!socket) {
-        setSocket(new WebSocket(wsURL, session?.user.token));
-    } else {
-        socket.onopen = () => {
-            setIsConnected(true);
+    useEffect(() => {
+        if (!wsURL) return;
+        let isStopped = false;
+        const protocols = session?.user?.token ? [session.user.token] : [];
+        const ws = new WebSocket(wsURL, protocols);
+        ws.onopen = () => {
+            if (!isStopped) {
+                setIsConnected(true);
+                setSocket(ws);
+            }
         };
-        socket.onmessage = (event) => {
-            setMessages((prevState) => {
-                return [...prevState, JSON.parse(event.data)].slice(-25);
-            });
+        ws.onmessage = (event) => {
+            if (!isStopped) {
+                const newMessage = JSON.parse(event.data);
+                setMessages((prev) => [...prev, newMessage].slice(-25));
+            }
         };
-        socket.onclose = () => {
-            setIsConnected(false);
-            setErrors("")
-            setSocket(new WebSocket(wsURL));
+        ws.onclose = () => {
+            if (!isStopped) {
+                setIsConnected(false);
+                setSocket(null);
+            }
         };
-    }
+        return () => {
+            isStopped = true;
+            ws.close();
+        };
+    }, [wsURL, session?.user?.token]);
 
     const handleSend = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setErrors("");
-        if (formData.text.trim().length > 0) {
-            socket?.send(JSON.stringify({
-                text: formData.text
-            }));
+        if (formData.text.trim() && socket?.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({text: formData.text}));
             setFormData({text: ""});
-        } else {
+            setErrors("");
+        } else if (!formData.text.trim()) {
             setErrors("Сообщение пустое!");
         }
     };
