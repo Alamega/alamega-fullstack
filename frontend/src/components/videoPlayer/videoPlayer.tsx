@@ -33,6 +33,14 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
         setDurationBarText(Math.floor(currentTime / 60) + ":" + ((currSec < 10) ? "0" + currSec : currSec) + "/" + Math.floor((video.current?.duration || 0) / 60) + ":" + ((durSec < 10) ? "0" + durSec : durSec));
     }, [currentTime]);
 
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullScreen(!!document.fullscreenElement);
+        };
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    }, []);
+
     async function handlePlayPause() {
         if (video.current) {
             if (video.current.paused) {
@@ -83,8 +91,7 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
     }
 
     return (
-        <div ref={wrapper} className="player-wrapper"
-             onResize={() => setIsFullScreen(false)}>
+        <div ref={wrapper} className="player-wrapper">
             <video ref={video} src={href} className="player-video" onClick={handlePlayPause}
                    onTimeUpdate={handleTimeUpdate}/>
             <div className="player-control-wrapper">
