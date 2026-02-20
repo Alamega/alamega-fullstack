@@ -1,4 +1,12 @@
 services:
+  media-server:
+    image: tiangolo/nginx-rtmp
+    volumes:
+      - ./nginx/rtmp.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "1935:1935"
+    networks:
+      - app-network
   db:
     image: postgres:latest
     environment:

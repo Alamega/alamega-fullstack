@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default async function ChatPage() {
     const session = await getSession();
     return (
-        <>
+        <div style={{maxHeight: "calc(100vh - 166px)"}}>
             <Chat session={session}/>
-        </>
+        </div>
     );
 }

@@ -5,11 +5,11 @@ RUN microdnf install -y maven ca-certificates && microdnf clean all
 
 COPY pom.xml .
 
-RUN mvn dependency:go-offline -B
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline -B
 
 COPY src ./src
 
-RUN mvn -B -Pnative -DskipTests native:compile
+RUN --mount=type=cache,target=/root/.m2 mvn -B -Pnative -DskipTests native:compile
 
 FROM debian:bookworm-slim AS runtime
 WORKDIR /app

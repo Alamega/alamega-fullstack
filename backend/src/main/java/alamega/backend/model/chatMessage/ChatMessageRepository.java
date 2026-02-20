@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, UUID> {
     @Cacheable(value = "messages")
-    List<ChatMessage> findTop25ByOrderByDateAsc();
+    List<ChatMessage> findTop25ByOrderByDateDesc();
 
     @CacheEvict(value = "messages", allEntries = true)
     @Override

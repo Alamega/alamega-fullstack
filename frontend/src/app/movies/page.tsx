@@ -9,6 +9,7 @@ export default async function Movies() {
     return (
         <>
             <VideoPlayer href={"/videos/chika.mp4"}/>
+            {/*<VideoPlayer href={"/live/alamega.m3u8"}/>*/}
         </>
     );
 }

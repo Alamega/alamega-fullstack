@@ -24,6 +24,6 @@ public class ChatMessageService {
     }
 
     public List<ChatMessage> loadRecent() {
-        return repository.findTop25ByOrderByDateAsc();
+        return repository.findTop25ByOrderByDateDesc().reversed();
     }
 }

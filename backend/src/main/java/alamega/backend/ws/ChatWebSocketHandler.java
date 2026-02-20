@@ -26,7 +26,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(@NonNull WebSocketSession session) throws IOException {
         webSocketSessions.add(session);
-        for (ChatMessage chatMessage : chatMessageService.loadRecent()) {
+        List<ChatMessage> last = chatMessageService.loadRecent();
+        for (ChatMessage chatMessage : last) {
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(chatMessage)));
         }
     }
