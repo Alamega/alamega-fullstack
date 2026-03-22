@@ -17,6 +17,7 @@ export default async function NotFound() {
                     width={1000}
                     height={400}
                     unoptimized={true}
+                    style={{height: 'auto'}}
                 />
             </div>
             <p>Ошибка 404, с ума сойти... Похоже такой странички не существует. </p>

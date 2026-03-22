@@ -17,6 +17,7 @@ export default function Error({error}: {
                     width={1000}
                     height={400}
                     unoptimized={true}
+                    style={{height: 'auto'}}
                 />
             </div>
             <p>Ошибка... Какая-то чудовищная ошибка.</p>

@@ -9,7 +9,7 @@ if (!rawBackendURL) {
 }
 const api = axios.create({baseURL: rawBackendURL});
 
-//Добавление хедера
+//Добавление хедера авторизации
 api.interceptors.request.use(async config => {
     const session = await getSession();
     if (session?.user?.token) {
@@ -18,6 +18,7 @@ api.interceptors.request.use(async config => {
     return config;
 });
 
+//Формирование ошибки
 api.interceptors.response.use(
     (r) => r,
     (err) => {
@@ -42,7 +43,7 @@ export async function checkBackendHealth() {
         if (e?.status === 401) {
             await logout();
         } else {
-            //console.info("Бэкич недоступен:", e?.status, e?.message);
+            console.info("Бэкич недоступен:", e?.status, e?.message);
         }
         return false;
     }

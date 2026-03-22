@@ -1,4 +1,4 @@
-interface ICredentials {
+declare interface ICredentials {
     username: FormDataEntryValue | null;
     password: FormDataEntryValue | null;
 }

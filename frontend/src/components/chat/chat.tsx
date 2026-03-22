@@ -5,15 +5,16 @@ import ChatMessage from "@/components/chat/message/message";
 import Loader from "@/components/loader/loader";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
 import "./chat.css";
+import {useSession} from "@/app/providers/SessionProvider";
 
-export default function Chat({session}: { session: ISession | null }) {
+export default function Chat() {
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [errors, setErrors] = useState("");
     const [isConnected, setIsConnected] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
+    const session = useSession();
     const wsURL = useMemo(() => {
         const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
         if (!backendURL) return null;

@@ -1,7 +1,6 @@
 .chat-message {
     display: flex;
     flex-direction: column;
-    margin: 8px 4px;
     padding: 4px;
     background-color: rgba(255, 255, 255, 0.8);
     border: solid rgb(64, 128, 64) 1px;

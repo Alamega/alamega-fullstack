@@ -1,6 +1,5 @@
 import {Metadata} from "next";
 import {getUserInfo} from "@/libs/users";
-import {getSession} from "@/libs/auth";
 import React from "react";
 import "./page.css";
 import PostsSection from "@/components/posts/postsSection";
@@ -26,7 +25,6 @@ export default async function UserPage(props: { params: Promise<{ id: string }> 
     try {
         const params = await props.params;
         const user = await getUserInfo(params.id);
-        const session = await getSession();
         return (
             <>
                 <div className={"user-card"}>
@@ -39,7 +37,7 @@ export default async function UserPage(props: { params: Promise<{ id: string }> 
                     </span>
                     <p className={"user-card-info"}></p>
                 </div>
-                <PostsSection userId={params.id} session={session}/>
+                <PostsSection userId={params.id}/>
             </>
         );
     } catch {

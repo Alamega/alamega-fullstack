@@ -3,14 +3,13 @@
 import Link from "next/link";
 import "./menu.css";
 import React from "react";
-import {getSession} from "@/libs/auth";
 import {LogoutLink} from "@/components/logout/logout";
+import {getSession} from "@/libs/auth";
 
 export default async function Menu() {
-    const session: ISession | null = await getSession();
-
+    const session = await getSession();
     return (
-        <div className="menu">
+        <nav className="menu">
             <Link href={"/"}>Главная</Link>
             {session ? (
                 <>
@@ -32,6 +31,6 @@ export default async function Menu() {
                     <LogoutLink/>
                 </>
             }
-        </div>
+        </nav>
     );
 }

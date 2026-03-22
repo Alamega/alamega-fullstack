@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useState} from "react";
+import React, {useState} from "react";
 import {login} from "@/libs/auth";
 import {redirect} from "next/navigation";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
@@ -10,7 +10,7 @@ export default function LoginForm() {
     const [error, setError] = useState<IErrorResponse | null>(null);
     const [isLoading, setLoading] = useState<boolean>(false);
 
-    async function handleLogin(event: FormEvent<HTMLFormElement>) {
+    async function handleLogin(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         setLoading(true);
         setError(null);
@@ -28,11 +28,13 @@ export default function LoginForm() {
             <form onSubmit={handleLogin}>
                 <label>
                     Имя пользователя: <br/>
-                    <input className="input-green" name="username" type="text" autoComplete="username"/>
+                    <input className="input-green" name="username" type="text" autoComplete="username"
+                           style={{margin: "8px 0"}}/>
                 </label>
                 <FieldErrorMessages errorMessages={error?.fieldErrors?.username}/>
                 <label>Пароль: <br/>
-                    <input className="input-green" name="password" type="password" autoComplete="current-password"/>
+                    <input className="input-green" name="password" type="password" autoComplete="current-password"
+                           style={{margin: "8px 0"}}/>
                 </label>
                 <FieldErrorMessages errorMessages={error?.fieldErrors?.password}/>
                 <ButtonWithLoader loading={isLoading}>Войти</ButtonWithLoader>

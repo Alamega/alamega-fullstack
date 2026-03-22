@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useState} from "react";
+import React, {useState} from "react";
 import {registration} from "@/libs/auth";
 import {redirect} from "next/navigation";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
@@ -10,7 +10,7 @@ export default function RegistrationForm() {
     const [error, setError] = useState<IErrorResponse | null>(null);
     const [isLoading, setLoading] = useState<boolean>(false);
 
-    async function handleRegistration(event: FormEvent<HTMLFormElement>) {
+    async function handleRegistration(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         setLoading(true);
         setError(null);
@@ -30,11 +30,13 @@ export default function RegistrationForm() {
                 autoComplete={"off"}
             >
                 <label>Имя пользователя: <br/>
-                    <input className="input-green" name="username" type="text" autoComplete="username"/>
+                    <input className="input-green" name="username" type="text" autoComplete="username"
+                           style={{margin: "8px 0"}}/>
                 </label>
                 <FieldErrorMessages errorMessages={error?.fieldErrors?.username}/>
                 <label>Пароль: <br/>
-                    <input className="input-green" name="password" type="password" autoComplete="new-password"/>
+                    <input className="input-green" name="password" type="password" autoComplete="new-password"
+                           style={{margin: "8px 0"}}/>
                 </label>
                 <FieldErrorMessages errorMessages={error?.fieldErrors?.password}/>
                 <ButtonWithLoader loading={isLoading}>Зарегистрироваться</ButtonWithLoader>

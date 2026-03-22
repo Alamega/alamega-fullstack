@@ -15,12 +15,14 @@
 }
 
 .chat-messages-wrapper {
+    margin: 4px;
+    padding-right: 6px;
     flex-grow: 1;
     overflow-y: auto;
     overflow-anchor: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     scrollbar-width: thin;
     scrollbar-color: #4caf50 white;
 }

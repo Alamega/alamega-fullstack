@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    const session: ISession | null = await getSession();
+    const session = await getSession();
     return (
         <>
             {session ? (

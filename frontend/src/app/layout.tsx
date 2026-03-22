@@ -10,6 +10,8 @@ import Navbar from "@/components/navbar/navbar";
 import Menu from "@/components/menu/menu";
 import Clock from "@/components/clock/clock";
 import ServerNotReady from "@/components/serverNotReady/serverNotReady";
+import {getSession} from "@/libs/auth";
+import {SessionProvider} from "@/app/providers/SessionProvider";
 
 const ubuntuFont = Ubuntu({
     weight: ["300"],
@@ -23,36 +25,40 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
+    const session = await getSession();
+    
     return (
         <html lang="ru">
         <body className={ubuntuFont.className}>
         <ServerNotReady/>
-        <header>
-            <Link href="/">
-                <h1>Alamega</h1>
-            </Link>
-            <Clock/>
-            <Navbar>
-                <Menu/>
-            </Navbar>
-        </header>
+        <SessionProvider session={session}>
+            <header>
+                <Link href="/">
+                    <h1>Alamega</h1>
+                </Link>
+                <Clock/>
+                <Navbar>
+                    <Menu/>
+                </Navbar>
+            </header>
 
-        <div className="full-wrapper">
-            <div className="content">{children}</div>
+            <div className="full-wrapper">
+                <div className="content">{children}</div>
 
-            <div className="sidebar">
-                <Menu/>
+                <div className="sidebar">
+                    <Menu/>
+                </div>
             </div>
-        </div>
 
-        <footer>
-            <p>
-                © Made by{" "}
-                <a target="_blank" href="https://github.com/Alamega">
-                    Alamega
-                </a>
-            </p>
-        </footer>
+            <footer>
+                <p>
+                    © Made by{" "}
+                    <a target="_blank" href="https://github.com/Alamega">
+                        Alamega
+                    </a>
+                </p>
+            </footer>
+        </SessionProvider>
         </body>
         </html>
     );
