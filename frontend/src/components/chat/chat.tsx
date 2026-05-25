@@ -6,49 +6,68 @@ import Loader from "@/components/loader/loader";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
 import "./chat.css";
 import {useSession} from "@/app/providers/SessionProvider";
+import {Client} from "@stomp/stompjs";
 
 export default function Chat() {
     const [messages, setMessages] = useState<IMessage[]>([]);
-    const [socket, setSocket] = useState<WebSocket | null>(null);
+    const [stompClient, setStompClient] = useState<Client | null>(null);
     const [errors, setErrors] = useState("");
     const [isConnected, setIsConnected] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const session = useSession();
+
     const wsURL = useMemo(() => {
         const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
         if (!backendURL) return null;
-        return backendURL.replace("http", "ws") + "/chat";
+        return backendURL.replace("http", "ws") + "/chat-message";
     }, []);
 
     useEffect(() => {
+        const loadHistory = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/chat/history`);
+                if (response.ok) {
+                    const historyMessages = await response.json();
+                    setMessages(historyMessages.slice(-100));
+                }
+            } catch (error) {
+                console.error("Ошибка загрузки истории чата:", error);
+            }
+        };
+
+        loadHistory();
+
         if (!wsURL) return;
-        let isStopped = false;
-        const protocols = session?.user?.token ? [session.user.token] : [];
-        const ws = new WebSocket(wsURL, protocols);
-        ws.onopen = () => {
-            if (!isStopped) {
+
+        const client = new Client({
+            brokerURL: wsURL,
+            connectHeaders: {
+                Authorization: session?.user?.token ? `Bearer ${session.user.token}` : "",
+            },
+            onConnect: () => {
                 setIsConnected(true);
-                setSocket(ws);
-            }
-        };
-        ws.onmessage = (event) => {
-            if (!isStopped) {
-                const newMessage = JSON.parse(event.data);
-                setMessages((prev) => [...prev, newMessage].slice(-100));
-            }
-        };
-        ws.onclose = () => {
-            if (!isStopped) {
-                setIsConnected(false);
-                setSocket(null);
-            }
-        };
+
+                client.subscribe("/topic/messages", (message) => {
+                    const newMessage = JSON.parse(message.body);
+                    setMessages((prev) => {
+                        if (prev.some(m => m.id === newMessage.id)) return prev;
+                        return [...prev, newMessage].slice(-100);
+                    });
+                });
+            },
+            onDisconnect: () => setIsConnected(false),
+            onWebSocketClose: () => setIsConnected(false),
+        });
+
+        client.activate();
+        setStompClient(client);
+
         return () => {
-            isStopped = true;
-            ws.close();
+            client.deactivate();
         };
     }, [wsURL, session?.user?.token]);
+
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
@@ -62,8 +81,13 @@ export default function Chat() {
 
     const handleSend = async (formData: FormData) => {
         const text = formData.get("text")?.toString().trim();
-        if (text && socket?.readyState === WebSocket.OPEN) {
-            socket.send(JSON.stringify({text}));
+
+        if (text && stompClient && stompClient.connected) {
+            stompClient.publish({
+                destination: "/app/send",
+                body: JSON.stringify({text: text}),
+            });
+
             formRef.current?.reset();
             setErrors("");
         } else if (!text) {
@@ -72,6 +96,7 @@ export default function Chat() {
             setErrors("Нет соединения с сервером");
         }
     };
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();

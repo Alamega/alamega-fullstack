@@ -28,6 +28,7 @@ declare interface ISession {
 }
 
 declare interface IMessage {
+    id: string;
     author: IUser,
     text: string
 }

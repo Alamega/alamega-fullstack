@@ -1,6 +1,5 @@
-package alamega.backend.configuration;
+package alamega.backend.configuration.security;
 
-import alamega.backend.filter.JwtAuthenticationFilter;
 import alamega.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

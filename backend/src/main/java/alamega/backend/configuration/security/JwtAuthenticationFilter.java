@@ -1,4 +1,4 @@
-package alamega.backend.filter;
+package alamega.backend.configuration.security;
 
 import alamega.backend.dto.response.ErrorResponse;
 import alamega.backend.model.user.User;
