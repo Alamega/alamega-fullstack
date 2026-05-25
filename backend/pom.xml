@@ -22,7 +22,7 @@
 
     <properties>
         <mainClass>alamega.backend.AlamegaSpringApplication</mainClass>
-        <java.version>23</java.version>
+        <java.version>25</java.version>
         <maven.compiler.proc>full</maven.compiler.proc>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -33,7 +33,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.6</version>
         <relativePath/>
     </parent>
 
@@ -70,14 +70,14 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.2</version>
         </dependency>
 
         <!--Вспомогательные-->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>4.5.0</version>
+            <version>4.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -99,7 +99,7 @@
         </dependency>
         <dependency>
             <groupId>org.telegram</groupId>
-            <artifactId>telegrambots-spring-boot-starter</artifactId>
+            <artifactId>telegrambots</artifactId>
             <version>6.9.7.1</version>
         </dependency>
     </dependencies>
