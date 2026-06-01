@@ -22,25 +22,27 @@ export async function generateMetadata(
 }
 
 export default async function UserPage(props: { params: Promise<{ id: string }> }) {
+    let user;
     try {
         const params = await props.params;
-        const user = await getUserInfo(params.id);
-        return (
-            <>
-                <div className={"user-card"}>
-                    <div className={"user-card-image"}>
-                        <Image src={UserIcon} alt={"Юзер"} width={140} height={140}/>
-                    </div>
-                    <h1 className={"user-card-name"}>{user.username}</h1>
-                    <span className={"user-card-role"}>
-                        <span style={{color: user.role.value == "ADMIN" ? "red" : "green"}}>{user.role.name}</span>
-                    </span>
-                    <p className={"user-card-info"}></p>
-                </div>
-                <PostsSection userId={params.id}/>
-            </>
-        );
+        user = await getUserInfo(params.id);
+
     } catch {
         notFound();
     }
+    return (
+        <>
+            <div className={"user-card"}>
+                <div className={"user-card-image"}>
+                    <Image src={UserIcon} alt={"Юзер"} width={140} height={140}/>
+                </div>
+                <h1 className={"user-card-name"}>{user.username}</h1>
+                <span className={"user-card-role"}>
+                        <span style={{color: user.role.value == "ADMIN" ? "red" : "green"}}>{user.role.name}</span>
+                    </span>
+                <p className={"user-card-info"}></p>
+            </div>
+            <PostsSection userId={user.id}/>
+        </>
+    );
 }

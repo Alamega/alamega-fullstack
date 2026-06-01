@@ -8,6 +8,11 @@ import PaginatedList from "@/components/pagination/paginatedList";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
 import {useSession} from "@/app/providers/SessionProvider";
 
+interface FormState {
+    error: string;
+    success?: number;
+}
+
 export default function PostsSection({userId}: {
     userId: string;
 }) {
@@ -21,7 +26,7 @@ export default function PostsSection({userId}: {
     const currentUserIsAdmin = session?.user.role.value === "ADMIN";
     const pageSize = 10;
 
-    async function handlePostAction(prevState: any, formData: FormData) {
+    async function handlePostAction(prevState: FormState, formData: FormData): Promise<FormState> {
         const text = formData.get("text") as string;
         if (!text.trim()) return {error: "Сообщение пустое!"};
         try {
@@ -29,8 +34,8 @@ export default function PostsSection({userId}: {
             formRef.current?.reset();
             setCurrentPage(0);
             return {error: "", success: Date.now()};
-        } catch (e) {
-            return {error: "Ошибка при создании поста"};
+        } catch {
+            return {error: "Ошибка при создании поста", success: undefined};
         }
     }
 
@@ -80,7 +85,7 @@ export default function PostsSection({userId}: {
             <PaginatedList
                 pageable={pageablePosts}
                 onPageChangeAction={setCurrentPage}
-                renderItem={(post: IPost) => (
+                renderItemAction={(post: IPost) => (
                     <Post
                         key={post.id}
                         post={post}

@@ -15,7 +15,7 @@ export default function UseModalExample() {
     return (
         <>
             <button className="button-green" onClick={() => setIsOpen(true)}>Открыть модальное окно</button>
-            <Modal isOpen={isOpen} closeModal={() => setIsOpen(false)}>
+            <Modal isOpen={isOpen} closeModalAction={() => setIsOpen(false)}>
                 <form action={handleFormData}>
                     <label>Значение 1</label>
                     <input className="input-green" type="text" name="prop"/>

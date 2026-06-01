@@ -8,13 +8,15 @@ export default function Clock() {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        setIsMounted(true);
+        setTimeout(() => {
+            setIsMounted(true);
+        }, 0);
+
         const timer = setInterval(() => {
             setTime(new Date());
         }, 1000);
-        return () => {
-            clearInterval(timer);
-        };
+
+        return () => clearInterval(timer);
     }, []);
 
     return (

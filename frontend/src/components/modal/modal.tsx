@@ -3,15 +3,15 @@
 import "./modal.css";
 import {BaseSyntheticEvent, ReactNode, useRef} from "react";
 
-export default function Modal({children, isOpen, closeModal}: {
+export default function Modal({children, isOpen, closeModalAction}: {
     children: ReactNode,
     isOpen: boolean,
-    closeModal: () => void
+    closeModalAction: () => void
 }) {
     const modalWrapper = useRef(null);
 
     function handleOut(event: BaseSyntheticEvent) {
-        if (event.target === modalWrapper.current) closeModal();
+        if (event.target === modalWrapper.current) closeModalAction();
     }
 
     return (

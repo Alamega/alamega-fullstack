@@ -10,9 +10,10 @@ import {Client} from "@stomp/stompjs";
 
 export default function Chat() {
     const [messages, setMessages] = useState<IMessage[]>([]);
-    const [stompClient, setStompClient] = useState<Client | null>(null);
     const [errors, setErrors] = useState("");
     const [isConnected, setIsConnected] = useState(false);
+
+    const stompClientRef = useRef<Client | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const session = useSession();
@@ -61,10 +62,11 @@ export default function Chat() {
         });
 
         client.activate();
-        setStompClient(client);
+        stompClientRef.current = client;
 
         return () => {
             client.deactivate();
+            stompClientRef.current = null;
         };
     }, [wsURL, session?.user?.token]);
 
@@ -81,9 +83,10 @@ export default function Chat() {
 
     const handleSend = async (formData: FormData) => {
         const text = formData.get("text")?.toString().trim();
+        const client = stompClientRef.current;
 
-        if (text && stompClient && stompClient.connected) {
-            stompClient.publish({
+        if (text && client && client.connected) {
+            client.publish({
                 destination: "/app/send",
                 body: JSON.stringify({text: text}),
             });

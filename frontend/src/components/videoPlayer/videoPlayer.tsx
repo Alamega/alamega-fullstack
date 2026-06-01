@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import "./videoPlayer.css";
 import playIcon from "./play.png";
@@ -9,19 +9,43 @@ import fullScreenIcon from "./fullscreen.png";
 import exitFullScreenIcon from "./exit-fullscreen.png";
 import Hls from "hls.js";
 
-export default function VideoPlayer({href}: Readonly<{ href: string }>) {
+export default function VideoPlayer({ href }: Readonly<{ href: string }>) {
     const wrapper = useRef<HTMLDivElement>(null);
     const video = useRef<HTMLVideoElement>(null);
     const hlsRef = useRef<Hls | null>(null);
+
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
-    const [durationBarText, setDurationBarText] = useState("Live/00:00");
-    const [volume, setVolume] = useState(0);
+    const [duration, setDuration] = useState(0);
+
+    const [volume, setVolume] = useState(() => {
+        if (typeof window !== "undefined") {
+            const localVolume = localStorage.getItem("volume");
+            return localVolume ? parseFloat(localVolume) : 0.5;
+        }
+        return 0.5;
+    });
+
     const [isFullScreen, setIsFullScreen] = useState(false);
 
+    // ВЫЧИСЛЕНИЕ СТРОКИ ВРЕМЕНИ НАПРЯМУЮ ПРИ РЕНДЕРЕ (БЕЗ ЭФФЕКТОВ)
+    const isLive = duration === Infinity;
+    const currSec = Math.floor(currentTime % 60);
+    const currMin = Math.floor(currentTime / 60);
+    const timeStr = `${currMin}:${currSec < 10 ? "0" + currSec : currSec}`;
+
+    let durationBarText = `LIVE / ${timeStr}`;
+    if (!isLive) {
+        const durSec = Math.floor(duration % 60);
+        const durMin = Math.floor(duration / 60);
+        durationBarText = `${timeStr} / ${durMin}:${durSec < 10 ? "0" + durSec : durSec}`;
+    }
+
+    // Инициализация HLS
     useEffect(() => {
         const videoElement = video.current;
         if (!videoElement) return;
+
         if (href.endsWith(".m3u8")) {
             if (Hls.isSupported()) {
                 const hls = new Hls();
@@ -34,6 +58,7 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
         } else {
             videoElement.src = href;
         }
+
         return () => {
             if (hlsRef.current) {
                 hlsRef.current.destroy();
@@ -41,31 +66,14 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
         };
     }, [href]);
 
+    // Синхронизация громкости
     useEffect(() => {
-        if (volume === 0) {
-            const localVolume = localStorage.getItem("volume");
-            setVolume(Number.parseFloat(localVolume ? localVolume : "0.5"));
-        }
         if (video.current) {
             video.current.volume = volume;
         }
     }, [volume]);
 
-    useEffect(() => {
-        const isLive = video.current?.duration === Infinity;
-        const currSec = Math.floor(currentTime % 60);
-        const currMin = Math.floor(currentTime / 60);
-        const timeStr = `${currMin}:${currSec < 10 ? "0" + currSec : currSec}`;
-        if (isLive) {
-            setDurationBarText(`LIVE / ${timeStr}`);
-        } else {
-            const dur = video.current?.duration || 0;
-            const durSec = Math.floor(dur % 60);
-            const durMin = Math.floor(dur / 60);
-            setDurationBarText(`${timeStr} / ${durMin}:${durSec < 10 ? "0" + durSec : durSec}`);
-        }
-    }, [currentTime]);
-
+    // Отслеживание полноэкранного режима
     useEffect(() => {
         const handleFullscreenChange = () => {
             setIsFullScreen(!!document.fullscreenElement);
@@ -78,10 +86,11 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
         if (video.current) {
             if (video.current.paused) {
                 await video.current.play();
+                setIsPlaying(true);
             } else {
                 video.current.pause();
+                setIsPlaying(false);
             }
-            setIsPlaying(!isPlaying);
         }
     }
 
@@ -105,9 +114,15 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
         }
     }
 
-    async function handleTimeUpdate() {
+    function handleTimeUpdate() {
         if (video.current) {
             setCurrentTime(video.current.currentTime);
+        }
+    }
+
+    function handleDurationChange() {
+        if (video.current) {
+            setDuration(video.current.duration);
         }
     }
 
@@ -118,15 +133,16 @@ export default function VideoPlayer({href}: Readonly<{ href: string }>) {
                 className="player-video"
                 onClick={handlePlayPause}
                 onTimeUpdate={handleTimeUpdate}
+                onDurationChange={handleDurationChange}
                 playsInline
             />
             <div className="player-control-wrapper">
-                {video.current?.duration !== Infinity && (
+                {!isLive && (
                     <input
                         className="player-control-timeline"
                         type="range"
                         min="0"
-                        max={video.current?.duration || 0}
+                        max={duration}
                         step="1"
                         value={currentTime}
                         onChange={(event) => {

@@ -6,11 +6,11 @@ import "./paginatedList.css";
 export default function PaginatedList<T>({
                                              pageable,
                                              onPageChangeAction,
-                                             renderItem,
+                                             renderItemAction,
                                          }: {
     pageable?: IPageable<T>;
     onPageChangeAction: (page: number) => void;
-    renderItem: (item: T) => JSX.Element;
+    renderItemAction: (item: T) => JSX.Element;
 }) {
     if (!pageable) return null;
 
@@ -19,14 +19,14 @@ export default function PaginatedList<T>({
     if (totalPages < 2) {
         return (
             <div>
-                {pageable.content.map((item) => renderItem(item))}
+                {pageable.content.map((item) => renderItemAction(item))}
             </div>
         );
     }
 
     const maxVisiblePages = 5;
     const halfVisiblePages = Math.floor(maxVisiblePages / 2);
-    
+
     let startPage = Math.max(0, currentPage - halfVisiblePages);
     let endPage = Math.min(totalPages - 1, currentPage + halfVisiblePages);
 
@@ -47,7 +47,7 @@ export default function PaginatedList<T>({
         <div>
             <div>
                 {pageable.content.map((item, index) => (
-                    <React.Fragment key={index}>{renderItem(item)}</React.Fragment>
+                    <React.Fragment key={index}>{renderItemAction(item)}</React.Fragment>
                 ))}
             </div>
 

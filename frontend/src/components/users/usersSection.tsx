@@ -23,7 +23,7 @@ export default function UsersSection() {
             <PaginatedList
                 pageable={pageableUsers}
                 onPageChangeAction={setCurrentPage}
-                renderItem={(user: IUser) => <User user={user} key={user.id}/>}
+                renderItemAction={(user: IUser) => <User user={user} key={user.id}/>}
             />
         </>
     );
