@@ -12,7 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Tag(name = "Пользователи", description = "API для управления данными пользователей")
 @RestController
-@RequestMapping(value = "/userInfo", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/users/info", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserInfoController {
     private final UserInfoService userInfoService;

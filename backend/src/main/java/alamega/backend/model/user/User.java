@@ -4,10 +4,7 @@ package alamega.backend.model.user;
 import alamega.backend.model.role.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,27 +33,33 @@ public class User implements UserDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
+    @JsonIgnore
     @Override
+    @NonNull
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

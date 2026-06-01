@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostPublicationRequest {
-    @Schema(name = "Текст поста")
+    @Schema(description = "Текст поста")
     @Min(value = 1, message = "Текст поста не должен быть пустым!")
     @Max(value = 2048, message = "Не больше 2048 символов!")
     private String text;

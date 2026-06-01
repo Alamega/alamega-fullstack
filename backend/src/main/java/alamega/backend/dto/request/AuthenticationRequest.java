@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthenticationRequest {
-    @Schema(name = "Имя пользователя")
+    @Schema(description = "Имя пользователя")
     private String username;
 
-    @Schema(name = "Пароль")
+    @Schema(description = "Пароль")
     private String password;
 }
