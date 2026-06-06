@@ -13,7 +13,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -25,7 +24,6 @@ public class JwtService {
     public JwtService(@Value("${jwt.secret}") String secretFromEnv) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashedKey = digest.digest(secretFromEnv.getBytes(StandardCharsets.UTF_8));
-
         this.algorithm = Algorithm.HMAC256(hashedKey);
         this.verifier = JWT.require(algorithm).build();
     }
@@ -44,24 +42,20 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return decodeToken(token).getSubject();
+        try {
+            return verifier.verify(token).getSubject();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         try {
             DecodedJWT decodedJWT = verifier.verify(token);
             String username = decodedJWT.getSubject();
-            return (username.equals(userDetails.getUsername()) && !isTokenExpired(decodedJWT));
+            return username.equals(userDetails.getUsername());
         } catch (Exception e) {
             return false;
         }
-    }
-
-    private DecodedJWT decodeToken(String token) {
-        return JWT.decode(token);
-    }
-
-    private boolean isTokenExpired(DecodedJWT jwt) {
-        return jwt.getExpiresAt().before(new Date());
     }
 }

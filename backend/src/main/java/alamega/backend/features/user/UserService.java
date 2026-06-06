@@ -1,7 +1,10 @@
 package alamega.backend.features.user;
 
+import alamega.backend.features.user.model.Role;
 import alamega.backend.features.user.model.User;
+import alamega.backend.features.user.repository.RoleRepository;
 import alamega.backend.features.user.repository.UserRepository;
+import alamega.backend.infrastructure.exception.RoleNotFoundException;
 import alamega.backend.infrastructure.security.UserPrincipal;
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +24,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
-
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Page<User> getAllByPage(Pageable pageable) {
         return userRepository.findAll(pageable);
@@ -69,5 +74,14 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Пользователь с именем " + username + " не найден."
                 ));
+    }
+
+    public User createSimpleUser(String username, String password) {
+        Role role = roleRepository.findByValue("USER").orElseThrow(() -> new RoleNotFoundException("Роль USER не найдена в системе."));
+        return User.builder()
+                .username(username)
+                .password(passwordEncoder.encode(password))
+                .role(role)
+                .build();
     }
 }

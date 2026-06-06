@@ -33,7 +33,7 @@ public class JwtChannelInterceptor implements ChannelInterceptor {
             }
 
             String bearerToken = authorization.getFirst();
-            if (!bearerToken.startsWith("Bearer ") || bearerToken.length() <= 7) {
+            if (!bearerToken.startsWith("Bearer ") || bearerToken.length() == 7) {
                 return message;
             }
 

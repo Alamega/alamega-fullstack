@@ -4,10 +4,7 @@ import alamega.backend.features.auth.dto.AuthRequest;
 import alamega.backend.features.auth.dto.AuthResponse;
 import alamega.backend.features.auth.dto.RegisterRequest;
 import alamega.backend.features.user.UserService;
-import alamega.backend.features.user.model.Role;
 import alamega.backend.features.user.model.User;
-import alamega.backend.features.user.repository.RoleRepository;
-import alamega.backend.infrastructure.exception.RoleNotFoundException;
 import alamega.backend.infrastructure.exception.UnauthorizedException;
 import alamega.backend.infrastructure.exception.UserAlreadyExistsException;
 import alamega.backend.infrastructure.security.JwtService;
@@ -18,7 +15,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class AuthService {
     private final UserService userService;
-    private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
@@ -45,12 +39,7 @@ public class AuthService {
         if (userService.existsByUsername(request.getUsername())) {
             throw new UserAlreadyExistsException("Имя \"" + request.getUsername() + "\" уже занято.");
         }
-        Role role = roleRepository.findByValue("USER").orElseThrow(() -> new RoleNotFoundException("Роль USER не найдена в системе."));
-        User user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(role)
-                .build();
+        User user = userService.createSimpleUser(request.getUsername(), request.getPassword());
         return createAuthResponse(userService.save(user));
     }
 

@@ -97,11 +97,6 @@
             <optional>true</optional>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.telegram</groupId>
-            <artifactId>telegrambots</artifactId>
-            <version>6.9.7.1</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -184,7 +179,6 @@
                         <configuration>
                             <buildArgs>
                                 <arg>-J-Xmx6G</arg>
-                                <!--<arg>&#45;&#45;parallelism=4</arg>-->
                             </buildArgs>
                         </configuration>
                     </plugin>

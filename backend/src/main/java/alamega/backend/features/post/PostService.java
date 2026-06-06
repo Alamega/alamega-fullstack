@@ -47,7 +47,7 @@ public class PostService {
     @Transactional
     public Post createPost(PostPublicationRequest postPublicationRequest) {
         UserPrincipal currentUser = authService.getCurrentUser();
-        User userEntity = userService.findById(currentUser.id().toString()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден в системе."));
+        User userEntity = userService.findById(currentUser.getId().toString()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден в системе."));
         return postRepository.save(
                 Post.builder()
                         .date(Instant.now())
@@ -62,7 +62,7 @@ public class PostService {
         UUID uuid = UUID.fromString(id);
         Post post = postRepository.findById(uuid).orElseThrow(() -> new PostNotFoundException("Пост не найден."));
         UserPrincipal currentUser = authService.getCurrentUser();
-        boolean isAuthor = post.getAuthor().getId().equals(currentUser.id());
+        boolean isAuthor = post.getAuthor().getId().equals(currentUser.getId());
         boolean isAdmin = currentUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
         if (!isAuthor && !isAdmin) {
             throw new AccessDeniedException("Это не ваш пост и вы мне тут не админ!");

@@ -16,8 +16,25 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
+    //Неверный формат UUID
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleIllegalArgumentException(IllegalArgumentException exception) {
+        if (exception.getMessage() != null && exception.getMessage().contains("UUID")) {
+            return ErrorResponse.builder()
+                    .message("Неверный формат идентификатора UUID.")
+                    .build();
+        }
+        return ErrorResponse.builder()
+                .message(exception.getMessage())
+                .build();
+    }
+
     //Пользователь не авторизовался
-    @ExceptionHandler(UnauthorizedException.class)
+    @ExceptionHandler({
+            UnauthorizedException.class,
+            UserAlreadyExistsException.class
+    })
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse handleAuthenticateException(UnauthorizedException exception) {
         return ErrorResponse.builder().message(exception.getMessage()).build();
@@ -56,7 +73,11 @@ public class ExceptionControllerAdvice {
     }
 
     //Ресурс не найден
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler({
+            PostNotFoundException.class,
+            ResourceNotFoundException.class,
+            RoleNotFoundException.class
+    })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFound(ResourceNotFoundException ex) {
         return ErrorResponse.builder()
