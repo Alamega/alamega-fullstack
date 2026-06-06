@@ -6,9 +6,14 @@
       "description": "Никому не рассказывайте что вы видели здесь."
     },
     {
-      "name": "admin.username",
+      "name": "admin.usernames",
       "type": "java.lang.String",
-      "description": "Логин администратора."
+      "description": "Логины администраторов."
+    },
+    {
+      "name": "cors.allowed-origins",
+      "type": "java.lang.String",
+      "description": "Тут фронт должен быть да."
     }
   ]
 }

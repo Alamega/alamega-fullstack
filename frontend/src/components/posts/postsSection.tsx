@@ -6,7 +6,7 @@ import "./postsSection.css";
 import Post from "@/components/posts/post/post";
 import PaginatedList from "@/components/pagination/paginatedList";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
-import {useSession} from "@/app/providers/SessionProvider";
+import {useSession} from "@/providers/SessionProvider";
 
 interface FormState {
     error: string;

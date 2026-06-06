@@ -8,10 +8,9 @@ import Link from "next/link";
 
 import Navbar from "@/components/navbar/navbar";
 import Menu from "@/components/menu/menu";
-import Clock from "@/components/clock/clock";
 import ServerNotReady from "@/components/serverNotReady/serverNotReady";
 import {getSession} from "@/libs/auth";
-import {SessionProvider} from "@/app/providers/SessionProvider";
+import {SessionProvider} from "@/providers/SessionProvider";
 
 const ubuntuFont = Ubuntu({
     weight: ["300"],
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
     const session = await getSession();
-    
+
     return (
         <html lang="ru">
         <body className={ubuntuFont.className}>
@@ -36,7 +35,6 @@ export default async function RootLayout({children}: Readonly<{ children: React.
                 <Link href="/">
                     <h1>Alamega</h1>
                 </Link>
-                <Clock/>
                 <Navbar>
                     <Menu/>
                 </Navbar>

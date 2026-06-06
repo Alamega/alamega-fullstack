@@ -1,36 +1,35 @@
-"use server";
-
 import Link from "next/link";
 import "./menu.css";
 import React from "react";
-import {LogoutLink} from "@/components/logout/logout";
-import {getSession} from "@/libs/auth";
+import {getSession, logout} from "@/libs/auth";
 
 export default async function Menu() {
     const session = await getSession();
+
     return (
         <nav className="menu">
-            <Link href={"/"}>Главная</Link>
-            {session ? (
+            <Link href="/">Главная</Link>
+
+            {session && (
+                <Link href={`/users/${session.user.id}`}>Личный кабинет</Link>
+            )}
+
+            {!session && (
                 <>
-                    <Link href={"/users/" + session.user.id}>Личный кабинет</Link>
-                    {session.user.role.value == "ADMIN" &&
-                        <Link href={"/test"}>Тест</Link>
-                    }
-                </>
-            ) : (
-                <>
-                    <Link href={"/auth/login"}>Вход</Link>
-                    <Link href={"/auth/registration"}>Регистрация</Link>
+                    <Link href="/auth/login">Вход</Link>
+                    <Link href="/auth/registration">Регистрация</Link>
                 </>
             )}
-            <Link href={"/movies"}>Плеер</Link>
-            <Link href={"/chat"}>Чат</Link>
-            {session &&
-                <>
-                    <LogoutLink/>
-                </>
-            }
+
+            <Link href="/chat">Чат</Link>
+
+            {session && (
+                <form action={logout} className="menu-form">
+                    <button type="submit" className="menu-btn">
+                        Выйти
+                    </button>
+                </form>
+            )}
         </nav>
     );
 }

@@ -5,7 +5,7 @@ import ChatMessage from "@/components/chat/message/message";
 import Loader from "@/components/loader/loader";
 import ButtonWithLoader from "@/components/buttonWithLoader/buttonWithLoader";
 import "./chat.css";
-import {useSession} from "@/app/providers/SessionProvider";
+import {useSession} from "@/providers/SessionProvider";
 import {Client} from "@stomp/stompjs";
 
 export default function Chat() {
