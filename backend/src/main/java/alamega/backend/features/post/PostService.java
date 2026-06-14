@@ -1,6 +1,5 @@
 package alamega.backend.features.post;
 
-import alamega.backend.features.auth.AuthService;
 import alamega.backend.features.post.dto.PostPublicationRequest;
 import alamega.backend.features.post.model.Post;
 import alamega.backend.features.post.repository.PostRepository;
@@ -25,7 +24,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PostService {
-    private final AuthService authService;
     private final UserService userService;
     private final PostRepository postRepository;
 
@@ -36,18 +34,12 @@ public class PostService {
     }
 
     public Optional<Post> getPostById(String id) {
-        try {
-            UUID uuid = UUID.fromString(id);
-            return postRepository.findById(uuid);
-        } catch (IllegalArgumentException e) {
-            return Optional.empty();
-        }
+        return postRepository.findById(UUID.fromString(id));
     }
 
     @Transactional
-    public Post createPost(PostPublicationRequest postPublicationRequest) {
-        UserPrincipal currentUser = authService.getCurrentUser();
-        User userEntity = userService.findById(currentUser.getId().toString()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден в системе."));
+    public Post createPost(UserPrincipal author, PostPublicationRequest postPublicationRequest) {
+        User userEntity = userService.findById(author.getId().toString()).orElseThrow(() -> new UnauthorizedException("Пользователь не найден в системе."));
         return postRepository.save(
                 Post.builder()
                         .date(Instant.now())
@@ -58,10 +50,9 @@ public class PostService {
     }
 
     @Transactional
-    public void deletePost(String id) {
-        UUID uuid = UUID.fromString(id);
-        Post post = postRepository.findById(uuid).orElseThrow(() -> new PostNotFoundException("Пост не найден."));
-        UserPrincipal currentUser = authService.getCurrentUser();
+    public void deletePost(UserPrincipal currentUser, String id) {
+        UUID postId = UUID.fromString(id);
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Пост не найден."));
         boolean isAuthor = post.getAuthor().getId().equals(currentUser.getId());
         boolean isAdmin = currentUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
         if (!isAuthor && !isAdmin) {

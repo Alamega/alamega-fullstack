@@ -35,7 +35,10 @@ public class ChatController {
 
     @MessageMapping("/send")
     @SendTo("/topic/messages")
-    public ChatMessage handleMessage(@Payload @Valid ChatMessage messageDto, Principal principal) {
+    public ChatMessage handleMessage(
+            @Payload @Valid ChatMessage messageDto,
+            Principal principal
+    ) {
         if (principal instanceof UsernamePasswordAuthenticationToken userPrincipal) {
             UserPrincipal userDetails = (UserPrincipal) userPrincipal.getPrincipal();
             return chatMessageService.save(Objects.requireNonNull(userDetails).getId().toString(), messageDto.getText());
